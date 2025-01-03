@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Engineering Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Keeping all the original CSS styles */
+        .device {
+        fill: #fff;
+        stroke: #0066cc;
+        stroke-width: 2;
+      }
+    
+      .cloud-icon {
+        width: 70px;
+        height: 70px;
+        transform: translate(-35px, -35px);
+      }
+    
+      .firewall-icon {
+        width: 70px;
+        height: 70px;
+        transform: translate(-35px, -35px);
+      }
+    
+      .device-label {
+        font-family: system-ui;
+        font-size: 12px;
+        text-anchor: middle;
+        fill: #D1D5DB;
+        pointer-events: none;
+      }
+    
+      .server-icon {
+        width: 70px;
+        height: 70px;
+        transform: translate(-35px, -35px);
+      }
+    
+      .ap-icon {
+        width: 70px;
+        height: 70px;
+        transform: translate(-35px, -35px);
+      }
+    
+      .connection {
+        stroke: #666;
+        stroke-width: 1.5;
+      }
+    
+      .vlan10 {
+        fill: #2196F3;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+    
+      .vlan20 {
+        fill: #FF5722;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+    
+      .vlan30 {
+        fill: #4CAF50;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+
+      .vlan40 {
+        fill: #FFDF00;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+
+     .internet-traffic-down {
+        fill: #000000;
+        stroke: #FFFFFF;
+        stroke-width: 1;
+        opacity: 0;
+      }
+
+     .internet-traffic-up {
+        fill: #FFFFFF;
+        stroke: #000000;
+        stroke-width: 1;
+        opacity: 0;
+      }
+
+      .legend {
+        font-family: system-ui;
+        font-size: 12px;
+        fill: #D1D5DB;
+      }
+
+      .router-icon {
+        width: 70px;
+        height: 70px;
+        transform: translate(-35px, -35px);
+      }
+
+      .l3switch-icon {
+        width: 60px;
+        height: 60px;
+        transform: translate(-30px, -30px);
+      }
+
+      .switch-icon {
+        width: 80px;
+        height: 80px;
+        transform: translate(-40px, -40px);
+      }
+
+      .pc-icon {
+        width: 60px;
+        height: 60px;
+        transform: translate(-30px, -30px);
+      }
+
+      .network-background {
+          position: absolute;
+          top: 50px;
+          right: 0;
+          width: 60%;
+          height: 100%;
+          z-index: 0;
+          opacity: 1;
+          pointer-events: none;
+      }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Header -->
+    <nav class="bg-gray-800 bg-opacity-90 text-white fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold">Tronsec.net</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
+                    <a href="projects-page.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Projects</a>
+                    <a href="certifications-page.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="notes-page.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Updated Hero Section -->
+    <div class="relative min-h-screen bg-gray-900">
+        <!-- Network Animation Background -->
+        <div class="network-background">
+            <svg viewBox="0 0 1000 800" width="100%" height="100%">
+                <!-- All your network device groups and animations go here -->
+                <!-- Copy ALL the SVG content from your original animation -->
+
+                <!-- Network Devices -->
+      
+      <!-- Internet Cloud -->
+      <g transform="translate(500,50)" class="cloud-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\cloud.png" class="cloud-icon"/>
+        <text font-family="system-ui" font-size="12px" text-anchor="middle" fill="#333" pointer-events="none" y="5">Internet</text>
+      </g>
+
+      <!-- Firewall -->
+      <g transform="translate(500,150)" class="firewall-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\firewall.png" class="firewall-icon"/>
+        <text class="device-label" y="44">Firewall</text>
+      </g>
+
+      <!-- Core Switches -->
+      <g transform="translate(400,250)" class="l3switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\l3switch.png" class="l3switch-icon"/>
+        <text class="device-label" x="62"y="-15">Core Switch</text>
+      </g>
+      
+      <g transform="translate(600,250)" class="l3switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\l3switch.png" class="l3switch-icon"/>
+        <text class="device-label" x="-63" y="26">Core Switch</text>
+      </g>
+
+      <!-- Modified Router sections -->
+      <g transform="translate(300,397)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\router.png" class="router-icon"/>
+        <text class="device-label" y="36">Router</text>
+      </g>
+      
+      <g transform="translate(500,397)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\router.png" class="router-icon"/>
+        <text class="device-label" y="36">Router</text>
+      </g>
+      
+      <g transform="translate(700,397)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\router.png" class="router-icon"/>
+        <text class="device-label" y="36">Router</text>
+      </g>
+
+
+      <!-- Edge Switches -->
+      <g transform="translate(200,550)" class="switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\switch.png" class="switch-icon"/>
+        <text class="device-label" x="-21" y="31">Switch</text>
+      </g>
+      
+      <g transform="translate(500,550)" class="switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\switch.png" class="switch-icon"/>
+        <text class="device-label" x="-21" y="31">Switch</text>
+      </g>
+      
+      <g transform="translate(800,550)" class="switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\switch.png" class="switch-icon"/>
+        <text class="device-label" x="-21" y="31">Switch</text>
+      </g>
+
+      <!-- Servers -->
+      <g transform="translate(280,250)" class="servers-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\server.png" class="server-icon"/>
+        <text class="device-label" y="45">Server Farm 1</text>
+      </g>
+      
+      <g transform="translate(720,250)">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\server.png" class="server-icon"/>
+        <text class="device-label" y="45">Server Farm 2</text>
+      </g>
+
+      <!-- Wireless APs -->
+      <g transform="translate(60,557)" class="ap-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\accesspoint.png" class="ap-icon"/>
+        <text class="device-label" y="27">AP</text>
+      </g>
+
+      <g transform="translate(360,557)" class="ap-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\accesspoint.png" class="ap-icon"/>
+        <text class="device-label" y="27">AP</text>
+      </g>
+
+      <g transform="translate(660,557)" class="ap-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\accesspoint.png" class="ap-icon"/>
+        <text class="device-label" y="27">AP</text>
+      </g>
+
+      <!-- PCs -->
+      <g transform="translate(200,660)" class="pc-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\pc.png" class="pc-icon"/>
+        <text class="device-label" y="39">PC</text>
+      </g>
+      
+      <g transform="translate(500,660)" class="pc-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\pc.png" class="pc-icon"/>
+        <text class="device-label" y="39">PC</text>
+      </g>
+      
+      <g transform="translate(800,660)" class="pc-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="assets\animation\pc.png" class="pc-icon"/>
+        <text class="device-label" y="39">PC</text>
+      </g>
+
+      <!-- Connections -->
+      <!-- Server Connections -->
+      <line class="connection" x1="375" y1="250" x2="300" y2="250"/>
+      <line class="connection" x1="625" y1="250" x2="700" y2="250"/>
+      
+      <!-- AP Connections -->
+      <line class="connection" x1="165" y1="557" x2="90" y2="557"/>
+      <line class="connection" x1="465" y1="557" x2="390" y2="557"/>
+      <line class="connection" x1="765" y1="557" x2="690" y2="557"/>
+      
+      <!-- Link Aggregation between Core Switches -->
+      <line class="connection" x1="425" y1="250" x2="575" y2="250"/>
+      <line class="connection" x1="425" y1="260" x2="575" y2="260"/>
+      
+      <line class="connection" x1="500" y1="70" x2="500" y2="117"/> <!-- Internet to Firewall -->
+      <line class="connection" x1="485" y1="172" x2="400" y2="222"/> <!-- Firewall to Left Core Switch -->
+      <line class="connection" x1="511" y1="172" x2="600" y2="222"/> <!-- Firewall to Right Core Switch -->
+      <line class="connection" x1="400" y1="278" x2="300" y2="375"/> <!-- Left Core Switch to Left Router -->
+      <line class="connection" x1="400" y1="278" x2="500" y2="375"/> <!-- Left Core Switch to Middle Router -->
+      <line class="connection" x1="400" y1="278" x2="675" y2="380"/> <!-- Left Core Switch to Right Router -->
+      <line class="connection" x1="600" y1="278" x2="325" y2="380"/> <!-- Right Core Switch to Left Router -->
+      <line class="connection" x1="600" y1="278" x2="500" y2="375"/> <!-- Right Core Switch to Middle Router -->
+      <line class="connection" x1="600" y1="278" x2="700" y2="375"/> <!-- Right Core Switch to Right Router -->
+      <line class="connection" x1="285" y1="417" x2="200" y2="531"/> <!-- Left Router to Left Switch -->
+      <line class="connection" x1="500" y1="418" x2="500" y2="532"/> <!-- Middle Router to Middle Switch -->
+      <line class="connection" x1="715" y1="417" x2="800" y2="531"/> <!-- Right Router to Right Switch -->
+      <line class="connection" x1="200" y1="565" x2="200" y2="635"/> <!-- Left Switch to PC -->
+      <line class="connection" x1="500" y1="565" x2="500" y2="635"/> <!-- Middle Switch to PC -->
+      <line class="connection" x1="800" y1="565" x2="800" y2="635"/> <!-- Right Switch to PC -->
+
+      <!-- Legend -->
+      <g transform="translate(50,50)">
+        <rect width="15" height="15" fill="#2196F3" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="12" class="legend">VLAN 10</text>
+        <rect y="20" width="15" height="15" fill="#FF5722" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="32" class="legend">VLAN 20</text>
+        <rect y="40" width="15" height="15" fill="#4CAF50" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="52" class="legend">VLAN 30</text>
+        <rect y="60" width="15" height="15" fill="#FFDF00" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="72" class="legend">VLAN 40</text>
+      </g>
+
+      <!-- VLAN Animations -->
+      <!-- VLAN Animations -->
+      <!-- Firewall to Core Switch Traffic -->
+      <!-- Left path (Firewall to Left Core) -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="485;400" dur="2s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="172;222" dur="2s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0s" repeatCount="indefinite"/>
+      </circle>
+
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="400;485" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="222;172" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Right path (Firewall to Right Core) -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="511;600" dur="2s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="172;222" dur="2s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="600;511" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="222;172" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+
+
+      <!-- Link Aggregation Traffic Flows -->
+      <!-- First LAG link -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="425;575" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="250;250" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="575;425" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="250;250" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Second LAG link -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="425;575" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="260;260" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+      </circle>
+
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="575;425" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="260;260" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 10 (Blue_Left_Down) -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="400;300" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="278;375" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 10 (Blue_Right_Down) -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="400;675" dur="2.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="278;380" dur="2.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.6s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 20 (Red_Middle_Down) -->
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="400;500" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="278;375" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 20 (Red_Left_Up) -->
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="300;400" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="375;278" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 30 (Green_Right_Down) -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="600;700" dur="2s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="278;375" dur="2s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 30 (Green_Left_Down) -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="600;325" dur="2.5s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="278;380" dur="2.5s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.5s" begin="1.3s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 40 (Yellow_Middle_Down) -->
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="600;500" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="278;375" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 10 (Blue_Middle_Up) -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="500;400" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="375;278" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 30 (Green_Middle_Up) -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="500;600" dur="2s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="375;278" dur="2s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.6s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 20 (Red_Right_Up) -->
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="675;400" dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="380;278" dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 40 (Yellow_Left_Up) -->
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="325;600" dur="2.6s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="380;278" dur="2.6s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.6s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 40 (Yellow_Right_Up) -->
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="700;600" dur="2.6s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="375;278" dur="2.6s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.3s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+
+
+      <!-- Server Farm Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="375;300" dur="1.4s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="250;250" dur="1.4s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.4s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="625;700" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="250;250" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+
+
+      <!-- Wireless AP Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="165;90" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="557;557" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="465;390" dur="1.8s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="557;557" dur="1.8s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.4s" repeatCount="indefinite"/>
+      </circle>
+
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="765;690" dur="1.8s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="557;557" dur="1.8s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.6s" repeatCount="indefinite"/>
+      </circle>
+
+
+      <!-- Continue to edge switches -->
+      <!-- VLAN 10 to edge -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="285;200" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="417;531" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 20 to edge -->
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="500;500" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="418;532" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 30 to edge -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="715;800" dur="2s" begin="1.9s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="417;531" dur="2s" begin="1.9s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.9s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 40 to edge -->
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="500;500" dur="2s" begin="2.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="418;532" dur="2s" begin="2.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="2.1s" repeatCount="indefinite"/>
+      </circle>
+
+
+      <!-- Router to Switch Additional Traffic -->
+      <!-- VLAN 30 to left switch -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="285;200" dur="2s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="417;531" dur="2s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 10 to right switch -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="715;800" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="417;531" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- New PC Traffic Flows -->
+      <!-- VLAN 10 to left PC -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="200;200" dur="1.5s" begin="2.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="565;635" dur="1.5s" begin="2.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="2.3s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 20 to middle PC -->
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="500;500" dur="1.5s" begin="2.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="565;635" dur="1.5s" begin="2.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="2.5s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- VLAN 30 to right PC -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="800;800" dur="1.5s" begin="2.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="565;635" dur="1.5s" begin="2.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="2.7s" repeatCount="indefinite"/>
+      </circle>
+
+
+      <!-- Internet to Firewall Traffic -->
+      <!-- Downward traffic (black) -->
+      <circle class="internet-traffic-down" r="4">
+        <animate attributeName="cx" values="500;500" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="70;117" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Upward traffic (white) -->
+      <circle class="internet-traffic-up" r="4">
+        <animate attributeName="cx" values="500;500" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="117;70" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+      </circle>
+
+
+            </svg>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 pt-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="py-32">
+                    <div class="text-left">
+                        <h1 class="text-6xl font-bold text-white mb-4">Clark Katsouleas</h1>
+                        <p class="text-2xl text-gray-300 mb-8">Purdue University Student | Network Security Specialist</p>
+                        <div class="flex space-x-4">
+                            <a href="credentials/Clark_Katsouleas_Resume.pdf" download target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg">Download Resume</a>
+                            <a href="mailto:clarkkatsouleas@gmail.com" class="border border-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg">Contact Me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Me Section -->
+    <div class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-12 text-center">About Me</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Hey! I'm Clark. I am a dedicated Cybersecurity and Network Engineering student at Purdue University. I love learning about networking and the various ways a network can be secured. Some of my favorite standard technologies are 802.1X and 802.11!
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed mt-4">
+                        My academic journey has been complemented by practical experience through internships and independent projects, some of which you can find detailed below. Additionally, I love sharing networking and security knowledge, which is why you can find my technically detailed networking notes under the notes page.
+                    </p>
+                </div>
+                <div class="flex justify-center">
+                    <div class="w-72 h-84">
+                        <img src="assets\portrait.jpg" alt="Profile Photo" class="rounded-lg shadow-lg w-full h-full object-cover"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Updated Featured Projects Section -->
+    <div class="bg-gray-50 py-20 pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <a href="projects/work-in-progress.html" class="block group">
+                    <div class="bg-white rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300 overflow-hidden h-full">
+                        <img src="assets/project-thumbnails/project_thumbnail_1.png" alt="Enterprise Network Security Homelab" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 group-hover">Enterprise Network Security Homelab</h3>
+                            <p class="text-gray-600">Designed and implemented a comprehensive enterprise-grade network security lab environment, featuring VLAN segmentation, RADIUS authentication, and Active Directory management.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="projects/work-in-progress.html" class="block group">
+                    <div class="bg-white rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300 overflow-hidden h-full">
+                        <img src="assets/project-thumbnails/project_thumbnail_2.png" alt="Network Security Administration" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 group-hover">Network Security Service Administration</h3>
+                            <p class="text-gray-600">Developed comprehensive security administration procedures focusing on access control, monitoring, and service security implementation.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="projects/work-in-progress.html" class="block group">
+                    <div class="bg-white rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300 overflow-hidden h-full">
+                        <img src="assets/project-thumbnails/project_thumbnail_3.png" alt="Secure Network Architecture" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 group-hover">Secure Network Architecture & Design</h3>
+                            <p class="text-gray-600">Created a secure network architecture implementing defense-in-depth principles, redundancy, and microsegmentation while maintaining high availability.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certifications Section -->
+    <div class="bg-white py-20 pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-12 text-center">Featured Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="p-6 flex flex-col items-center">
+                        <div class="w-32 h-32 mb-6 flex items-center justify-center">
+                            <img src="assets\certifications\ccna_large.jpg" alt="CCNA" class="w-32 h-32 object-contain"/>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">CCNA</h3>
+                        <p class="text-gray-600 mb-4">Jun 2024 — Jun 2027</p>
+                        <a href="credentials/ccna.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="p-6 flex flex-col items-center">
+                        <div class="w-32 h-32 mb-6 flex items-center justify-center">
+                            <img src="assets\certifications\securityplus.png" alt="Security+" class="w-32 h-32 object-contain"/>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Security+</h3>
+                        <p class="text-gray-600 mb-4">Aug 2023 — Aug 2026</p>
+                        <a href="credentials/securityplus.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="p-6 flex flex-col items-center">
+                        <div class="w-32 h-32 mb-6 flex items-center justify-center">
+                            <img src="assets\certifications\cwna.png" alt="CWNA" class="w-32 h-32 object-contain"/>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">CWNA</h3>
+                        <p class="text-gray-600 mb-4">Jun 2024 — Jun 2027</p>
+                        <a href="credentials/cwna.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="p-6 flex flex-col items-center">
+                        <div class="w-32 h-32 mb-6 flex items-center justify-center">
+                            <img src="assets\certifications\FCA_Cyber.png" alt="FortiNet" class="w-32 h-32 object-contain"/>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">FortiNet FCA</h3>
+                        <p class="text-gray-600 mb-4">Mar 2024 — Mar 2027</p>
+                        <a href="credentials/fortinet_fca.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keeping the original footer -->
+    <footer class="bg-gray-800 bg-opacity-90 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h4 class="text-xl font-bold">Clark Katsouleas</h4>
+                    <p class="text-gray-400">Cybersecurity & Network Engineering Student</p>
+                    <p class="text-gray-400">clarkkatsouleas@gmail.com</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.linkedin.com/in/clark-katsouleas/" target="_blank" class="hover:text-blue-400">LinkedIn</a>
+                    <a href="mailto:clarkkatsouleas@gmail.com" class="hover:text-blue-400">Email</a>
+                </div>
+            </div>
+            <div class="mt-4 text-center text-gray-400 text-sm">
+                © 2024 Clark Katsouleas. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
