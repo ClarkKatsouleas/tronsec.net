@@ -6,156 +6,217 @@
     <title>Tronsec.net</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Keeping all the original CSS styles */
+        /* Original Device and Network Styles */
         .device {
-        fill: #fff;
-        stroke: #0066cc;
-        stroke-width: 2;
-      }
-    
-      .cloud-icon {
-        width: 70px;
-        height: 70px;
-        transform: translate(-35px, -35px);
-      }
-    
-      .firewall-icon {
-        width: 70px;
-        height: 70px;
-        transform: translate(-35px, -35px);
-      }
-    
-      .device-label {
-        font-family: system-ui;
-        font-size: 12px;
-        text-anchor: middle;
-        fill: #D1D5DB;
-        pointer-events: none;
-      }
-    
-      .server-icon {
-        width: 70px;
-        height: 70px;
-        transform: translate(-35px, -35px);
-      }
-    
-      .ap-icon {
-        width: 70px;
-        height: 70px;
-        transform: translate(-35px, -35px);
-      }
-    
-      .connection {
-        stroke: #666;
-        stroke-width: 1.5;
-      }
-    
-      .vlan10 {
-        fill: #2196F3;
-        stroke: #000000;
-        stroke-width: 0.5;
-        opacity: 0;
-      }
-    
-      .vlan20 {
-        fill: #FF5722;
-        stroke: #000000;
-        stroke-width: 0.5;
-        opacity: 0;
-      }
-    
-      .vlan30 {
-        fill: #4CAF50;
-        stroke: #000000;
-        stroke-width: 0.5;
-        opacity: 0;
-      }
+            fill: #fff;
+            stroke: #0066cc;
+            stroke-width: 2;
+        }
 
-      .vlan40 {
-        fill: #FFDF00;
-        stroke: #000000;
-        stroke-width: 0.5;
-        opacity: 0;
-      }
+        .cloud-icon {
+            width: 70px;
+            height: 70px;
+            transform: translate(-35px, -35px);
+        }
 
-     .internet-traffic-down {
-        fill: #000000;
-        stroke: #FFFFFF;
-        stroke-width: 1;
-        opacity: 0;
-      }
+        .firewall-icon {
+            width: 70px;
+            height: 70px;
+            transform: translate(-35px, -35px);
+        }
 
-     .internet-traffic-up {
-        fill: #FFFFFF;
-        stroke: #000000;
-        stroke-width: 1;
-        opacity: 0;
-      }
+        .device-label {
+            font-family: system-ui;
+            font-size: 12px;
+            text-anchor: middle;
+            fill: #D1D5DB;
+            pointer-events: none;
+        }
 
-      .legend {
-        font-family: system-ui;
-        font-size: 12px;
-        fill: #D1D5DB;
-      }
+        .server-icon {
+            width: 70px;
+            height: 70px;
+            transform: translate(-35px, -35px);
+        }
 
-      .router-icon {
-        width: 70px;
-        height: 70px;
-        transform: translate(-35px, -35px);
-      }
+        .ap-icon {
+            width: 70px;
+            height: 70px;
+            transform: translate(-35px, -35px);
+        }
 
-      .l3switch-icon {
-        width: 60px;
-        height: 60px;
-        transform: translate(-30px, -30px);
-      }
+        .connection {
+            stroke: #666;
+            stroke-width: 1.5;
+        }
 
-      .switch-icon {
-        width: 80px;
-        height: 80px;
-        transform: translate(-40px, -40px);
-      }
+        .vlan10 {
+            fill: #2196F3;
+            stroke: #000000;
+            stroke-width: 0.5;
+            opacity: 0;
+        }
 
-      .pc-icon {
-        width: 60px;
-        height: 60px;
-        transform: translate(-30px, -30px);
-      }
+        .vlan20 {
+            fill: #FF5722;
+            stroke: #000000;
+            stroke-width: 0.5;
+            opacity: 0;
+        }
 
-      .network-background {
-          position: absolute;
-          top: 50px;
-          right: 0;
-          width: 60%;
-          height: 100%;
-          z-index: 0;
-          opacity: 1;
-          pointer-events: none;
-      }
+        .vlan30 {
+            fill: #4CAF50;
+            stroke: #000000;
+            stroke-width: 0.5;
+            opacity: 0;
+        }
+
+        .vlan40 {
+            fill: #FFDF00;
+            stroke: #000000;
+            stroke-width: 0.5;
+            opacity: 0;
+        }
+
+        .internet-traffic-down {
+            fill: #000000;
+            stroke: #FFFFFF;
+            stroke-width: 1;
+            opacity: 0;
+        }
+
+        .internet-traffic-up {
+            fill: #FFFFFF;
+            stroke: #000000;
+            stroke-width: 1;
+            opacity: 0;
+        }
+
+        .legend {
+            font-family: system-ui;
+            font-size: 12px;
+            fill: #D1D5DB;
+        }
+
+        .router-icon {
+            width: 70px;
+            height: 70px;
+            transform: translate(-35px, -35px);
+        }
+
+        .l3switch-icon {
+            width: 60px;
+            height: 60px;
+            transform: translate(-30px, -30px);
+        }
+
+        .switch-icon {
+            width: 80px;
+            height: 80px;
+            transform: translate(-40px, -40px);
+        }
+
+        .pc-icon {
+            width: 60px;
+            height: 60px;
+            transform: translate(-30px, -30px);
+        }
+
+        .network-background {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            z-index: 0;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            .network-background {
+                width: 100%;
+                height: 100%;
+                opacity: 0.3;
+            }
+
+            .device-label {
+                font-size: 10px;
+            }
+
+            .legend {
+                font-size: 10px;
+            }
+
+            /* Adjust icon sizes for mobile */
+            .cloud-icon,
+            .firewall-icon,
+            .server-icon,
+            .ap-icon,
+            .router-icon {
+                width: 50px;
+                height: 50px;
+                transform: translate(-25px, -25px);
+            }
+
+            .l3switch-icon,
+            .pc-icon {
+                width: 40px;
+                height: 40px;
+                transform: translate(-20px, -20px);
+            }
+
+            .switch-icon {
+                width: 60px;
+                height: 60px;
+                transform: translate(-30px, -30px);
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation Header -->
+    <!-- Mobile-optimized Navigation -->
     <nav class="bg-gray-800 bg-opacity-90 text-white fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
                     <span class="text-xl font-bold">Tronsec.net</span>
                 </div>
-                <div class="flex space-x-4">
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex md:space-x-4">
                     <a href="." class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
                     <a href="projects" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Projects</a>
                     <a href="certifications" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Certifications</a>
                     <a href="notes" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Notes</a>
                 </div>
             </div>
+
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="." class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
+                    <a href="projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Projects</a>
+                    <a href="certifications" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="notes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
         </div>
     </nav>
 
-
-    <!-- Updated Hero Section -->
+    <!-- Responsive Hero Section -->
     <div class="relative min-h-screen bg-gray-900">
-        <!-- Network Animation Background -->
         <div class="network-background">
             <svg viewBox="0 0 1000 800" width="100%" height="100%">
                 <!-- All your network device groups and animations go here -->
@@ -585,16 +646,17 @@
             </svg>
         </div>
         
-        <!-- Hero Content -->
         <div class="relative z-10 pt-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-7xl mx-auto">
-                <div class="py-32">
+                <div class="py-20 md:py-32">
                     <div class="text-left">
-                        <h1 class="text-6xl font-bold text-white mb-4">Clark Katsouleas</h1>
-                        <p class="text-2xl text-gray-300 mb-8">Purdue University Student | Network Security Specialist</p>
-                        <div class="flex space-x-4">
-                            <a href="certifications/Clark_Katsouleas_Resume.pdf" download target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg">Download Resume</a>
-                            <a href="mailto:clarkkatsouleas@gmail.com" class="border border-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg">Contact Me</a>
+                        <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Clark Katsouleas</h1>
+                        <p class="text-xl md:text-2xl text-gray-300 mb-8">Purdue University Student | Network Security Specialist</p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="certifications/Clark_Katsouleas_Resume.pdf" download target="_blank" 
+                               class="text-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg">Download Resume</a>
+                            <a href="mailto:clarkkatsouleas@gmail.com" 
+                               class="text-center border border-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg">Contact Me</a>
                         </div>
                     </div>
                 </div>
@@ -602,34 +664,36 @@
         </div>
     </div>
 
-    <!-- About Me Section -->
-    <div class="bg-white py-20">
+    <!-- Responsive About Me Section -->
+    <div class="bg-white py-16 md:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-12 text-center">About Me</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <p class="text-lg text-gray-600 leading-relaxed">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">About Me</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <p class="text-base md:text-lg text-gray-600 leading-relaxed">
                         Hey! I'm Clark. I am a dedicated Cybersecurity and Network Engineering student at Purdue University. I love learning about networking and the various ways a network can be secured. Some of my favorite standard technologies are 802.1X and 802.11!
                     </p>
-                    <p class="text-lg text-gray-600 leading-relaxed mt-4">
+                    <p class="text-base md:text-lg text-gray-600 leading-relaxed mt-4">
                         My academic journey has been complemented by practical experience through internships and independent projects, some of which you can find detailed below. Additionally, I love sharing networking and security knowledge, which is why you can find my technically detailed networking notes under the notes page.
                     </p>
                 </div>
-                <div class="flex justify-center">
-                    <div class="w-72 h-84">
+                <div class="flex justify-center order-1 md:order-2">
+                    <div class="w-48 md:w-72 h-64 md:h-84">
                         <img src="assets\portrait.jpg" alt="Profile Photo" class="rounded-lg shadow-lg w-full h-full object-cover"/>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Updated Featured Projects Section -->
-    <div class="bg-gray-50 py-20 pb-24">
+    <!-- Responsive Featured Projects Section -->
+    <div class="bg-gray-50 py-16 md:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Project cards with responsive sizing -->
+                <!-- [Your existing project cards with adjusted padding and spacing] -->
+                
                 <a href="projects/wip" class="block group">
                     <div class="bg-white rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300 overflow-hidden h-full">
                         <img src="assets/project-thumbnails/project_thumbnail_1.png" alt="Enterprise Network Security Homelab" class="w-full h-48 object-cover"/>
@@ -659,15 +723,19 @@
                         </div>
                     </div>
                 </a>
+                
             </div>
         </div>
     </div>
 
-    <!-- Certifications Section -->
-    <div class="bg-white py-20 pb-24">
+    <!-- Responsive Certifications Section -->
+    <div class="bg-white py-16 md:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-12 text-center">Featured Certifications</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">Featured Certifications</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Certification cards with responsive sizing -->
+                <!-- [Your existing certification cards with adjusted padding and spacing] -->
+                
                 <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                     <div class="p-6 flex flex-col items-center">
                         <div class="w-32 h-32 mb-6 flex items-center justify-center">
@@ -708,11 +776,12 @@
                         <a href="certifications/fortinet_fca.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
 
-    <!-- Keeping the original footer -->
+    <!-- Responsive Footer -->
     <footer class="bg-gray-800 bg-opacity-90 text-white py-6">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -731,5 +800,13 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>
