@@ -1,3 +1,5 @@
+<!-- PROJECTS PAGE -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,24 +9,46 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation Header -->
+    <!-- Mobile-optimized Navigation -->
     <nav class="bg-gray-800 bg-opacity-90 text-white fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
                     <span class="text-xl font-bold">Tronsec.net</span>
                 </div>
-                <div class="flex space-x-4">
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex md:space-x-4">
                     <a href="../" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
                     <a href="." class="px-3 py-2 rounded-md text-sm font-medium bg-gray-700">Projects</a>
                     <a href="../certifications" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Certifications</a>
                     <a href="../notes" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Notes</a>
                 </div>
             </div>
+
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="../" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
+                    <a href="." class="block px-3 py-2 rounded-md text-base font-medium bg-gray-700">Projects</a>
+                    <a href="../certifications" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="../notes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Responsive Hero Section -->
     <div class="bg-gray-900 pt-32 pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -34,18 +58,18 @@
         </div>
     </div>
 
-    <!-- Projects Grid Section -->
+    <!-- Mobile-Responsive Projects Grid Section -->
     <div class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 gap-12">
+            <div class="grid grid-cols-1 gap-8 md:gap-12">
                 <!-- Enterprise Network Security Homelab -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="md:flex">
-                        <div class="md:flex-shrink-0 md:w-1/2">
-                            <img class="h-96 w-full object-cover" src="../assets/project-thumbnails/project_thumbnail_1.png" alt="Enterprise Network Security Homelab"/>
+                    <div class="flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2">
+                            <img class="h-64 md:h-96 w-full object-cover" src="../assets/project-thumbnails/project_thumbnail_1.png" alt="Enterprise Network Security Homelab"/>
                         </div>
-                        <div class="p-8 md:w-1/2">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Enterprise Network Security Homelab</h2>
+                        <div class="p-6 md:p-8 w-full md:w-1/2">
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Enterprise Network Security Homelab</h2>
                             <p class="text-gray-600 mb-6">Designed and implemented a comprehensive enterprise-grade network security lab environment. Features include VLAN network segmentation, RADIUS user authentication control, Active Directory domain management, and security service management.</p>
                             <div class="flex flex-wrap gap-2 mb-6">
                                 <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Cisco</span>
@@ -58,15 +82,14 @@
                     </div>
                 </div>
 
-
                 <!-- Network Security Service Administration -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="md:flex">
-                        <div class="md:flex-shrink-0 md:w-1/2">
-                            <img class="h-96 w-full object-cover" src="../assets/project-thumbnails/project_thumbnail_2.png" alt="Network Security Administration"/>
+                    <div class="flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2">
+                            <img class="h-64 md:h-96 w-full object-cover" src="../assets/project-thumbnails/project_thumbnail_2.png" alt="Network Security Administration"/>
                         </div>
-                        <div class="p-8 md:w-1/2">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Network Security Service Administration</h2>
+                        <div class="p-6 md:p-8 w-full md:w-1/2">
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Network Security Service Administration</h2>
                             <p class="text-gray-600 mb-6">Developed and implemented comprehensive network security administration procedures and policies. This project focused on security service management, including access control, monitoring, and DNS Security.</p>
                             <div class="flex flex-wrap gap-2 mb-6">
                                 <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Security Management</span>
@@ -81,12 +104,12 @@
 
                 <!-- Secure Network Architecture & Design Implementation -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="md:flex">
-                        <div class="md:flex-shrink-0 md:w-1/2">
-                            <img class="h-96 w-full object-cover" src="../assets/project-thumbnails/project_thumbnail_3.png" alt="Secure Network Architecture"/>
+                    <div class="flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2">
+                            <img class="h-64 md:h-96 w-full object-cover" src="../assets/project-thumbnails/project_thumbnail_3.png" alt="Secure Network Architecture"/>
                         </div>
-                        <div class="p-8 md:w-1/2">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Secure Network Architecture & Design Implementation</h2>
+                        <div class="p-6 md:p-8 w-full md:w-1/2">
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Secure Network Architecture & Design Implementation</h2>
                             <p class="text-gray-600 mb-6">Created and implemented a secure network architecture focusing on defense-in-depth principles. The design incorporates redundancy, microsegmentation, and advanced security controls while maintaining high availability and performance.</p>
                             <div class="flex flex-wrap gap-2 mb-6">
                                 <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Network Design</span>
@@ -98,14 +121,11 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
 
-
-    <!-- Footer -->
+    <!-- Responsive Footer -->
     <footer class="bg-gray-800 bg-opacity-90 text-white py-6">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -124,5 +144,13 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>
