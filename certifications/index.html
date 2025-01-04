@@ -7,50 +7,73 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation Header -->
+    <!-- Mobile-optimized Navigation -->
     <nav class="bg-gray-800 bg-opacity-90 text-white fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
                     <span class="text-xl font-bold">Tronsec.net</span>
                 </div>
-                <div class="flex space-x-4">
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex md:space-x-4">
                     <a href="../" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
                     <a href="../projects" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Projects</a>
                     <a href="." class="px-3 py-2 rounded-md text-sm font-medium bg-gray-700">Certifications</a>
                     <a href="../notes" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Notes</a>
                 </div>
             </div>
+
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="../" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
+                    <a href="../projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Projects</a>
+                    <a href="." class="block px-3 py-2 rounded-md text-base font-medium bg-gray-700">Certifications</a>
+                    <a href="../notes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="bg-gray-900 pt-32 pb-16">
+    <!-- Hero Section with responsive padding -->
+    <div class="bg-gray-900 pt-24 md:pt-32 pb-12 md:pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">Professional Certifications</h1>
-                <p class="text-xl text-gray-300">A comprehensive list of my technical certifications and achievements</p>
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Professional Certifications</h1>
+                <p class="text-lg md:text-xl text-gray-300">A comprehensive list of my technical certifications and achievements</p>
             </div>
         </div>
     </div>
 
-    <!-- Main Certifications Grid -->
-    <div class="py-16 bg-white">
+    <!-- Main Certifications Grid with mobile optimization -->
+    <div class="py-8 md:py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 
+                <!-- Certification cards restructured for mobile -->
                 <!-- CCNA Certification -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex space-x-6">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                         <!-- Left column with image and button -->
-                        <div class="flex flex-col items-center space-y-14">
-                            <img src="../assets/certifications/ccna_large.jpg" alt="CCNA" class="w-32 h-32 object-contain"/>
-                            <a href="ccna.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="../assets/certifications/ccna_large.jpg" alt="CCNA" class="w-24 sm:w-32 h-24 sm:h-32 object-contain"/>
+                            <a href="ccna.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-center">View Credential</a>
                         </div>
         
                         <!-- Right column with text content -->
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2">Cisco Certified Network Associate (CCNA)</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2">Cisco Certified Network Associate (CCNA)</h3>
                             <p class="text-gray-600 mb-2">Cisco • Jun 2024 — Jun 2027</p>
                             <p class="text-gray-700 mb-4">Comprehensive networking certification covering routing, switching, network security, automation, and programmability.</p>
                             <div class="flex flex-wrap gap-2">
@@ -63,19 +86,18 @@
                     </div>
                 </div>
 
-
                 <!-- CWNA Certification -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex space-x-6">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                         <!-- Left column with image and button -->
-                        <div class="flex flex-col items-center space-y-14">
-                            <img src="../assets/certifications/cwna.png" alt="CWNA" class="w-32 h-32 object-contain"/>
-                            <a href="cwna.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="../assets/certifications/cwna.png" alt="CWNA" class="w-24 sm:w-32 h-24 sm:h-32 object-contain"/>
+                            <a href="cwna.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-center">View Credential</a>
                         </div>
         
                         <!-- Right column with text content -->
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2">Certified Wireless Network Administrator (CWNA)</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2">Certified Wireless Network Administrator (CWNA)</h3>
                             <p class="text-gray-600 mb-2">CWNP • Jun 2024 — Jun 2027</p>
                             <p class="text-gray-700 mb-4">Specialist certification in wireless LAN technologies, focusing on 802.11 networks, RF technologies, and wireless network design.</p>
                             <div class="flex flex-wrap gap-2">
@@ -87,19 +109,21 @@
                     </div>
                 </div>
 
+                <!-- Additional certification cards following the same pattern... -->
+                <!-- Each subsequent certification card would follow the same mobile-optimized structure -->
 
                 <!-- Fortinet Certification -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex space-x-6">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                         <!-- Left column with image and button -->
-                        <div class="flex flex-col items-center space-y-14">
-                            <img src="../assets/certifications/FCA_Cyber.png" alt="FortiNet" class="w-32 h-32 object-contain"/>
-                            <a href="fortinet_fca.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="../assets/certifications/FCA_Cyber.png" alt="FortiNet" class="w-24 sm:w-32 h-24 sm:h-32 object-contain"/>
+                            <a href="fortinet_fca.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-center">View Credential</a>
                         </div>
         
                         <!-- Right column with text content -->
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2">Fortinet Certified Associate - Cybersecurity</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2">Fortinet Certified Associate - Cybersecurity</h3>
                             <p class="text-gray-600 mb-2">Fortinet • Mar 2024 — Mar 2027</p>
                             <p class="text-gray-700 mb-4">Certification in Fortinet security solutions, covering network security concepts, FortiGate implementation, and security best practices.</p>
                             <div class="flex flex-wrap gap-2">
@@ -111,19 +135,18 @@
                     </div>
                 </div>
 
-
                 <!-- Security+ Certification -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex space-x-6">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                         <!-- Left column with image and button -->
-                        <div class="flex flex-col items-center space-y-14">
-                            <img src="../assets/certifications/securityplus.png" alt="Security+" class="w-32 h-32 object-contain"/>
-                            <a href="securityplus.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="../assets/certifications/securityplus.png" alt="Security+" class="w-24 sm:w-32 h-24 sm:h-32 object-contain"/>
+                            <a href="securityplus.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-center">View Credential</a>
                         </div>
         
                         <!-- Right column with text content -->
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2">CompTIA Security+</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2">CompTIA Security+</h3>
                             <p class="text-gray-600 mb-2">CompTIA • Aug 2023 — Aug 2026</p>
                             <p class="text-gray-700 mb-4">Global certification validating baseline cybersecurity skills and expertise in risk management, incident response, and security concepts.</p>
                             <div class="flex flex-wrap gap-2">
@@ -135,19 +158,18 @@
                     </div>
                 </div>
 
-
                 <!-- Network+ Certification -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex space-x-6">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                         <!-- Left column with image and button -->
-                        <div class="flex flex-col items-center space-y-6">
-                            <img src="../assets/certifications/networkplus.png" alt="Network+" class="w-32 h-32 object-contain"/>
-                            <a href="networkplus.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="../assets/certifications/networkplus.png" alt="Network+" class="w-24 sm:w-32 h-24 sm:h-32 object-contain"/>
+                            <a href="networkplus.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-center">View Credential</a>
                         </div>
         
                         <!-- Right column with text content -->
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2">CompTIA Network+</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2">CompTIA Network+</h3>
                             <p class="text-gray-600 mb-2">CompTIA • Jul 2023 — Aug 2026</p>
                             <p class="text-gray-700 mb-4">Certification validating essential networking skills including network technologies, infrastructure, operations, security, and troubleshooting.</p>
                             <div class="flex flex-wrap gap-2">
@@ -159,19 +181,18 @@
                     </div>
                 </div>
 
-
                 <!-- A+ Certification -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex space-x-6">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                         <!-- Left column with image and button -->
-                        <div class="flex flex-col items-center space-y-6">
-                            <img src="../assets/certifications/aplus.png" alt="A+" class="w-32 h-32 object-contain"/>
-                            <a href="aplus.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="../assets/certifications/aplus.png" alt="A+" class="w-24 sm:w-32 h-24 sm:h-32 object-contain"/>
+                            <a href="aplus.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-center">View Credential</a>
                         </div>
         
                         <!-- Right column with text content -->
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2">CompTIA A+</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2">CompTIA A+</h3>
                             <p class="text-gray-600 mb-2">CompTIA • Jun 2023 — Aug 2026</p>
                             <p class="text-gray-700 mb-4">Foundational certification covering PC hardware and software, mobile device hardware, networking and troubleshooting hardware and network connectivity.</p>
                             <div class="flex flex-wrap gap-2">
@@ -183,20 +204,18 @@
                     </div>
                 </div>
 
-                
-
                 <!-- Google Cybersecurity Certificate -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex space-x-6">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                         <!-- Left column with image and button -->
-                        <div class="flex flex-col items-center space-y-16">
-                            <img src="../assets/certifications/google-cyber.png" alt="Google Cybersecurity" class="w-32 h-32 object-contain"/>
-                            <a href="google-cyber.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">View Credential</a>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="../assets/certifications/google-cyber.png" alt="Google Cybersecurity" class="w-24 sm:w-32 h-24 sm:h-32 object-contain"/>
+                            <a href="google-cyber.pdf" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-center">View Credential</a>
                         </div>
         
                         <!-- Right column with text content -->
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2">Google Cybersecurity Certificate</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2">Google Cybersecurity Certificate</h3>
                             <p class="text-gray-600 mb-2">Google • Jul 2023 — No Expiration</p>
                             <p class="text-gray-700 mb-4">Comprehensive certification covering security fundamentals, incident response, Python scripting for security automation, and security information and event management (SIEM) tools.</p>
                             <div class="flex flex-wrap gap-2">
@@ -208,37 +227,43 @@
                         </div>
                     </div>
                 </div>
+                </div>
+
+
             </div>
         </div>
     </div>
 
-    <!-- Additional Achievements Section -->
-    <div class="bg-gray-50 py-16">
+    <!-- Additional Achievements Section with mobile optimization -->
+    <div class="bg-gray-50 py-8 md:py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-8">Additional Achievements</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Achievement 1 -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-xl font-semibold mb-2">Cisco SCOR Training</h3>
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Additional Achievements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <!-- Achievement cards with responsive padding -->
+                <div class="bg-white rounded-lg shadow p-4 md:p-6">
+                    <h3 class="text-lg md:text-xl font-semibold mb-2">Cisco SCOR Training</h3>
                     <p class="text-gray-600">Completed Implementing and Operating Cisco Security Core Technologies course, covering VPNs, secure network design, cloud security, and secure network access</p>
                 </div>
                 
+                <!-- Other achievement cards... -->
+                
                 <!-- Achievement 2 -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-xl font-semibold mb-2">Cisco NetACad</h3>
+                <div class="bg-white rounded-lg shadow p-4 md:p-6">
+                    <h3 class="text-lg md:text-xl font-semibold mb-2">Cisco NetACad</h3>
                     <p class="text-gray-600">Completed advanced networking courses with distinction</p>
                 </div>
                 
                 <!-- Achievement 3 -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-xl font-semibold mb-2">National Cyber League</h3>
+                <div class="bg-white rounded-lg shadow p-4 md:p-6">
+                    <h3 class="text-lg md:text-xl font-semibold mb-2">National Cyber League</h3>
                     <p class="text-gray-600">Top 3% ranking in platform challenges and CTFs with a top 10 ranking in Network Traffic Analysis</p>
                 </div>
+                
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Responsive Footer -->
     <footer class="bg-gray-800 bg-opacity-90 text-white py-6">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -257,5 +282,13 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>
