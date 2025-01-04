@@ -7,53 +7,84 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation Header -->
+    <!-- Mobile-optimized Navigation -->
     <nav class="bg-gray-800 bg-opacity-90 text-white fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
+            <div class="relative flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
                     <span class="text-xl font-bold">Tronsec.net</span>
                 </div>
-                <div class="flex space-x-4">
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex md:space-x-4">
                     <a href="../../" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
                     <a href="../" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Projects</a>
                     <a href="../../certifications" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Certifications</a>
                     <a href="../../notes" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Notes</a>
                 </div>
             </div>
+
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="../../" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
+                    <a href="../" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Projects</a>
+                    <a href="../../certifications" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="../../notes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- Work in Progress Section -->
-    <div class="min-h-screen flex items-center justify-center px-4">
-        <div class="text-center">
+    <!-- Work in Progress Section with responsive padding -->
+    <div class="min-h-screen flex items-center justify-center px-4 pt-16 md:pt-0">
+        <div class="text-center max-w-lg mx-auto">
             <div class="mb-8">
                 <style>
-                @keyframes slow-spin {
-                    from {
-                        transform: rotate(0deg);
+                    @keyframes slow-spin {
+                        from {
+                            transform: rotate(0deg);
+                        }
+                        to {
+                            transform: rotate(360deg);
+                        }
                     }
-                    to {
-                        transform: rotate(360deg);
+                    .animate-slow-spin {
+                        animation: slow-spin 2s linear infinite;
                     }
-                }
-                .animate-slow-spin {
-                    animation: slow-spin 2s linear infinite;
-                }
-            </style>
-            <svg class="mx-auto h-24 w-24 text-gray-400 animate-slow-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    
+                    /* Responsive icon sizing */
+                    @media (max-width: 640px) {
+                        .icon-responsive {
+                            height: 4rem;
+                            width: 4rem;
+                        }
+                    }
+                </style>
+                <svg class="mx-auto h-24 w-24 md:h-32 md:w-32 text-gray-400 animate-slow-spin icon-responsive" 
+                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
             </div>
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Work in Progress</h2>
-            <p class="text-xl text-gray-600 mb-8">This project page is currently under construction. Please check back later for detailed information about this exciting project!</p>
-            <a href="../" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Work in Progress</h2>
+            <p class="text-lg md:text-xl text-gray-600 mb-8 px-4">This project page is currently under construction. Please check back later for detailed information about this exciting project!</p>
+            <a href="../" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-base md:text-lg">
                 Return to Projects
             </a>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Responsive Footer -->
     <footer class="bg-gray-800 bg-opacity-90 text-white py-6">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -72,5 +103,13 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>
