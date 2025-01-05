@@ -1,0 +1,717 @@
+<!-- PROJECT 1 PAGE INDEX -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Network Security Homelab - Projects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* PROJECT 1 PAGE INDEX and Keeping all the original CSS styles */
+      .device {
+        fill: #fff;
+        stroke: #0066cc;
+        stroke-width: 2;
+      }
+    
+      .cloud-icon {
+        width: 110px;
+        height: 110px;
+        transform: translate(-55px, -55px);
+      }
+    
+      .firewall-icon {
+        width: 110px;
+        height: 110px;
+        transform: translate(-55px, -55px);
+      }
+    
+      .device-label {
+        font-family: system-ui;
+        font-size: 12px;
+        text-anchor: middle;
+        fill: #D1D5DB;
+        pointer-events: none;
+      }
+    
+      .server-icon {
+        width: 100px;
+        height: 100px;
+        transform: translate(-50px, -50px);
+      }
+    
+      .ap-icon {
+        width: 110px;
+        height: 110px;
+        transform: translate(-55px, -55px);
+      }
+    
+      .connection {
+        stroke: #666;
+        stroke-width: 3;
+      }
+    
+      .vlan10 {
+        fill: #2196F3;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+    
+      .vlan20 {
+        fill: #FF5722;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+    
+      .vlan30 {
+        fill: #4CAF50;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+
+      .vlan40 {
+        fill: #FFDF00;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+
+     .internet-traffic-down {
+        fill: #000000;
+        stroke: #FFFFFF;
+        stroke-width: 1;
+        opacity: 0;
+      }
+
+     .internet-traffic-up {
+        fill: #FFFFFF;
+        stroke: #000000;
+        stroke-width: 1;
+        opacity: 0;
+      }
+
+      .legend {
+        font-family: system-ui;
+        font-size: 12px;
+        fill: #D1D5DB;
+      }
+
+      .router-icon {
+        width: 110px;
+        height: 110px;
+        transform: translate(-55px, -55px);
+      }
+
+      .switch-icon {
+        width: 140px;
+        height: 140px;
+        transform: translate(-70px, -70px);
+      }
+
+      .pc-icon {
+        width: 100px;
+        height: 100px;
+        transform: translate(-50px, -50px);
+      }
+
+      .network-background {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          opacity: 1;
+          pointer-events: none;
+      }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 bg-opacity-90 text-white fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="relative flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <span class="text-xl font-bold">Tronsec.net</span>
+                </div>
+                
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="hidden md:flex md:space-x-4">
+                    <a href="../../" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
+                    <a href="../" class="px-3 py-2 rounded-md text-sm font-medium bg-gray-700">Projects</a>
+                    <a href="../../certifications" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="../../notes" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="../../" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
+                    <a href="../" class="block px-3 py-2 rounded-md text-base font-medium bg-gray-700">Projects</a>
+                    <a href="../../certifications" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="../../notes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <div class="bg-gray-900 pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-white mb-4">Enterprise Network Security Homelab</h1>
+                <p class="text-xl text-gray-300">A comprehensive enterprise-grade network security environment</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Overview -->
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg mx-auto">
+                <h2 class="text-3xl font-bold mb-6">Project Overview</h2>
+                <p class="text-gray-600 mb-6">
+                    Initial planning for this enterprise network security homelab began in March 2024, with physical implementation starting in August 2024. The network has grown from two initial devices to over seven, with plans for further expansion after graduating from Purdue University in May 2025. This project combines knowledge gained from independent study and undergraduate coursework at Purdue in Cybersecurity and Network Engineering Technology.
+                </p>
+                <p class="text-gray-600 mb-6">
+                    The lab incorporates enterprise-grade hardware including a Cisco Catalyst 3750-X switch, Cisco 1921 router, FortiNet FortiGate 40F Next Generation Firewall (NGFW), and an HP ProLiant DL360 Gen9 server with 256GB of RAM and 2TB of SSD storage. Additionally, two micro Dell OptiPlex servers (5060 and 5070) provide dedicated services with 16GB RAM each and combined 2TB storage. The network utilizes color-coded CAT6 cabling for different VLANs and implements comprehensive security practices including VLAN segmentation, RADIUS authentication, and Active Directory integration. A diagram of the network architecture can be viewed below.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Cisco</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">FortiNet</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Active Directory</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">ESXi</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">RADIUS</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">VLANs</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">LibreNMS</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Network Diagram Section -->
+    <div class="bg-gray-900 pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Lab Environment Architecture</h2>
+            <!-- Network Animation -->
+            <div class="network-background">
+                <svg viewBox="0 0 1000 800" width="100%" height="100%">
+                
+                <!-- Network Devices -->
+                
+                <!-- Internet Cloud -->
+                <g transform="translate(640,70)" class="cloud-group">
+                  <circle class="device" r="25" opacity="0"/>
+                  <image href="../../assets\animation\cloud.png" class="cloud-icon"/>
+                  <text font-family="system-ui" font-size="12px" text-anchor="middle" fill="#333" pointer-events="none" y="5">Internet</text>
+                </g>
+
+                <!-- Firewall -->
+                <g transform="translate(500,180)" class="firewall-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/firewall.png" class="firewall-icon"/>
+                    <text class="device-label" x="60" y="47">FortiNet FG-40F</text>
+                </g>
+
+                <!-- Cisco Router -->
+                <g transform="translate(320,300)" class="router-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/router.png" class="router-icon"/>
+                    <text class="device-label" y="48">Cisco 1921</text>
+                </g>
+
+                <!-- Core Switch -->
+                <g transform="translate(515,405)" class="switch-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/switch.png" class="switch-icon"/>
+                    <text class="device-label" x="35" y="-38">Cisco 3750x</text>
+                </g>
+
+                <!-- Personal PC -->
+                <g transform="translate(280,570)" class="pc-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/pc.png" class="pc-icon"/>
+                    <text class="device-label" y="58">Personal PC</text>
+                </g>
+
+                <!-- ESXi Server -->
+                <g transform="translate(440,570)" class="server-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/server.png" class="server-icon"/>
+                    <text class="device-label" y="62">HP ProLiant</text>
+                    <text class="device-label" y="75">DL360 Gen9</text>
+                </g>
+
+                <!-- Active Directory Server -->
+                <g transform="translate(550,570)" class="server-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/server.png" class="server-icon"/>
+                    <text class="device-label" y="62">Dell OptiPlex 5070</text>
+                </g>
+
+                <!-- DNS Server -->
+                <g transform="translate(660,570)" class="server-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/server.png" class="server-icon"/>
+                    <text class="device-label" y="62">Dell OptiPlex 5060</text>
+                </g>
+
+                <!-- Access Point -->
+                <g transform="translate(790,400)" class="router-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/accesspoint.png" class="router-icon"/>
+                    <text class="device-label" x="-32" y="37">TP-Link AX1800</text>
+                </g>
+
+                <!-- Wireless Client -->
+                <g transform="translate(890,570)" class="pc-group">
+                    <circle class="device" r="25" opacity="0"/>
+                    <image href="../../assets/animation/laptop.png" class="pc-icon"/>
+                    <text class="device-label" y="47">Wireless Client</text>
+                </g>
+
+                <!-- Connections -->
+                <line class="connection" x1="600" y1="090" x2="523" y2="147"/> <!-- Internet Cloud to Firewall -->
+                <line class="connection" x1="475" y1="225" x2="359" y2="270"/> <!-- Firewall to Cisco Router -->
+                <line class="connection" x1="496" y1="233" x2="510" y2="370"/> <!-- Firewall to Cisco Switch-->
+                <line class="connection" x1="359" y1="328" x2="472" y2="383"/> <!-- Cisco Router to Cisco Switch -->
+                <line class="connection" x1="460" y1="437" x2="313" y2="543"/> <!-- Cisco Switch to Personal PC -->
+                <line class="connection" x1="490" y1="437" x2="445" y2="522"/> <!-- Cisco Switch to HP ProLiant Server -->
+                <line class="connection" x1="530" y1="437" x2="555" y2="522"/> <!-- Cisco Switch to Active Directory Server -->
+                <line class="connection" x1="562" y1="425" x2="665" y2="522"/> <!-- Cisco Switch to DNS Server -->
+                <line class="connection" x1="578" y1="405" x2="736" y2="405"/> <!-- Cisco Switch to Access Point -->
+                <line class="connection" x1="800" y1="422" x2="900" y2="536"/> <!-- Access Point to Laptop -->
+
+                <!-- Traffic Animations -->
+                <!-- VLAN 10 Traffic (Blue_To_PC) -->
+                <circle class="vlan10" r="5">
+                    <animate attributeName="cx" values="460;313" dur="2s" begin="0s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="437;543" dur="2s" begin="0s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 10 Traffic (Blue_To_AD) -->
+                <circle class="vlan10" r="5">
+                    <animate attributeName="cx" values="530;555" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="437;522" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 10 Traffic (Blue_To_HP_Server) -->
+                <circle class="vlan10" r="5">
+                    <animate attributeName="cx" values="490;445" dur="1.9s" begin="1.3s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="437;522" dur="1.9s" begin="1.3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.9s" begin="1.3s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 10 Traffic (Blue_Router_To_Switch) -->
+                <circle class="vlan10" r="5">
+                    <animate attributeName="cx" values="359;472" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="328;383" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 10 Traffic (Blue_Router_To_Firewall) -->
+                <circle class="vlan10" r="5">
+                    <animate attributeName="cx" values="359;475" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="270;225" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 20 Traffic (Red_To_AP) -->
+                <circle class="vlan20" r="5">
+                    <animate attributeName="cx" values="578;736" dur="2s" begin="0.8s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="405;405" dur="2s" begin="0.8s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.8s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 20 Traffic (Red_To_Wireless_Client) -->
+                <circle class="vlan20" r="5">
+                    <animate attributeName="cx" values="800;900" dur="2s" begin="0s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="422;536" dur="2s" begin="0s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 20 Traffic (Red_Switch_To_Router) -->
+                <circle class="vlan20" r="5">
+                    <animate attributeName="cx" values="472;359" dur="1.8s" begin="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="383;328" dur="1.8s" begin="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.5s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 20 Traffic (Red_Router_To_Firewall) -->
+                <circle class="vlan20" r="5">
+                    <animate attributeName="cx" values="359;475" dur="1.7s" begin="1.3s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="270;225" dur="1.7s" begin="1.3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="1.3s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 30 Traffic (Green_To_DNS) -->
+                <circle class="vlan30" r="5">
+                    <animate attributeName="cx" values="562;665" dur="1.8s" begin="1s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="425;522" dur="1.8s" begin="1s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 30 Traffic (Green_To_HP_Server) -->
+                <circle class="vlan30" r="5">
+                    <animate attributeName="cx" values="490;445" dur="2.1s" begin="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="437;522" dur="2.1s" begin="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.1s" begin="1.5s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 30 Traffic (Green_To_Firewall) -->
+                <circle class="vlan30" r="5">
+                    <animate attributeName="cx" values="510;496" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="370;233" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="1.7s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 40 Traffic (Yellow_From_HP_Server) -->
+                <circle class="vlan40" r="5">
+                    <animate attributeName="cx" values="445;490" dur="1.8s" begin="1s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="522;437" dur="1.8s" begin="1s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 40 Traffic (Yellow_Switch_To_Router) -->
+                <circle class="vlan40" r="5">
+                    <animate attributeName="cx" values="472;359" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="383;328" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- VLAN 40 Traffic (Yellow_Firewall_To_Router) -->
+                <circle class="vlan40" r="5">
+                    <animate attributeName="cx" values="475;359" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="225;270" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- Internet Traffic Down -->
+                <circle class="internet-traffic-down" r="5">
+                    <animate attributeName="cx" values="600;523" dur="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="90;147" dur="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- Internet Traffic Up -->
+                <circle class="internet-traffic-up" r="5">
+                    <animate attributeName="cx" values="523;600" dur="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="147;90" dur="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- Legend -->
+                <g transform="translate(50,50)">
+                  <rect width="15" height="15" fill="#2196F3" stroke="#000000" stroke-width="1"/>
+                  <text x="25" y="12" class="legend">VLAN 10</text>
+                  <rect y="20" width="15" height="15" fill="#FF5722" stroke="#000000" stroke-width="1"/>
+                  <text x="25" y="32" class="legend">VLAN 20</text>
+                  <rect y="40" width="15" height="15" fill="#4CAF50" stroke="#000000" stroke-width="1"/>
+                  <text x="25" y="52" class="legend">VLAN 30</text>
+                  <rect y="60" width="15" height="15" fill="#FFDF00" stroke="#000000" stroke-width="1"/>
+                  <text x="25" y="72" class="legend">VLAN 40</text>
+                </g>
+            </svg>
+        </div>
+        </div>
+    </div>
+
+    <!-- Project Details -->
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg mx-auto">
+                <h2 class="text-3xl font-bold mb-6">Project Details</h2>
+
+            <!-- Logical Architecture Mapping -->
+            <h3 class="text-2xl font-bold mt-8 mb-4">Logical Architecture Mapping</h3>
+            <div class="overflow-x-auto mb-8">
+                <table class="min-w-full border border-gray-200">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Hostname </th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Device</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Operating System</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">IP Address</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">VLAN</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Specifications</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- FortiGate Firewall -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">fgfw</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiNet FG-40F</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiOS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">NGFW / Edge Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.5.1/30</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">NGFW with VPN, SSL Inspection</td>
+                        </tr>
+                        <!-- Cisco Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">labrt</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 1921</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Internal Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.5.2/30</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10,20,40</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF, RADIUS Auth</td>
+                        </tr>
+                        <!-- Cisco Switch -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">labsw</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750-X</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Core Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">L2/L3 Switch, Port Security</td>
+                        </tr>
+                        <!-- TP-Link Wireless -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">wifi</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TP-Link AX1800</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Wireless Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.20.10</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">Wireless Access, Client Connectivity</td>
+                        </tr>
+                        <!-- OptiPlex 5070 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">adds</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell OptiPlex 5070</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Windows Server 2022</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Active Directory Server</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.100</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">16GB RAM, AD, DNS, RADIUS</td>
+                        </tr>
+                        <!-- OptiPlex 5060 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">dns</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell OptiPlex 5060</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Ubuntu 24.04</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">DMZ DNS Server</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.30.100</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">16GB RAM, AdGuard DNS</td>
+                        </tr>
+                        <!-- HP ProLiant -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">esxi</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">HP ProLiant DL360 Gen9</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VMware ESXi 7.0.3</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Virtualization Host</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.200</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">256GB RAM, 4TB SSD</td>
+                        </tr>
+                        <!-- Personal PC -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">pc</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Personal PC</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Windows 10 Pro</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Management Console</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.26</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">i9-9900k, 32GB RAM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Network Architecture & Segmentation -->
+            <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture & Segmentation</h3>
+            <p class="text-gray-600 mb-4">
+                The network implements an enterprise-grade segmentation strategy using four primary VLANs, each with specific security policies and access controls applied. Open Shortest Path First is used as a dynamic routing protocol between the router and firewall within area 0. Network Address Translation is applied to all security zones off of the firewall for general internet connectivity. A breakdown of the VLANs as they relate to infrastructure within the network can be viewed below.
+            </p>
+            <h4 class="text-xl font-semibold mt-6 mb-3">Management Infrastructure (VLAN 10)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.10.0/24</span></li>
+                <li>Cable designation: <span style="color: #2196F3">Blue</span> CAT6 UTP</li>
+                <li>Primary devices: Active Directory server (10.26.10.100), Management PC (10.26.10.26), HP ProLiant DL360 Gen9 ESXi Management Console (10.26.10.200)</li>
+                <li>RADIUS authentication integration for network devices</li>
+                <li>Primary DNS resolver for internal subnets and domain (tronsec.net)</li>
+                <li>Root Certificate Authority for the primary domain (10.26.10.100)</li>
+                <li>Link aggregation to HP ProLiant server using 4 x 1GbE CAT6 connections</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Wireless Network (VLAN 20)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.20.0/24</span></li>
+                <li>Cable designation: <span style="color: #FF5722">Red</span> CAT6 UTP</li>
+                <li>Isolated DHCP services on Cisco 1921 router</li>
+                <li>External DNS resolution through Cisco OpenDNS (208.67.222.222)</li>
+                <li>No internal network access - internet gateway only</li>
+                <li>ACLs prevent all inter-VLAN communication</li>
+                <li>Managed through TP-Link AX1800 WiFi 6 Router</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">DMZ Services (VLAN 30)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.30.0/24</span></li>
+                <li>Cable designation: <span style="color: #4CAF50">Green</span> CAT6 UTP</li>
+                <li>Hosts DMZ DNS server (10.26.30.100)</li>
+                <li>Relays internal DNS from Active Directory server</li>
+                <li>Direct internet access through FortiGate firewall</li>
+                <li>Selective access from VLAN 10 only</li>
+                <li>DNS forwarding to Cloudflare (1.1.1.1)</li>
+                <li>Services NTP for domain and log synchronization on networking devices</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Server Infrastructure (VLAN 40)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.40.0/24</span></li>
+                <li>Cable designation: <span style="color: #FFDF00">Yellow</span> CAT6 UTP</li>
+                <li>LibreNMS monitoring system (10.26.40.20)</li>
+                <li>SecurityOnion IDS/IPS platform (10.26.40.30)</li>
+                <li>Management Access restricted to VLAN 10 only</li>
+            </ul>
+
+            <!-- Physical Infrastructure -->
+            <h4 class="text-xl font-semibold mt-6 mb-3">Physical Infrastructure</h4>
+            <ul class="list-disc pl-6 mb-6 text-gray-600">
+                <li>Cisco Catalyst 3750-X core switch with full VLAN support</li>
+                <li>Color-coded CAT6 cabling for easy VLAN identification</li>
+                <li>Link aggregation for server connectivity (4 x 1GbE)</li>
+                <li>FortiGate FG-40F NGFW for edge security and routing</li>
+                <li>Cisco 1921 router for internal routing and VLAN segmentation</li>
+                <li>TP-Link Wireless Router for mobile client connectivity</li>
+            </ul>
+
+                <!-- Network Connectivity & Routing -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Network Connectivity & Routing</h3>
+                <p class="text-gray-600 mb-4">
+                    The network displays sophisticated routing and connectivity solutions including:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>OSPF implementation between the Cisco 1921 router and FortiGate firewall for dynamic internal routing</li>
+                    <li>Link Aggregation (LAG) for ESXi server connections, providing enhanced bandwidth and redundancy</li>
+                    <li>Access Control Lists (ACLs) on both layer 2 and layer 3 devices for granular traffic control</li>
+                    <li>RADIUS authentication integration for secure device access and user authentication</li>
+                </ul>
+
+                <!-- Active Directory & Authentication -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Active Directory & Authentication</h3>
+                <p class="text-gray-600 mb-4">
+                    A comprehensive authentication infrastructure built on Windows Server 2022:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>Centralized Active Directory services for user and device management</li>
+                    <li>RADIUS server integration for network device authentication</li>
+                    <li>Certificate Authority services for internal PKI infrastructure</li>
+                    <li>Group Policy implementation for security and access control</li>
+                    <li>Integration with FortiGate NGFW for user-based access policies</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Active Directory Domain Establishment</h4>
+                    <ul class="list-disc pl-6 mb-4 text-gray-600">
+                    
+                    </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Authentication</h4>
+                    <ul class="list-disc pl-6 mb-4 text-gray-600">
+                    
+                    </ul>
+
+                <!-- Security Implementation -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Security Implementation</h3>
+                <p class="text-gray-600 mb-4">
+                    Multi-layered security approach incorporating:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>FortiGate Next-Generation Firewall for advanced threat protection</li>
+                    <li>Network segmentation with strict VLAN isolation</li>
+                    <li>Layer 2 security including DHCP snooping and Dynamic ARP inspection</li>
+                    <li>802.1X port-based authentication for wired connections</li>
+                    <li>Comprehensive logging and monitoring through SecurityOnion and LibreNMS</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Client Authentication</h4>
+                    <ul class="list-disc pl-6 mb-4 text-gray-600">
+                    
+                    </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 2 Security Technologies</h4>
+                    <ul class="list-disc pl-6 mb-4 text-gray-600">
+                    
+                    </ul>
+
+
+                <!-- Virtualization Infrastructure -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Virtualization Infrastructure</h3>
+                <p class="text-gray-600 mb-4">
+                    ESXi-based virtualization platform hosting critical services:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>HP ProLiant DL360 Gen9 server with 256GB RAM and 4TB SSD storage</li>
+                    <li>Network monitoring and security analysis virtual machines</li>
+                    <li>Development and testing environments</li>
+                    <li>Link aggregation for enhanced network performance</li>
+                    <li>Integration with Active Directory for access control</li>
+                </ul>
+
+                <!-- Infrastructure Hardening -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Infrastructure Hardening</h3>
+                <p class="text-gray-600 mb-4">
+                    Comprehensive security hardening measures:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>Secure device configuration baselines across all network equipment</li>
+                    <li>Implementation of port security and unused port shutdown</li>
+                    <li>Strong password policies and encryption standards</li>
+                    <li>Regular security updates and patch management</li>
+                    <li>Automated monitoring and alerting for security events</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Cisco IOS Device Hardening</h4>
+                    <ul class="list-disc pl-6 mb-4 text-gray-600">
+                    
+                    </ul>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- Responsive Footer -->
+    <footer class="bg-gray-800 bg-opacity-90 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h4 class="text-xl font-bold">Clark Katsouleas</h4>
+                    <p class="text-gray-400">Cybersecurity & Network Engineering Student</p>
+                    <p class="text-gray-400">clarkkatsouleas@gmail.com</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.linkedin.com/in/clark-katsouleas/" target="_blank" class="hover:text-blue-400">LinkedIn</a>
+                    <a href="mailto:clarkkatsouleas@gmail.com" class="hover:text-blue-400">Email</a>
+                </div>
+            </div>
+            <div class="mt-4 text-center text-gray-400 text-sm">
+                © 2024 Clark Katsouleas. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
