@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Network Security Homelab - Projects</title>
+    <title>Network Security Homelab - Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       /* PROJECT 1 PAGE INDEX and Keeping all the original CSS styles */
@@ -168,7 +168,7 @@
     <div class="bg-gray-900 pt-32 pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">Enterprise Network Security Homelab</h1>
+                <h1 class="text-4xl font-bold text-white mb-4">Network Security Homelab</h1>
                 <p class="text-xl text-gray-300">A comprehensive enterprise-grade network security environment</p>
             </div>
         </div>
@@ -180,10 +180,10 @@
             <div class="prose prose-lg mx-auto">
                 <h2 class="text-3xl font-bold mb-6">Project Introduction</h2>
                 <p class="text-gray-600 mb-6">
-                    Initial planning for this enterprise network security homelab began in March 2024, with physical implementation starting in August 2024. The network has grown from two initial devices to over seven, with plans for further expansion after graduating from Purdue University in May 2025. This project combines knowledge gained from independent study and undergraduate coursework at Purdue in Cybersecurity and Network Engineering Technology.
+                    Initial planning for this network homelab project began in March 2024, with physical implementation starting in August 2024. The network has grown from an initial two planned devices to over seven, with plans for further expansion after graduating from Purdue University in May 2025. This project combines knowledge gained from independent study and undergraduate coursework at Purdue in Cybersecurity and Network Engineering Technology.
                 </p>
                 <p class="text-gray-600 mb-6">
-                    The lab incorporates enterprise-grade hardware including a Cisco Catalyst 3750-X switch, Cisco 1921 router, FortiNet FortiGate 40F Next Generation Firewall (NGFW), and an HP ProLiant DL360 Gen9 server with 256GB of RAM and 2TB of SSD storage. Additionally, two micro Dell OptiPlex servers (5060 and 5070) provide dedicated services with 16GB RAM each and combined 2TB storage. The network utilizes color-coded CAT6 cabling for different VLANs and implements comprehensive security practices including VLAN segmentation, RADIUS authentication, and Active Directory integration. A diagram of the network architecture can be viewed below.
+                    The lab incorporates enterprise-grade hardware including a Cisco Catalyst 3750-X switch, Cisco 1921 router, FortiNet FortiGate 40F Next Generation Firewall (NGFW), and an HP ProLiant DL360 Gen9 server with 256GB of RAM and 2TB of SSD storage. Additionally, two micro Dell OptiPlex servers (5060 and 5070) provide dedicated services with 16GB RAM each and combined 2TB storage. The network utilizes color-coded CAT6 cabling for different VLANs and implements comprehensive security practices including VLAN segmentation, RADIUS authentication, and Active Directory integration. An animated diagram of the network architecture can be viewed below.
                 </p>
                 <div class="flex flex-wrap gap-2 mb-8">
                     <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Cisco</span>
@@ -604,6 +604,10 @@
                     <li>RADIUS authentication integration for secure device access and user authentication</li>
                 </ul>
 
+                <p class="text-gray-600 mb-4">
+                    The network displays a simple routing and connectivity solution that prioritizes reliability and security. OSPF routing is implemented between the Cisco 1921 router and FortiGate firewall to enable dynamic internal routing within area 0. The default route to the internet is injected at the edge of the network, the FortiGate Firewall, where dynamic routing to the DMZ occurs. The network features Link Aggregation (LAG) between the Cisco 3750-X switch and the ESXi server, utilizing four 1GbE connections bundled together to provide enhanced bandwidth and redundancy for server operations. Access Control Lists (ACLs) are strategically implemented on both layer 2 and layer 3 devices to enforce granular traffic control between VLANs and network segments. Traffic management is further enhanced through RADIUS authentication integration, which enables secure device access and user authentication through centralized Active Directory services. This comprehensive approach ensures efficient traffic flow while maintaining strict security controls across all network segments.
+                </p>
+
                 <!-- Active Directory & Authentication -->
                 <h3 class="text-2xl font-bold mt-8 mb-4">Active Directory & Authentication</h3>
                 <p class="text-gray-600 mb-4">
@@ -618,14 +622,17 @@
                 </ul>
 
                 <h4 class="text-xl font-semibold mt-6 mb-3">Active Directory Domain Establishment</h4>
-                    <ul class="list-disc pl-6 mb-4 text-gray-600">
-                    
-                    </ul>
+                    <p class="text-gray-600 mb-4">
+                        The Active Directory domain environment was established using Windows Server 2022 with a root domain of tronsec.net. Initial configuration of the domain included setting up domain and DNS services to manage wired clients through Active Directory objects, with DNS relaying configured to the DMZ DNS server at 10.26.30.100. Additionally, security measures like a DSRM password were configured for administrative protection and control of the domain. A comprehensive administrator group was created for service and device management access, with user accounts established for other network administrators and test users, each assigned to the operator group. The domain infrastructure serves as the central authentication and management hub, hosting RADIUS authentication services to enable network device access using AD credentials. The server was configured as a root Certificate Authority (CA) to handle certificate signing and validation across the network infrastructure, particularly supporting SSL inspection on the FortiGate firewall and HTTPS services for internal websites. Time synchronization was implemented through NTP, with the AD server acting as a relay between the DMZ NTP server and all wired hosts on the network, ensuring consistent time settings across domain-joined systems.
+                    </p>
 
                 <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Authentication</h4>
-                    <ul class="list-disc pl-6 mb-4 text-gray-600">
-                    
-                    </ul>
+                    <p class="text-gray-600 mb-4">
+                        Remote Authentication Dial-In User Service (RADIUS) authentication was implemented to provide centralized network access control for all network devices. The Active Directory server at 10.26.10.100 was configured as the primary RADIUS server for authenticating network device access. This setup enabled integration between Active Directory user credentials and network device logins, allowing for unified authentication across the infrastructure. All Cisco network devices including the 3750-X switch and 1921 router were configured to use RADIUS as their primary authentication method with a local admin account configured as fallback. RADIUS shared secrets and UDP ports 1812/1813 were configured for authentication and accounting respectively. 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        This implementation ensured that all device access is authenticated against Active Directory, providing centralized user management and detailed accounting of network device access. Network policy server was configured on the Active Directory server to enforce specific authentication policies, including the use of Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. RADIUS groups were created to manage access levels, with RadiusUsers being assigned basic access and RadiusAdmins receiving elevated privileges. Establishment of this setup provided a robust, scalable authentication system that leveraged existing Active Directory infrastructure while maintaining security through centralized access control of networked devices.
+                    </p>
 
                 <!-- Security Implementation -->
                 <h3 class="text-2xl font-bold mt-8 mb-4">Security Implementation</h3>
@@ -641,15 +648,24 @@
                 </ul>
 
                 <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Client Authentication</h4>
-                    <ul class="list-disc pl-6 mb-4 text-gray-600">
-                    
-                    </ul>
+                    <p class="text-gray-600 mb-4">
+                        The RADIUS client authentication was configured on both the Cisco 1921 router and Cisco Catalyst 3750-X switch to provide centralized AAA services through the Active Directory server at 10.26.10.100. Authentication methods were configured to use RADIUS as the primary authentication source with local authentication as fallback. Pre-authentication ACLs were implemented to restrict access during the authentication process for known client access ports including the Personal PC, allowing only essential pre-authentication traffic like HTTP, HTTPS, DHCP and DNS. The switches and routers were configured with RADIUS shared secrets and used ports 1812/1813 for authentication and accounting respectively. Both devices had RADIUS dead-criteria configured with a 5-second timeout and 3 retries before marking a RADIUS server as unresponsive, with a deadtime of 3 minutes for client authentication through console and SSH. The authentication setup leverages Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. Access control was managed through two primary groups - RadiusUsers for basic access and RadiusAdmins for elevated privileges. This implementation provided robust, scalable authentication while maintaining security through centralized access control and accounting of network device access. Emergency local admin accounts with privilege level 15 were maintained as a fallback option, using type 9 scrypt secrets on the labsw switch and type 7 secrets on the labrt router, with passwords encrypted using AES.
+
+                    </p>
 
                 <h4 class="text-xl font-semibold mt-6 mb-3">Layer 2 Security Technologies</h4>
-                    <ul class="list-disc pl-6 mb-4 text-gray-600">
-                    
-                    </ul>
+                    <p class="text-gray-600 mb-4">
+                        Layer 2 security measures were extensively implemented on the Cisco Catalyst 3750-X switch to protect against common network attacks and unauthorized access. Dynamic Trunking Protocol (DTP) was disabled on all trunk interfaces to prevent unauthorized VLAN hopping attempts. For endpoint protection, all access interfaces had PortFast and BPDUGuard enabled to prevent spanning tree manipulation attacks while ensuring quick port initialization. Port security was implemented on all access interfaces connecting to endpoints, with a maximum of one MAC address allowed per port and a violation policy of restrict to prevent MAC address spoofing attacks. Dynamic ARP Inspection (DAI) was enabled on the trunk interface connected to the router for VLAN 10 to prevent ARP poisoning attacks. Access control for DAI was controlled via an ARP ACL locally on the switch, as a DHCP Snooping table did not exist for the wired network. On trunked interfaces to the server infrastructure, LAG was enabled on the four interfaces connecting to the HP ProLiant DL360 Gen9 server, creating an etherchannel port-group for both enhanced bandwidth and security. Unused switch ports were placed into a shutdown state to prevent unauthorized access attempts. These layered security controls worked together to create a robust defense against layer 2 attacks while maintaining high-speed network functionality with a small network of users.
+                    </p>
 
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 3 Security Technologies</h4>
+                    <p class="text-gray-600 mb-4">
+                        Layer 3 security measures were implemented through a comprehensive set of access control lists (ACLs) across multiple network segments. On the wireless VLAN (VLAN 20), traffic was strictly controlled with permits for essential services like ICMP echo, DHCP (bootpc/bootps), and domain services, while explicitly denying any cross-VLAN communication. Server connectivity (VLAN 40) ACLs were established to permit specific service traffic, including HTTP/HTTPS communication between monitoring servers and the DMZ, with DNS resolution and SNMP monitoring capabilities configured as needed. For the DMZ segment (VLAN 30), a firewall connectivity ACL was implemented with careful controls on both ingress and egress traffic, permitting only necessary protocols like OSPF, TCP to management interfaces, and essential monitoring services to the router itself (10.26.5.2). All ACLs were configured with explicit deny statements and logging capabilities to track potential security violations. 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        The management VLAN (VLAN 10) was granted controlled access to other segments through carefully crafted ACL entries, allowing for secure administration. It was configured to allow strategic access to the router-firewall link (10.26.5.0/30) and server infrastructure from the management PC (10.26.10.26), while maintaining strict control over broader network access. Additionally, OSPF routing between the Cisco router and FortiGate firewall was secured through neighbor authentication and route filtering to prevent unauthorized route advertisements.
+                    </p>
 
                 <!-- Virtualization Infrastructure -->
                 <h3 class="text-2xl font-bold mt-8 mb-4">Virtualization Infrastructure</h3>
@@ -664,6 +680,11 @@
                     <li>Integration with Active Directory for access control</li>
                 </ul>
 
+                <p class="text-gray-600 mb-4">
+                    Based on the documentation provided, I'll write a comprehensive paragraph about the Virtualization Infrastructure section. Here's my suggested content:
+The virtualization infrastructure is built around an HP ProLiant DL360 Gen9 server running VMware ESXi 7.0.3 as a Type 1 hypervisor. The server hardware features robust specifications including 256GB of DDR4 RAM and 4TB of SSD storage in 2.5" drive bays, providing ample resources for running multiple virtual machines. Network connectivity is established through a link aggregation of four 1GbE connections to the core Cisco 3750-X switch, for enhanced bandwidth and redundancy. The ESXi host is integrated into the Active Directory domain for centralized authentication and resides in VLAN 10 for management access with the address 10.26.10.200. Multiple virtual machines are hosted on the platform including LibreNMS for network monitoring (10.26.40.20), SecurityOnion IDS/IPS (10.26.40.30), and additional VMs for development and testing. The server's management interface (iLO) is accessible at 10.26.10.201 and provides out-of-band management capabilities. This virtualization platform serves as a critical component of the infrastructure, enabling flexible deployment of monitoring, security, and development environments while maintaining proper network segmentation through VLAN tagging and access controls.
+                </p>
+
                 <!-- Infrastructure Hardening -->
                 <h3 class="text-2xl font-bold mt-8 mb-4">Infrastructure Hardening</h3>
                 <p class="text-gray-600 mb-4">
@@ -677,10 +698,13 @@
                     <li>Automated monitoring and alerting for security events</li>
                 </ul>
 
-                <h4 class="text-xl font-semibold mt-6 mb-3">Cisco IOS Device Hardening</h4>
-                    <ul class="list-disc pl-6 mb-4 text-gray-600">
-                    
-                    </ul>
+                <h4 class="text-xl font-semibold mt-6 mb-3">Cisco IOS Device Hardening & Baselines</h4>
+                    <p class="text-gray-600 mb-4">
+                        Comprehensive infrastructure security hardening was implemented across both Cisco network devices through multiple configuration baselines. RADIUS client authentication was enabled on both the router and switch for administrative access, with the devices configured to use the Active Directory server at 10.26.10.100 as the primary authentication source. Emergency administrative accounts were established with privilege level 15 access, using type 9 scrypt secrets on the switch and type 7 secrets on the router for local authentication fallback. The service password-encryption command was applied using AES as the encryption algorithm to secure stored credentials. Executive timeout values were reduced to 10 minutes on both devices, and lockout policies were implemented to restrict access after 3 failed login attempts. 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        For logging and accountability, both devices were configured to record all login attempts, userinfo changes, and enable access events, with logs being forwarded to the SecurityOnion server at 10.26.40.30. The switch was further hardened through port security measures, implementing MAC address restrictions and violation policies on access ports. These port security measures included shutting down unused ports to prevent unauthorized access, and securing all logon methods such as shutting down the unused aux port, and adding an executive timeout to the VTY lines. From these securities implemented, secure configuration baselines were established for future expandability. These baselines established a solid security foundation while maintaining necessary management access through the secured management VLAN.
+                    </p>
 
             </div>
         </div>
