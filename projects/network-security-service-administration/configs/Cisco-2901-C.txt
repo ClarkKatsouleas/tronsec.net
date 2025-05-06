@@ -19,7 +19,7 @@ boot-end-marker
 !
 !
 logging userinfo
-enable secret 5 $1$G1Cp$qy/PjJEzpnuXdz/7HcPlz0
+enable secret 5 XXXXXXXXXXXXXXXXXXX
 !
 aaa new-model
 !
@@ -73,7 +73,7 @@ multilink bundle-name authenticated
 !
 key chain EIGRP-KEY-CHAIN
  key 18
-  key-string 7 045802150C2E
+  key-string 7 XXXXXXXXXXXXXXX
 password encryption aes
 !
 !
@@ -93,7 +93,7 @@ hw-module pvdm 0/0
 !
 !
 !
-username clark privilege 15 secret 5 $1$bs3Y$gy150CP42bSLA8loY2p8P/
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXX
 !
 redundancy
 !
@@ -268,11 +268,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key 7 0822455D0A16
+ key 7 XXXXXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key 7 02050D480809
+ key 7 XXXXXXXXXXXXXXX
 !
 !
 !
