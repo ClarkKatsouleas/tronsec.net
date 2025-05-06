@@ -8,7 +8,7 @@ groups {
                 10.26.10.100 {
                     port 1812;
                     accounting-port 1813;
-                    secret "$9$fzF/1IclvL36cl"; ## SECRET-DATA
+                    secret "XXXXXXXXXXXXXX"; ## SECRET-DATA
                     timeout 5;
                     retry 3;
                     source-address 172.16.5.1;
@@ -16,7 +16,7 @@ groups {
                 fd00:c345:17:0:beef:10:0:100 {
                     port 1812;
                     accounting-port 1813;
-                    secret "$9$W3-x7VJZjqPQNdjq"; ## SECRET-DATA
+                    secret "XXXXXXXXXXXXXX"; ## SECRET-DATA
                     timeout 5;
                     retry 3;
                     source-address fd00:c345:18:0:cafe::1;
@@ -28,7 +28,7 @@ groups {
 system {
     host-name T-Jupiter;
     root-authentication {
-        encrypted-password "$6$Cfuzqy7f$Jk2x7PClcprysa/8G9lFL.2yuRWswPiE0/J8DBGzgXU7IkLMJobWFaiuIsHhIFCa.tV7Dz476ITIqWlorsWhz0"; ## SECRET-DATA
+        encrypted-password "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; ## SECRET-DATA
     }
     login {
         user admin {
@@ -36,14 +36,14 @@ system {
             uid 2001;
             class super-user;
             authentication {
-                encrypted-password "$6$caDylcqI$ZsQDU7hdYOrwHaJqkOpAyYKsQ5AxrDInErlXiFpuN.Aedg3rqgdhkTO2pnvmLfhyuQDQu8WG1tBc5dcQzerjr/"; ## SECRET-DATA
+                encrypted-password "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; ## SECRET-DATA
             }
         }
         user clark {
             uid 2000;
             class super-user;
             authentication {
-                encrypted-password "$6$Dq40Sdki$xU/CX65y/SHilJLzQhcDLSIt2Sd4drQSdm2R.3BnzL2tB32QXKl1gF8jdfbBgnvrYYXrxn3KG4XS7dytV237Q."; ## SECRET-DATA
+                encrypted-password "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; ## SECRET-DATA
             }
         }
         user remote {
@@ -75,8 +75,8 @@ system {
         10.26.10.100 {
             port 1812;
             accounting-port 1813;
-            secret "$9$mTQnOBEyeWz3Ey"; ## SECRET-DATA
-            preauthentication-secret "$9$1Qhhcl7Nb2oGSrb2"; ## SECRET-DATA
+            secret "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; ## SECRET-DATA
+            preauthentication-secret "XXXXXXXXXXXXXXXXXXXXXXXXX"; ## SECRET-DATA
             timeout 5;
             retry 3;
             source-address 172.16.5.1;
@@ -127,13 +127,13 @@ security {
             reauth-frequency 0;
             description "Site to Site VPN to Main Tronsec Network";
             proposals Site-to-Site-VPN;
-            pre-shared-key ascii-text "$9$aOUDkF39pORjH9p"; ## SECRET-DATA
+            pre-shared-key ascii-text "XXXXXXXXXXXXXXXXXX"; ## SECRET-DATA
         }
         policy Site-to-Site-v6 {
             reauth-frequency 0;
             description "IPv6 Site-to-Site VPN";
             proposals Site-to-Site-v6;
-            pre-shared-key ascii-text "$9$HmPQtpBESefTBE"; ## SECRET-DATA
+            pre-shared-key ascii-text "XXXXXXXXXXXXXXXXXXXXX"; ## SECRET-DATA
         }
         gateway Site-to-Site-VPN {
             ike-policy Site-to-Site-VPN;
