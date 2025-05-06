@@ -29,7 +29,7 @@ interface vlan 99
 ip address 10.26.99.5 255.255.255.0
 exit
 no passwords min-length
-username "clark" password Tyloris.dumb88 privilege 15 encrypted
+username "clark" password password privilege 15 encrypted
 aaa authentication login "defaultList" radius local
 aaa accounting exec "dfltExecList" start-stop radius
 aaa accounting dot1x default start-stop radius
@@ -39,7 +39,7 @@ aaa authorization network default radius
 radius-server timeout 5
 radius-server deadtime 3
 radius-server source-ip 10.26.10.5
-radius-server key "cisco"
+radius-server key "password"
 radius-server host auth 10.26.10.100
 name "addc"
 exit
@@ -174,7 +174,7 @@ ip address 10.26.80.24 255.255.255.255
 ip ospf area 0.0.0.20
 exit
 snmp-server engineid local 800002a203d067e571a316
-enable password dfeaf10390e560aea745ccba53e044ed encrypted
+enable password password encrypted
 exit
 
 DellPWR#
