@@ -388,5 +388,3 @@ config firewall vip
         set color 18
     next
 end
-
-
