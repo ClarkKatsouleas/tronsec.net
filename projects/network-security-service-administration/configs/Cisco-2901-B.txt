@@ -352,7 +352,7 @@ router ospfv3 6
 !
 router ospf 4
  router-id 10.26.29.2
- area 20 authentication message-digest
+ area 30 authentication message-digest
  redistribute static subnets route-map VPN_TO_OSPF
  passive-interface GigabitEthernet0/0
  passive-interface GigabitEthernet0/1
