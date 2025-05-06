@@ -1,0 +1,393 @@
+Interfaces:
+T-FGFW-40F # show system interface
+config system interface
+    edit "wan"
+        set vdom "root"
+        set ip 44.36.17.2 255.255.255.0
+        set allowaccess ping https ssh http fgfm
+        set type physical
+        set description "To Internet"
+        set alias "WAN"
+        set role wan
+        set snmp-index 1
+        set secondary-IP enable
+        set dns-server-override disable
+    next
+    edit "lan1"
+        set vdom "root"
+        set ip 10.26.5.1 255.255.255.252
+        set allowaccess ping https http fgfm
+        set type physical
+        set description "To Network Core T-Nexus"
+        set alias "Internal1"
+        set device-identification enable
+        set lldp-reception enable
+        set lldp-transmission enable
+        set role lan
+        set snmp-index 7
+    next
+    edit "lan2"
+        set vdom "root"
+        set ip 10.26.5.5 255.255.255.252
+        set allowaccess ping https http
+        set type physical
+        set description "To Network Core T-3750-A"
+        set alias "Internal2"
+        set device-identification enable
+        set lldp-transmission enable
+        set role lan
+        set snmp-index 8
+    next
+    edit "lan3"
+        set vdom "root"
+        set ip 10.26.30.1 255.255.255.0
+        set allowaccess ping
+        set type physical
+        set description "DMZ Default Gateway"
+        set alias "DMZ"
+        set device-identification enable
+        set role dmz
+        set snmp-index 9
+    next
+    edit "a"
+        set vdom "root"
+        set type physical
+        set snmp-index 2
+    next
+    edit "modem"
+        set vdom "root"
+        set mode pppoe
+        set status down
+        set type physical
+        set snmp-index 3
+    next
+    edit "ssl.root"
+        set vdom "root"
+        set type tunnel
+        set alias "SSL VPN interface"
+        set snmp-index 4
+    next
+    edit "fortilink"
+        set vdom "root"
+        set fortilink enable
+        set ip 169.254.1.1 255.255.255.0
+        set allowaccess ping fabric
+        set type aggregate
+        set member "a"
+        set lldp-reception enable
+        set lldp-transmission enable
+        set snmp-index 6
+    next
+    edit "Loopback0"
+        set vdom "root"
+        set ip 10.26.41.15 255.255.255.255
+        set allowaccess ping https ssh http fgfm
+        set type loopback
+        set description "Loopback Interface for testing purposes"
+        set role lan
+        set snmp-index 10
+    next
+    edit "L2TP_RA"
+        set vdom "root"
+        set type tunnel
+        set snmp-index 11
+        set interface "wan"
+    next
+    edit "FortiClient"
+        set vdom "root"
+        set type tunnel
+        set snmp-index 5
+        set interface "wan"
+    next
+end
+
+T-FGFW-40F # show router ospf
+config router ospf
+    set default-information-originate always
+    set router-id 10.26.41.15
+    config area
+        edit 0.0.0.0
+            set authentication md5
+        next
+        edit 0.0.0.40
+            set type stub
+        next
+    end
+    config ospf-interface
+        edit "Internal_to_Nexus"
+            set interface "lan1"
+            set authentication md5
+            set cost 20
+            set dead-interval 40
+            set hello-interval 10
+            config md5-keys
+                edit 4
+                    set key-string ENC k1cMNRWcsKC5e/gjGev+JLF9q9u58AV7ZPbnmEkDQ06gTNF/4tgnzENn47u8kzRbkZySM9aOWf4NT9Bzh2ThW4OSNaRZobs/d5vXSHOrEnzFk5ZX3XJh+3G226QpkXNFVTPO+AqdHJCN+OAvWPPN42MZcSV+gSRz/eBRBlpoKR8poN72ZGcGLiLCUeij+aGUKpeKIg==
+                next
+            end
+        next
+        edit "Internal_to_3750-A"
+            set interface "lan2"
+            set authentication md5
+            set cost 20
+            set dead-interval 40
+            set hello-interval 10
+            config md5-keys
+                edit 4
+                    set key-string ENC pKNrg0mujVcyaPHEpoMXKg5djnhs/dSUtM0hyMaVf+Bhit/sZYW8NcgpepJH2MVYPpQPdhfKy0SHOOC7heAEPzIrzGSccXmbD6ckMGE9EgwkdJqDhOCjRO2mzoXe5pRC6Qp+2VijDv0IQm/gmVkgRRdipMUW3CDCRIrZIBaPXH1VgEhT9ZP53i8agPCZb7FbnkQxFA==
+                next
+            end
+        next
+    end
+    config network
+        edit 1
+            set prefix 10.26.5.0 255.255.255.252
+        next
+        edit 2
+            set prefix 10.26.5.4 255.255.255.252
+        next
+        edit 3
+            set prefix 10.26.41.15 255.255.255.255
+        next
+        edit 4
+            set prefix 10.26.30.0 255.255.255.0
+            set area 0.0.0.40
+        next
+    end
+    set passive-interface "lan3"
+    config redistribute "connected"
+        set status enable
+    end
+    config redistribute "static"
+        set status enable
+        set metric 1
+    end
+    config redistribute "rip"
+    end
+    config redistribute "bgp"
+    end
+    config redistribute "isis"
+    end
+end
+
+T-FGFW-40F # show firewall address
+config firewall address
+    edit "none"
+        set uuid 8cb74078-5b8e-51ef-0a72-4b5ce907c871
+        set subnet 0.0.0.0 255.255.255.255
+    next
+    edit "login.microsoftonline.com"
+        set uuid 8cb75ed2-5b8e-51ef-3243-04c18cce0260
+        set type fqdn
+        set fqdn "login.microsoftonline.com"
+    next
+    edit "login.microsoft.com"
+        set uuid 8cb77994-5b8e-51ef-a6b7-5df338194872
+        set type fqdn
+        set fqdn "login.microsoft.com"
+    next
+    edit "login.windows.net"
+        set uuid 8cb79190-5b8e-51ef-68ce-531a7e71d187
+        set type fqdn
+        set fqdn "login.windows.net"
+    next
+    edit "gmail.com"
+        set uuid 8cb7a964-5b8e-51ef-d95a-00537c8ffb5f
+        set type fqdn
+        set fqdn "gmail.com"
+    next
+    edit "wildcard.google.com"
+        set uuid 8cb7c156-5b8e-51ef-5b1c-ebf6c4a4d4ec
+        set type fqdn
+        set fqdn "*.google.com"
+    next
+    edit "wildcard.dropbox.com"
+        set uuid 8cb7d948-5b8e-51ef-77a8-7e48da2de302
+        set type fqdn
+        set fqdn "*.dropbox.com"
+    next
+    edit "all"
+        set uuid 8cc8eb8e-5b8e-51ef-4599-bd39d6004102
+    next
+    edit "FIREWALL_AUTH_PORTAL_ADDRESS"
+        set uuid 8cc8f660-5b8e-51ef-6e03-aca19f8ecce7
+    next
+    edit "FABRIC_DEVICE"
+        set uuid 8cc8ffca-5b8e-51ef-26b1-50b1d462ea1d
+        set comment "IPv4 addresses of Fabric Devices."
+    next
+    edit "SSLVPN_TUNNEL_ADDR1"
+        set uuid 8ccb15d0-5b8e-51ef-d450-08e33c93852a
+        set type iprange
+        set associated-interface "ssl.root"
+        set start-ip 10.212.134.200
+        set end-ip 10.212.134.210
+    next
+    edit "FCTEMS_ALL_FORTICLOUD_SERVERS"
+        set uuid 850ca856-5b91-51ef-ba92-531945555006
+        set type dynamic
+        set sub-type ems-tag
+    next
+    edit "VLAN 10 Area 20"
+        set uuid de67a47c-5caa-51ef-68be-63166b53c608
+        set comment "VLAN 10 Area 20"
+        set associated-interface "Internal"
+        set color 17
+        set subnet 10.26.10.0 255.255.255.0
+    next
+    edit "VLAN 20 Area 20"
+        set uuid 6a528f4c-5cab-51ef-762b-e3f4af1562bd
+        set comment "VLAN 20 Area 20 Subnet"
+        set associated-interface "Internal"
+        set color 6
+        set subnet 10.26.20.0 255.255.255.0
+    next
+    edit "DMZ"
+        set uuid e5489b4c-5cab-51ef-6b9b-6a3dd772ecf7
+        set comment "DMZ Subnet Address Object"
+        set associated-interface "DMZ"
+        set color 14
+        set subnet 10.26.30.0 255.255.255.0
+    next
+    edit "Servers"
+        set uuid 18660500-5cac-51ef-925a-1fbad16470de
+        set comment "Internal Servers Subnet Address Object"
+        set associated-interface "Internal"
+        set color 10
+        set subnet 10.26.40.0 255.255.255.0
+    next
+    edit "FGFW Internal"
+        set uuid 1f53ef32-6673-51ef-bcea-4deb7cbd6c5b
+        set comment "Internal Firewall Management IP"
+        set associated-interface "Internal"
+        set color 31
+        set subnet 10.26.5.1 255.255.255.255
+    next
+    edit "Loopback0 address"
+        set uuid 0c00cc58-67d5-51ef-b69b-63ef4d33f4a8
+        set type interface-subnet
+        set subnet 10.26.41.15 255.255.255.255
+        set interface "Loopback0"
+    next
+    edit "VLAN 10 Area 10"
+        set uuid 60e9f70e-db83-51ef-0d4e-fed4fcf769ac
+        set comment "VLAN 10 Area 10 Subnet"
+        set associated-interface "Internal"
+        set color 17
+        set subnet 10.26.9.0 255.255.255.0
+    next
+    edit "VLAN 10 Area 30"
+        set uuid cdaf47d6-db83-51ef-04b3-a3c852e4e87e
+        set comment "VLAN 10 Area 30 Subnet"
+        set associated-interface "Internal"
+        set color 17
+        set subnet 10.26.11.0 255.255.255.0
+    next
+    edit "VLAN 20 Area 10"
+        set uuid 7d669d1e-db84-51ef-a862-1953ff313859
+        set comment "VLAN 20 Area 10 Subnet"
+        set associated-interface "Internal"
+        set color 6
+        set subnet 10.26.19.0 255.255.255.0
+    next
+    edit "VLAN 20 Area 30"
+        set uuid 8faec80c-db84-51ef-0699-2e2dd8605c9f
+        set comment "VLAN 20 Area 30 Subnet"
+        set associated-interface "Internal"
+        set color 6
+        set subnet 10.26.21.0 255.255.255.0
+    next
+    edit "Routed Addresses"
+        set uuid 65879eec-dc0a-51ef-a5ff-b5a9e541b515
+        set comment "Internal Routed Addresses Subnet"
+        set associated-interface "Internal"
+        set color 2
+        set subnet 10.26.5.0 255.255.255.0
+    next
+    edit "RemoteAccess_range"
+        set uuid cf335ff4-e2b6-51ef-38bc-dda6d2c416e3
+        set type iprange
+        set comment "VPN: RemoteAccess (Created by VPN wizard)"
+        set start-ip 10.26.50.10
+        set end-ip 10.26.50.99
+    next
+    edit "ESXI Management"
+        set uuid 088929fc-e409-51ef-fd09-83f892ee7af4
+        set comment "ESXI Management Subnet"
+        set associated-interface "Internal"
+        set color 10
+        set subnet 10.26.99.0 255.255.255.0
+    next
+    edit "L2TP VPN_range"
+        set uuid 3376145a-e435-51ef-ca73-16442188bc89
+        set type iprange
+        set comment "VPN: L2TP VPN (Created by VPN wizard)"
+        set start-ip 10.26.50.101
+        set end-ip 10.26.50.199
+    next
+    edit "L2TP IPsec RA_range"
+        set uuid 1b81f45a-e718-51ef-a588-50acc32b3c11
+        set type iprange
+        set comment "VPN: L2TP IPsec RA (Created by VPN wizard)"
+        set start-ip 10.26.50.101
+        set end-ip 10.26.50.199
+    next
+    edit "L2TP_RA_range"
+        set uuid 1614597c-ef1f-51ef-5314-11915866c092
+        set type iprange
+        set comment "VPN: L2TP_RA (Created by VPN wizard)"
+        set start-ip 10.26.50.101
+        set end-ip 10.26.50.199
+    next
+    edit "test 1_range"
+        set uuid 196535ec-ef24-51ef-bd1c-cc0a6e386744
+        set type iprange
+        set comment "VPN: test 1 (Created by VPN wizard)"
+        set start-ip 10.10.10.1
+        set end-ip 10.10.10.100
+    next
+    edit "FortiClient_range"
+        set uuid 8751447a-ef41-51ef-93f0-f47b4cdb7d78
+        set type iprange
+        set comment "VPN: FortiClient (Created by VPN wizard)"
+        set start-ip 10.26.60.101
+        set end-ip 10.26.60.199
+    next
+    edit "Active Directory"
+        set uuid 86b10856-efb0-51ef-1d3d-d4b097764188
+        set associated-interface "Internal"
+        set color 18
+        set subnet 10.26.10.100 255.255.255.255
+    next
+end
+
+T-FGFW-40F # show firewall vip
+config firewall vip
+    edit "NS1-VIP"
+        set uuid 8a9246dc-e408-51ef-2769-5d8e9eaa27cb
+        set comment "NS1 DMZ DNS VIP"
+        set service "DNS" "NTP" "PING"
+        set extip 44.36.17.100
+        set mappedip "10.26.30.100"
+        set extintf "wan"
+        set color 13
+    next
+    edit "NS2-VIP"
+        set uuid c1faca72-e408-51ef-4bdf-0acdb4896eb9
+        set comment "NS2 DMZ DNS VIP"
+        set service "DNS" "NTP" "PING"
+        set extip 44.36.17.101
+        set mappedip "10.26.30.101"
+        set extintf "wan"
+        set color 14
+    next
+    edit "AD VIP"
+        set uuid db334f2a-e726-51ef-58ba-1cf407ac0feb
+        set extip 44.36.17.60
+        set mappedip "10.26.10.100"
+        set extintf "wan"
+        set color 18
+    next
+end
+
+
