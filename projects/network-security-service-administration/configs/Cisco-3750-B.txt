@@ -9,7 +9,7 @@ version 15.2
 no service pad
 service timestamps debug datetime msec
 service timestamps log datetime msec
-no service password-encryption
+service password-encryption
 !
 hostname T-3750-B
 !
@@ -339,11 +339,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key XXXXXXXXXXXX
+ key 7 XXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key XXXXXXXXXXXX
+ key 7 XXXXXXXXXXXX
 !
 !
 line con 0
