@@ -15,7 +15,7 @@ boot-start-marker
 boot-end-marker
 !
 !
-enable secret 5 $1$tY0c$ispOTfckHCUkqt5aPV1cm0
+enable secret 5 XXXXXXXXXXXXXXXXXXXXXXXXX
 !
 no aaa new-model
 !
