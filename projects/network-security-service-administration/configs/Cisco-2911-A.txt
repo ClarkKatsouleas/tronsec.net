@@ -19,7 +19,7 @@ boot-end-marker
 !
 !
 logging userinfo
-enable secret 5 $1$NI.y$a2Xt6eAp04JwPj4ur/ga91
+enable secret 5 XXXXXXXXXXXXXXXXXXXX
 !
 aaa new-model
 !
@@ -85,7 +85,7 @@ multilink bundle-name authenticated
 !
 key chain OSPF-KEY-CHAIN
  key 1
-  key-string 7 060506324F41
+  key-string 7 XXXXXXXXXXXXXX
   cryptographic-algorithm hmac-sha-256
 password encryption aes
 !
@@ -105,7 +105,7 @@ dot1x system-auth-control
 !
 !
 vtp mode transparent
-username clark privilege 15 secret 5 $1$K/k1$YoJNN0rWQbyGxcbmweUke/
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXX
 !
 redundancy
 !
@@ -130,7 +130,7 @@ interface GigabitEthernet0/0
  description "To T-Nexus"
  ip address 10.26.5.14 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 0822455D0A16
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXX
  duplex auto
  speed auto
  ipv6 address autoconfig
@@ -141,7 +141,7 @@ interface GigabitEthernet0/1
  description "To T-3750-A"
  ip address 10.26.5.26 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 0822455D0A16
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXXX
  duplex auto
  speed auto
  ipv6 address autoconfig
@@ -154,7 +154,7 @@ interface GigabitEthernet0/2
  ip address 10.26.5.37 255.255.255.252
  ip ospf authentication message-digest
  ip ospf authentication-key 7 1511021F0725
- ip ospf message-digest-key 4 md5 7 00071A150754
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXX
  duplex auto
  speed auto
  ipv6 address autoconfig
@@ -245,11 +245,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key 7 060506324F41
+ key 7 XXXXXXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key 7 094F471A1A0A
+ key 7 XXXXXXXXXXXXXXXXX
 !
 !
 !
