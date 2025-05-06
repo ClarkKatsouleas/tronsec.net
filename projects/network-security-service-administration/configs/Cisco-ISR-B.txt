@@ -81,7 +81,7 @@ multilink bundle-name authenticated
 !
 key chain OSPF-KEY-CHAIN
  key 1
-  key-string 7 094F471A1A0A
+  key-string 7 XXXXXXXXXXXXXX
    cryptographic-algorithm hmac-sha-256
 password encryption aes
 !
@@ -98,9 +98,9 @@ spanning-tree extend system-id
 dot1x system-auth-control
 !
 !
-enable secret 9 $9$JQ7zfWNnn42P5U$5mVTBW7O65EIFeFODXqLnFmUigavP/WVOEgNfT7tAc.
+enable secret 9 XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 !
-username clark privilege 15 secret 9 $9$F3rXdk3Ky5zm/.$BdBqWmZTxIf8tWDzn2mc7vrmdYaptrwjkFFGSTvdN7w
+username clark privilege 15 secret 9 XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 !
 redundancy
  mode none
@@ -127,7 +127,7 @@ interface GigabitEthernet0/0/0
  description "To T-2911-A"
  ip address 10.26.5.38 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 13061E010803
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXX
  negotiation auto
  ipv6 address autoconfig
  ipv6 enable
@@ -217,11 +217,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key 7 104D000A0618
+ key 7 XXXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key 7 070C285F4D06
+ key 7 XXXXXXXXXXXXXXX
 !
 !
 control-plane
@@ -231,6 +231,7 @@ line con 0
  logging synchronous
  stopbits 1
 line aux 0
+ shutdown
 line vty 0 4
  logging synchronous
  transport input ssh
