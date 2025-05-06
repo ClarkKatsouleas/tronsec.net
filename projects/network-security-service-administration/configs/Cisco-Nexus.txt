@@ -19,16 +19,16 @@ feature lacp
 feature dhcp
 feature lldp
 
-username admin password 5 $5$4yV.xrDl$VtITtQ/rL7j5kBDniBm5M.fi/yUU.TgY3Z8ZUfSn5X
+username admin password 5 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 C  role network-admin
-username clark password 5 $5$5OZKGaUi$RJCmTBB0RfeDc24zq26CZPlF/o.vfqas8Sy4m/kDD3
+username clark password 5 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 2  role network-admin
 username clark role priv-15
 username clark passphrase  lifetime 99999 warntime 14 gracetime 3
 password strength-check
 ip domain-lookup
 ip domain-name tronsec.lcl
-radius-server key 7 "fewhg"
+radius-server key 7 "XXXXXXXXXXXX"
 radius-server retransmit 3
 radius-server deadtime 3
 radius-server host 10.26.10.100 authentication accounting
@@ -40,9 +40,9 @@ aaa group server radius ADDC_RADIUS
     source-interface Ethernet1/3
 crypto key param rsa label T-Nexus.tronsec.lcl modulus 2048
 logging event link-status default
-snmp-server user admin network-admin auth md5 0x1adb4a6185e3e0cfb7b9dd8fd1d5d77f
+snmp-server user admin network-admin auth md5 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  priv 0x1adb4a6185e3e0cfb7b9dd8fd1d5d77f localizedkey
-snmp-server user clark network-admin auth md5 0x0081e1db4b3363eee375a62eff9b84b5
+snmp-server user clark network-admin auth md5 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  priv 0x0081e1db4b3363eee375a62eff9b84b5 localizedkey
 snmp-server user clark priv-15
 rmon event 1 log description FATAL(1) owner PMON@FATAL
@@ -56,7 +56,7 @@ aaa authentication login console group ADDC_RADIUS local
 vlan 1
 key chain OSPF-KEY-CHAIN
   key 1
-    key-string 7 070c285f4d06
+    key-string 7 XXXXXXXXXXXXXXXXXXX
 no ip dhcp relay
 vrf context management
 
@@ -74,7 +74,7 @@ interface port-channel1
   ip address 10.26.5.9/30
   ipv6 address use-link-local-only
   ip ospf authentication message-digest
-  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf message-digest-key 4 md5 3 XXXXXXXXXXXXXXX
   ip ospf cost 1
   ip router ospf OSPF4 area 0.0.0.0
   ipv6 router ospfv3 OSPF6 area 0.0.0.0
@@ -86,7 +86,7 @@ interface Ethernet1/1
   ip address 10.26.5.2/30
   ipv6 address use-link-local-only
   ip ospf authentication message-digest
-  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf message-digest-key 4 md5 3 XXXXXXXXXXXXXXXXX
   ip ospf cost 40
   ip router ospf OSPF4 area 0.0.0.0
   ipv6 router ospfv3 OSPF6 area 0.0.0.0
@@ -98,7 +98,7 @@ interface Ethernet1/2
   ip address 10.26.5.13/30
   ipv6 address use-link-local-only
   ip ospf authentication message-digest
-  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf message-digest-key 4 md5 3 XXXXXXXXXXXXXXXX
   ip ospf cost 1
   ip router ospf OSPF4 area 0.0.0.0
   ipv6 router ospfv3 OSPF6 area 0.0.0.0
@@ -110,7 +110,7 @@ interface Ethernet1/3
   ip address 10.26.5.17/30
   ipv6 address use-link-local-only
   ip ospf authentication message-digest
-  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf message-digest-key 4 md5 3 XXXXXXXXXXXXXXXXX
   ip ospf cost 1
   ip router ospf OSPF4 area 0.0.0.0
   ipv6 router ospfv3 OSPF6 area 0.0.0.0
@@ -122,7 +122,7 @@ interface Ethernet1/4
   ip address 10.26.5.21/30
   ipv6 address use-link-local-only
   ip ospf authentication message-digest
-  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf message-digest-key 4 md5 3 XXXXXXXXXXXXXXXXX
   ip ospf cost 1
   ip router ospf OSPF4 area 0.0.0.0
   ipv6 router ospfv3 OSPF6 area 0.0.0.0
