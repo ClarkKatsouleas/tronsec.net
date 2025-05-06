@@ -218,7 +218,7 @@
   }
 
   /* Add cursor pointer to all device groups */
-  .cloud-group, .firewall-group, .router-group, 
+  .firewall-group, .router-group, 
   .switch-group, .pc-group, .server-group, .l3switch-group {
     cursor: pointer;
   }
@@ -1417,7 +1417,7 @@ The virtualization infrastructure is built around an HP ProLiant DL360 Gen9 serv
             menu.classList.toggle('hidden');
         }
 
-const deviceGroups = document.querySelectorAll('.cloud-group, .firewall-group, .router-group, .switch-group, .pc-group, .server-group, .l3switch-group');
+const deviceGroups = document.querySelectorAll('.firewall-group, .router-group, .switch-group, .pc-group, .server-group, .l3switch-group');
 
 // Define a list of devices that should not be clickable
 const nonClickableDevices = ['NS1', 'NS2', 'PC1', 'PC2', 'PC3', 'PC4', 'ESXi', 'VPN', 'Internet']; // Add any other devices you want to exclude
