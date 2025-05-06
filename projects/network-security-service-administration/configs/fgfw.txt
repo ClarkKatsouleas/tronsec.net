@@ -1,4 +1,3 @@
-Interfaces:
 T-FGFW-40F # show system interface
 config system interface
     edit "wan"
@@ -122,7 +121,7 @@ config router ospf
             set hello-interval 10
             config md5-keys
                 edit 4
-                    set key-string ENC k1cMNRWcsKC5e/gjGev+JLF9q9u58AV7ZPbnmEkDQ06gTNF/4tgnzENn47u8kzRbkZySM9aOWf4NT9Bzh2ThW4OSNaRZobs/d5vXSHOrEnzFk5ZX3XJh+3G226QpkXNFVTPO+AqdHJCN+OAvWPPN42MZcSV+gSRz/eBRBlpoKR8poN72ZGcGLiLCUeij+aGUKpeKIg==
+                    set key-string ENC password
                 next
             end
         next
@@ -134,7 +133,7 @@ config router ospf
             set hello-interval 10
             config md5-keys
                 edit 4
-                    set key-string ENC pKNrg0mujVcyaPHEpoMXKg5djnhs/dSUtM0hyMaVf+Bhit/sZYW8NcgpepJH2MVYPpQPdhfKy0SHOOC7heAEPzIrzGSccXmbD6ckMGE9EgwkdJqDhOCjRO2mzoXe5pRC6Qp+2VijDv0IQm/gmVkgRRdipMUW3CDCRIrZIBaPXH1VgEhT9ZP53i8agPCZb7FbnkQxFA==
+                    set key-string ENC password
                 next
             end
         next
