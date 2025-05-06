@@ -22,14 +22,13 @@ interface vlan 20
 ip address 10.26.20.5 255.255.255.0
 exit
 interface vlan 40
---More-- or (q)uit
 ip address 10.26.40.5 255.255.255.0
 exit
 interface vlan 99
 ip address 10.26.99.5 255.255.255.0
 exit
 no passwords min-length
-username "clark" password password privilege 15 encrypted
+username "clark" password XXXXXXXXXXXX privilege 15 encrypted
 aaa authentication login "defaultList" radius local
 aaa accounting exec "dfltExecList" start-stop radius
 aaa accounting dot1x default start-stop radius
@@ -39,14 +38,13 @@ aaa authorization network default radius
 radius-server timeout 5
 radius-server deadtime 3
 radius-server source-ip 10.26.10.5
-radius-server key "password"
+radius-server key "XXXXXXXXXXXXX"
 radius-server host auth 10.26.10.100
 name "addc"
 exit
 router ospf
 router-id 10.26.80.24
 exit
---More-- or (q)uit
 ip dhcp snooping
 ip dhcp snooping vlan 10,20
 ip arp inspection vlan 10,20
@@ -70,7 +68,6 @@ exit
 interface Te1/0/3
 speed 1000
 description 'To PC2'
---More-- or (q)uit
 switchport access vlan 10
 exit
 !
@@ -94,7 +91,6 @@ shutdown
 exit
 !
 interface Te1/0/7
---More-- or (q)uit
 shutdown
 exit
 !
@@ -118,7 +114,6 @@ interface Te1/0/12
 shutdown
 exit
 !
---More-- or (q)uit
 interface Te1/0/13
 shutdown
 exit
@@ -142,7 +137,6 @@ exit
 interface Te1/0/18
 shutdown
 exit
---More-- or (q)uit
 !
 interface Te1/0/19
 shutdown
@@ -166,7 +160,6 @@ exit
 !
 interface Te1/0/24
 shutdown
---More-- or (q)uit
 exit
 !
 interface loopback 0
