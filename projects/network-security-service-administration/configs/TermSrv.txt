@@ -1,4 +1,4 @@
-TermServ#show run
+TermSrv#show run
 Building configuration...
 
 Current configuration : 8574 bytes
@@ -9,7 +9,7 @@ service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
 !
-hostname TermServ
+hostname TermSrv
 !
 boot-start-marker
 boot-end-marker
@@ -368,4 +368,4 @@ line vty 5 15
 scheduler allocate 20000 1000
 end
 
-TermServ#
+TermSrv#
