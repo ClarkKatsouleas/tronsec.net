@@ -1,0 +1,243 @@
+T-Nexus# show run
+
+!Command: show running-config
+!Time: Thu Feb 20 05:05:06 2025
+
+version 7.3(13)N1(1)
+hostname T-Nexus
+
+no feature telnet
+feature ospf
+feature bgp
+feature ospfv3
+feature eigrp
+feature private-vlan
+feature port-security
+feature interface-vlan
+feature dot1x
+feature lacp
+feature dhcp
+feature lldp
+
+username admin password 5 $5$4yV.xrDl$VtITtQ/rL7j5kBDniBm5M.fi/yUU.TgY3Z8ZUfSn5X
+C  role network-admin
+username clark password 5 $5$5OZKGaUi$RJCmTBB0RfeDc24zq26CZPlF/o.vfqas8Sy4m/kDD3
+2  role network-admin
+username clark role priv-15
+username clark passphrase  lifetime 99999 warntime 14 gracetime 3
+password strength-check
+ip domain-lookup
+ip domain-name tronsec.lcl
+radius-server key 7 "fewhg"
+radius-server retransmit 3
+radius-server deadtime 3
+radius-server host 10.26.10.100 authentication accounting
+radius-server host fd00:c345:17:0:beef:10:0:100 authentication accounting
+aaa group server radius ADDC_RADIUS
+    server 10.26.10.100
+    server fd00:c345:17:0:beef:10:0:100
+    deadtime 3
+    source-interface Ethernet1/3
+crypto key param rsa label T-Nexus.tronsec.lcl modulus 2048
+logging event link-status default
+snmp-server user admin network-admin auth md5 0x1adb4a6185e3e0cfb7b9dd8fd1d5d77f
+ priv 0x1adb4a6185e3e0cfb7b9dd8fd1d5d77f localizedkey
+snmp-server user clark network-admin auth md5 0x0081e1db4b3363eee375a62eff9b84b5
+ priv 0x0081e1db4b3363eee375a62eff9b84b5 localizedkey
+snmp-server user clark priv-15
+rmon event 1 log description FATAL(1) owner PMON@FATAL
+rmon event 2 log description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 log description ERROR(3) owner PMON@ERROR
+rmon event 4 log description WARNING(4) owner PMON@WARNING
+rmon event 5 log description INFORMATION(5) owner PMON@INFO
+aaa authentication login default group ADDC_RADIUS local
+aaa authentication login console group ADDC_RADIUS local
+
+vlan 1
+key chain OSPF-KEY-CHAIN
+  key 1
+    key-string 7 070c285f4d06
+no ip dhcp relay
+vrf context management
+
+
+interface Vlan1
+
+interface Vlan99
+  description "VLAN 99 Sub-interface"
+  management
+
+interface port-channel1
+  description "Port-Channel To T-3750-A"
+  no switchport
+  speed 1000
+  ip address 10.26.5.9/30
+  ipv6 address use-link-local-only
+  ip ospf authentication message-digest
+  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf cost 1
+  ip router ospf OSPF4 area 0.0.0.0
+  ipv6 router ospfv3 OSPF6 area 0.0.0.0
+
+interface Ethernet1/1
+  description "To T-FGFW-40F"
+  no switchport
+  speed 1000
+  ip address 10.26.5.2/30
+  ipv6 address use-link-local-only
+  ip ospf authentication message-digest
+  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf cost 40
+  ip router ospf OSPF4 area 0.0.0.0
+  ipv6 router ospfv3 OSPF6 area 0.0.0.0
+
+interface Ethernet1/2
+  description "To T-2911-A"
+  no switchport
+  speed 1000
+  ip address 10.26.5.13/30
+  ipv6 address use-link-local-only
+  ip ospf authentication message-digest
+  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf cost 1
+  ip router ospf OSPF4 area 0.0.0.0
+  ipv6 router ospfv3 OSPF6 area 0.0.0.0
+
+interface Ethernet1/3
+  description "To T-2901-A"
+  no switchport
+  speed 1000
+  ip address 10.26.5.17/30
+  ipv6 address use-link-local-only
+  ip ospf authentication message-digest
+  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf cost 1
+  ip router ospf OSPF4 area 0.0.0.0
+  ipv6 router ospfv3 OSPF6 area 0.0.0.0
+
+interface Ethernet1/4
+  description "To T-ISR-A"
+  no switchport
+  speed 1000
+  ip address 10.26.5.21/30
+  ipv6 address use-link-local-only
+  ip ospf authentication message-digest
+  ip ospf message-digest-key 4 md5 3 9125d59c18a9b015
+  ip ospf cost 1
+  ip router ospf OSPF4 area 0.0.0.0
+  ipv6 router ospfv3 OSPF6 area 0.0.0.0
+
+interface Ethernet1/5
+  shutdown
+
+interface Ethernet1/6
+  shutdown
+
+interface Ethernet1/7
+  shutdown
+
+interface Ethernet1/8
+  shutdown
+
+interface Ethernet1/9
+  description "Fiber Port Channel to T-3750-A"
+  no switchport
+  speed 1000
+  channel-group 1 mode active
+
+interface Ethernet1/10
+  description "Fiber Port Channel to T-3750-A"
+  no switchport
+  speed 1000
+  channel-group 1 mode active
+
+interface Ethernet1/11
+  shutdown
+
+interface Ethernet1/12
+  shutdown
+
+interface Ethernet1/13
+  shutdown
+
+interface Ethernet1/14
+  shutdown
+
+interface Ethernet1/15
+  shutdown
+
+interface Ethernet1/16
+  shutdown
+
+interface Ethernet1/17
+  shutdown
+
+interface Ethernet1/18
+  shutdown
+
+interface Ethernet1/19
+  shutdown
+
+interface Ethernet1/20
+  shutdown
+
+interface Ethernet1/21
+  shutdown
+
+interface Ethernet1/22
+  shutdown
+
+interface Ethernet1/23
+  shutdown
+
+interface Ethernet1/24
+  shutdown
+
+interface Ethernet1/25
+  shutdown
+
+interface Ethernet1/26
+  shutdown
+
+interface Ethernet1/27
+  shutdown
+
+interface Ethernet1/28
+  shutdown
+
+interface Ethernet1/29
+  shutdown
+
+interface Ethernet1/30
+  shutdown
+
+interface Ethernet1/31
+  shutdown
+
+interface Ethernet1/32
+  shutdown
+
+interface mgmt0
+  vrf member management
+  ip address 10.8.255.10/30
+
+interface loopback0
+  description "T-Nexus Loopback Interface"
+  ip address 10.26.55.48/32
+  ipv6 address fd00:c345:17:0:b00b::3/128
+  ip router ospf OSPF4 area 0.0.0.0
+  ipv6 router ospfv3 OSPF6 area 0.0.0.0
+line console
+line vty
+boot kickstart bootflash:/n5000-uk9-kickstart.7.3.13.N1.1.bin
+boot system bootflash:/n5000-uk9.7.3.13.N1.1.bin
+router ospf OSPF4
+  router-id 10.26.55.48
+  area 0.0.0.0 authentication message-digest
+router ospfv3 OSPF6
+  router-id 3.3.3.3
+  address-family ipv6 unicast
+poap transit
+
+
+T-Nexus#

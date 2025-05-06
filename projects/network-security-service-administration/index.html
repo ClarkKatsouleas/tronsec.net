@@ -1,0 +1,1409 @@
+<!-- PROJECT 2 PAGE INDEX -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Security Homelab - Projects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* PROJECT 2 PAGE INDEX and Keeping all the original CSS styles */
+      .device {
+        fill: #fff;
+        stroke: #0066cc;
+        stroke-width: 2;
+      }
+    
+      .cloud-icon {
+        width: 60px;
+        height: 60px;
+        transform: translate(-30px, -30px);
+      }
+    
+      .firewall-icon {
+        width: 60px;
+        height: 60px;
+        transform: translate(-30px, -30px);
+      }
+    
+      .device-label {
+        font-family: system-ui;
+        font-size: 12px;
+        text-anchor: middle;
+        fill: #D1D5DB;
+        pointer-events: none;
+      }
+    
+      .server-icon {
+        width: 50px;
+        height: 50px;
+        transform: translate(-25px, -25px);
+      }
+    
+      .ap-icon {
+        width: 50px;
+        height: 50px;
+        transform: translate(-25px, -25px);
+      }
+    
+      .connection {
+        stroke: #666;
+        stroke-width: 3;
+      }
+    
+      .vlan10 {
+        fill: #2196F3;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+    
+      .vlan20 {
+        fill: #FF5722;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+    
+      .vlan30 {
+        fill: #4CAF50;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+
+      .vlan40 {
+        fill: #FFDF00;
+        stroke: #000000;
+        stroke-width: 0.5;
+        opacity: 0;
+      }
+
+     .internet-traffic-down {
+        fill: #000000;
+        stroke: #FFFFFF;
+        stroke-width: 1;
+        opacity: 0;
+      }
+
+     .internet-traffic-up {
+        fill: #FFFFFF;
+        stroke: #000000;
+        stroke-width: 1;
+        opacity: 0;
+      }
+
+     .vpn-traffic {
+        fill: #FF6EC7;
+        stroke: #000000;
+        stroke-width: 1;
+        opacity: 0;
+      }
+
+      .legend {
+        font-family: system-ui;
+        font-size: 12px;
+        fill: #D1D5DB;
+      }
+
+      .router-icon {
+        width: 50px;
+        height: 50px;
+        transform: translate(-25px, -25px);
+      }
+
+      .switch-icon {
+        width: 60px;
+        height: 60px;
+        transform: translate(-30px, -30px);
+      }
+      
+      .l3switch-icon {
+        width: 46px;
+        height: 46px;
+        transform: translate(-23px, -23px);
+      }
+
+      .pc-icon {
+        width: 44px;
+        height: 44px;
+        transform: translate(-22px, -22px);
+      }
+
+      .network-background {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          opacity: 1;
+      }
+
+  .device-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background-color: #1F2937;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 80%;
+    max-height: 80vh;
+    width: 600px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    color: #D1D5DB;
+    display: none;
+  }
+
+  .device-popup.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    display: block;
+  }
+
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #4B5563;
+  }
+
+  .popup-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #F9FAFB;
+  }
+
+  .close-popup {
+    background: none;
+    border: none;
+    color: #9CA3AF;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .close-popup:hover {
+    color: #F9FAFB;
+  }
+
+  .config-content {
+    font-family: 'Courier New', monospace;
+    background-color: #111827;
+    padding: 15px;
+    border-radius: 6px;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  /* Add cursor pointer to all device groups */
+  .cloud-group, .firewall-group, .router-group, 
+  .switch-group, .pc-group, .server-group, .l3switch-group {
+    cursor: pointer;
+  }
+
+
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 bg-opacity-90 text-white fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="relative flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <span class="text-xl font-bold">Tronsec.net</span>
+                </div>
+                
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="hidden md:flex md:space-x-4">
+                    <a href="../../" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
+                    <a href="../" class="px-3 py-2 rounded-md text-sm font-medium bg-gray-700">Projects</a>
+                    <a href="../../certifications" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="../../notes" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="../../" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
+                    <a href="../" class="block px-3 py-2 rounded-md text-base font-medium bg-gray-700">Projects</a>
+                    <a href="../../certifications" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Certifications</a>
+                    <a href="../../notes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Notes</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <div class="bg-gray-900 pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-white mb-4">Network Security & Service Administration Topology 1</h1>
+                <p class="text-xl text-gray-300">A comprehensive enterprise-grade network security environment</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Introduction -->
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg mx-auto">
+                <h2 class="text-3xl font-bold mb-6">Project Introduction</h2>
+                <p class="text-gray-600 mb-6">
+                    Initial planning for this project architecture began in December 2024, with physical implementation starting in Janruary 2025. 
+                </p>
+                <p class="text-gray-600 mb-6">
+                    The lab incorporates enterprise-grade hardware including Cisco Catalyst 3750e switches (x4), Cisco 2901 routers (x4), Cisco 2911 routers (x2), FortiNet FortiGate 40F Next Generation Firewall (NGFW), and an Juniper SRX 345 Firewall. ### Include overview here. ### An animated diagram of the network architecture can be viewed below. Click on any networking device to view their configurations!
+                </p>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Cisco</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">FortiNet</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Juniper</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">OSPF</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Active Directory</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">ESXi</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">RADIUS</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">VLANs</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Network Diagram Section -->
+    <div class="bg-gray-900 pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Lab Environment Architecture</h2>
+            <!-- Network Animation -->
+            <div class="network-background">
+                <svg viewBox="0 0 1000 800" width="100%" height="100%">
+
+                <!-- All your network device groups and animations go here -->
+                <!-- Copy ALL the SVG content from your original animation -->
+
+                <!-- Network Devices -->
+      
+      <!-- Internet Cloud -->
+      <g transform="translate(350,50)" class="cloud-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/cloud.png" class="cloud-icon"/>
+        <text font-family="system-ui" font-size="12px" text-anchor="middle" fill="#333" pointer-events="none" y="5">Internet</text>
+      </g>
+
+      <!-- VPN Cloud -->
+      <g transform="translate(700,310)" class="cloud-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/cloud.png" class="cloud-icon"/>
+        <text font-family="system-ui" font-size="12px" text-anchor="middle" fill="#333" pointer-events="none" y="5">VPN</text>
+      </g>
+
+      <!-- Branch Cloud -->
+      <g transform="translate(900,150)" class="cloud-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/cloud.png" class="cloud-icon"/>
+        <text font-family="system-ui" font-size="12px" text-anchor="middle" fill="#333" pointer-events="none" y="5">Internet</text>
+      </g>
+
+      <!-- TermSrv Cloud -->
+      <g transform="translate(700,100)" class="cloud-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/cloud.png" class="cloud-icon"/>
+        <text font-family="system-ui" font-size="12px" text-anchor="middle" fill="#333" pointer-events="none" y="5">Internet</text>
+      </g>
+
+      <!-- Terminal Server -->
+      <g transform="translate(700,166)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" x="0"y="30">T-TermSrv</text>
+      </g>
+
+      <!-- FGFW Firewall -->
+      <g transform="translate(350,150)" class="firewall-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/firewall.png" class="firewall-icon"/>
+        <text class="device-label" y="55">T-FGFW-40F</text>
+      </g>
+
+      <!-- Juniper Firewall -->
+      <g transform="translate(900,245)" class="firewall-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/firewall.png" class="firewall-icon"/>
+        <text class="device-label" x="-42"y="8">T-Juniper</text>
+      </g>
+
+      <!-- Core Switches -->
+      <g transform="translate(270,250)" class="l3switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/l3switch.png" class="l3switch-icon"/>
+        <text class="device-label" x="49"y="-15">T-Nexus</text>
+      </g>
+      
+      <g transform="translate(430,250)" class="l3switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/l3switch.png" class="l3switch-icon"/>
+        <text class="device-label" x="-50" y="26">T-3750-A</text>
+      </g>
+
+
+      <!-- Routers -->
+      <g transform="translate(220,330)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" y="30">T-2911-A</text>
+      </g>
+      
+      <g transform="translate(350,390)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" x="52"y="5">T-2901-A</text>
+      </g>
+      
+      <g transform="translate(480,330)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" y="30">T-ISR-A</text>
+      </g>
+
+      <g transform="translate(80,280)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" x="0"y="-20">T-ISR-B</text>
+      </g>
+
+      <g transform="translate(630,360)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" x="-17"y="31">T-2901-B</text>
+      </g>
+
+      <g transform="translate(900,345)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" y="42">T-2911-B</text>
+      </g>
+
+      <g transform="translate(950,420)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" x="25" y="30">T-2901-C</text>
+      </g>
+
+      <g transform="translate(850,420)" class="router-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/router.png" class="router-icon"/>
+        <text class="device-label" y="30">T-ISR-C</text>
+      </g>
+
+      <!-- Edge Switches -->
+      <g transform="translate(70,400)" class="switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/switch.png" class="switch-icon"/>
+        <text class="device-label" x="-42" y="29">T-3750-B</text>
+      </g>
+      
+      <g transform="translate(350,490)" class="switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/switch.png" class="switch-icon"/>
+        <text class="device-label" x="33" y="-19">T-DellPWR</text>
+      </g>
+      
+      <g transform="translate(670,470)" class="switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/switch.png" class="switch-icon"/>
+        <text class="device-label" x="-29" y="29">T-3750-C</text>
+      </g>
+
+      <g transform="translate(460,155)" class="switch-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/switch.png" class="switch-icon"/>
+        <text class="device-label" y="29">T-3750-D</text>
+      </g>
+
+      <!-- PCs -->
+      <g transform="translate(30,490)" class="pc-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/pc.png" class="pc-icon"/>
+        <text class="device-label" y="36">PC1</text>
+      </g>
+      
+      <g transform="translate(300,580)" class="pc-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/pc.png" class="pc-icon"/>
+        <text class="device-label" y="36">PC2</text>
+      </g>
+      
+      <g transform="translate(670,570)" class="pc-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/pc.png" class="pc-icon"/>
+        <text class="device-label" y="36">PC3</text>
+      </g>
+
+      <g transform="translate(910,505)" class="pc-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/pc.png" class="pc-icon"/>
+        <text class="device-label" y="36">PC4</text>
+      </g>
+
+      <!-- Servers -->
+      <g transform="translate(400,580)" class="server-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/server.png" class="server-icon"/>
+        <text class="device-label" y="39">ESXi</text>
+      </g>
+
+      <g transform="translate(545,120)" class="server-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/server.png" class="server-icon"/>
+        <text class="device-label" y="-30">NS1</text>
+      </g>
+
+      <g transform="translate(545,180)" class="server-group">
+        <circle class="device" r="25" opacity="0"/>
+        <image href="../../assets/animation/server.png" class="server-icon"/>
+        <text class="device-label" y="38">NS2</text>
+      </g>
+
+
+      <!-- Connections -->
+      
+      <line class="connection" x1="700" y1="117" x2="700" y2="149"/> <!-- Internet to TermSrv -->
+
+      <line class="connection" x1="350" y1="67" x2="350" y2="120"/> <!-- Internet to Firewall1 -->
+      <line class="connection" x1="337" y1="172" x2="270" y2="229"/> <!-- Firewall to T-Nexus -->
+      <line class="connection" x1="357" y1="172" x2="432" y2="229"/> <!-- Firewall to T-3750-A -->
+      <line class="connection" x1="362" y1="152" x2="433" y2="152"/> <!-- Firewall to T-3750-D -->
+      <line class="connection" x1="489" y1="147" x2="528" y2="130"/> <!-- T-3750-D to NS1 -->
+      <line class="connection" x1="485" y1="157" x2="528" y2="170"/> <!-- T-3750-D to NS2 -->
+      <line class="connection" x1="290" y1="245" x2="407" y2="245"/> <!-- T-Nexus to T-3750-A1 -->
+      <line class="connection" x1="290" y1="255" x2="407" y2="255"/> <!-- T-Nexus to T-3750-A2 -->
+      <line class="connection" x1="270" y1="273" x2="235" y2="315"/> <!-- T-Nexus to T-2911-A -->
+      <line class="connection" x1="270" y1="273" x2="345" y2="375"/> <!-- T-Nexus to T-2901-A -->
+      <line class="connection" x1="270" y1="273" x2="455" y2="327"/> <!-- T-Nexus to T-ISR-A -->
+      <line class="connection" x1="432" y1="273" x2="244" y2="327"/> <!-- T-3750-A to T-2911-A -->
+      <line class="connection" x1="432" y1="273" x2="355" y2="375"/> <!-- T-3750-A to T-2901-A -->
+      <line class="connection" x1="432" y1="273" x2="470" y2="315"/> <!-- T-3750-A to T-ISR-A -->
+
+      <line class="connection" x1="195" y1="328" x2="105" y2="285"/> <!-- T-2911-A to T-ISR-B -->
+      <line class="connection" x1="196" y1="339" x2="99" y2="392"/> <!-- T-2911-A to T-3750-B -->
+      <line class="connection" x1="80" y1="297" x2="73" y2="385"/> <!-- T-ISR-B to T-3750-B -->
+      <line class="connection" x1="64" y1="414" x2="37" y2="471"/> <!-- T-3750-B to PC1 -->
+
+      <line class="connection" x1="350" y1="407" x2="350" y2="475"/> <!-- T-2901-A to T-DellPWR -->
+      <line class="connection" x1="337" y1="504" x2="304" y2="560"/> <!-- T-DellPWR to PC2 -->
+      <line class="connection" x1="358" y1="504" x2="400" y2="556"/> <!-- T-DellPWR to ESXi -->
+      
+      <line class="connection" x1="505" y1="333" x2="605" y2="357"/> <!-- T-ISR-A to T-2901-B -->
+      <line class="connection" x1="645" y1="345" x2="679" y2="322"/> <!-- T-2901-B to VPN Cloud -->
+      <line class="connection" x1="640" y1="375" x2="670" y2="455"/> <!-- T-2901-B to T-3750-C -->
+      <line class="connection" x1="670" y1="484" x2="670" y2="550"/> <!-- T-3750-C to PC3 -->
+
+      <line class="connection" x1="900" y1="167" x2="900" y2="215"/> <!-- Internet to Firewall2 -->
+      <line class="connection" x1="900" y1="274" x2="900" y2="328"/> <!-- T-Juniper to T-2911-B -->
+      <line class="connection" x1="888" y1="360" x2="850" y2="404"/> <!-- T-2911-B to T-ISR-C -->
+      <line class="connection" x1="912" y1="360" x2="950" y2="404"/> <!-- T-2911-B to T-2901-C -->
+      <line class="connection" x1="875" y1="420" x2="925" y2="420"/> <!-- T-ISR-C to T-2901-C -->
+      <line class="connection" x1="950" y1="435" x2="912" y2="486"/> <!-- T-2901-C to PC4 -->
+
+      <!-- Legend -->
+      <g transform="translate(50,50)">
+        <rect width="15" height="15" fill="#2196F3" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="12" class="legend">VLAN 10</text>
+        <rect y="20" width="15" height="15" fill="#FF5722" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="32" class="legend">VLAN 20</text>
+        <rect y="40" width="15" height="15" fill="#4CAF50" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="52" class="legend">VLAN 30</text>
+        <rect y="60" width="15" height="15" fill="#FFDF00" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="72" class="legend">VLAN 40</text>
+        <rect y="80" width="15" height="15" fill="#FF6EC7" stroke="#000000" stroke-width="1"/>
+        <text x="25" y="92" class="legend">VPN</text>
+      </g>
+
+
+      <!-- VLAN Animations -->
+
+      <!-- Internet to TermSrv -->
+      <!-- Downward traffic (black) -->
+      <circle class="internet-traffic-down" r="4">
+        <animate attributeName="cx" values="700;700" dur="1.5s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="117;149" dur="1.5s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Upward traffic (white) -->
+      <circle class="internet-traffic-up" r="4">
+        <animate attributeName="cx" values="700;700" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="149;117" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+
+      
+      <!-- Internet to Firewall1 Traffic -->
+      <!-- Downward traffic (black) -->
+      <circle class="internet-traffic-down" r="4">
+        <animate attributeName="cx" values="350;350" dur="1.5s" begin="0.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="67;120" dur="1.5s" begin="0.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.1s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Downward traffic (black) -->
+      <circle class="internet-traffic-down" r="4">
+        <animate attributeName="cx" values="900;900" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="167;215" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Upward traffic (white) -->
+      <circle class="internet-traffic-up" r="4">
+        <animate attributeName="cx" values="350;350" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="120;67" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Upward traffic (white) -->
+      <circle class="internet-traffic-up" r="4">
+        <animate attributeName="cx" values="900;900" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="215;167" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- Upward traffic (VPN) -->
+      <circle class="vpn-traffic" r="4">
+        <animate attributeName="cx" values="900;900" dur="1.8s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="215;167" dur="1.8s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Firewall to T-Nexus Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="337;270" dur="1.8s" begin="0.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="172;229" dur="1.8s" begin="0.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.1s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="270;337" dur="1.8s" begin="0.9s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="229;172" dur="1.8s" begin="0.9s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.9s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- Firewall to T-3750-A Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="357;432" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="172;229" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="432;357" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="229;172" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- Firewall to T-3750-D Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="362;433" dur="1.6s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="152;152" dur="1.6s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="433;362" dur="1.6s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="152;152" dur="1.6s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-3750-D to NS1 Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="489;528" dur="1.4s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="147;130" dur="1.4s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.4s" begin="0.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="528;489" dur="1.4s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="130;147" dur="1.4s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.4s" begin="1.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-3750-D to NS2 Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="485;528" dur="1.4s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="157;170" dur="1.4s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.4s" begin="0.7s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="528;485" dur="1.4s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="170;157" dur="1.4s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.4s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-Nexus to T-3750-A1 Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="290;407" dur="1.6s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="245;245" dur="1.6s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="407;290" dur="1.6s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="245;245" dur="1.6s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.1s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-Nexus to T-3750-A2 Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="290;407" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="255;255" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="407;290" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="255;255" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-Nexus to T-2911-A Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="270;235" dur="1.7s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="273;315" dur="1.7s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="235;270" dur="1.7s" begin="1.0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="315;273" dur="1.7s" begin="1.0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="1.0s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-Nexus to T-2901-A Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="270;345" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="273;375" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="345;270" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="375;273" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-Nexus to T-ISR-A Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="270;455" dur="2.0s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="273;327" dur="2.0s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.0s" begin="0.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="455;270" dur="2.0s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="327;273" dur="2.0s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.0s" begin="1.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-3750-A to T-2911-A Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="432;244" dur="2.0s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="273;327" dur="2.0s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.0s" begin="0.7s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="244;432" dur="2.0s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="327;273" dur="2.0s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.0s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-3750-A to T-2901-A Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="432;355" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="273;375" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="355;432" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="375;273" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-3750-A to T-ISR-A Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="432;470" dur="1.7s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="273;315" dur="1.7s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="0.6s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="470;432" dur="1.7s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="315;273" dur="1.7s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="1.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2911-A to T-ISR-B Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="195;105" dur="1.8s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="328;285" dur="1.8s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="105;195" dur="1.8s" begin="1.0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="285;328" dur="1.8s" begin="1.0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.0s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2911-A to T-3750-B Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="196;99" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="339;392" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="99;196" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="392;339" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-ISR-B to T-3750-B Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="80;73" dur="1.6s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="297;385" dur="1.6s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="73;80" dur="1.6s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="385;297" dur="1.6s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-3750-B to PC1 Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="64;37" dur="1.5s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="414;471" dur="1.5s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.7s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="37;64" dur="1.5s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="471;414" dur="1.5s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2901-A to T-DellPWR Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="350;350" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="407;475" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="350;350" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="475;407" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-DellPWR to PC2 Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="337;304" dur="1.5s" begin="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="504;560" dur="1.5s" begin="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.8s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="304;337" dur="1.5s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="560;504" dur="1.5s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="1.6s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-DellPWR to ESXi Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="358;400" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="504;556" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="400;358" dur="1.5s" begin="1.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="556;504" dur="1.5s" begin="1.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="1.7s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-ISR-A to T-2901-B Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="505;605" dur="1.9s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="333;357" dur="1.9s" begin="0.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.9s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="605;505" dur="1.9s" begin="1.0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="357;333" dur="1.9s" begin="1.0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.9s" begin="1.0s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2901-B to VPN Cloud Traffic -->
+      <circle class="internet-traffic-up" r="4">
+        <animate attributeName="cx" values="645;679" dur="1.7s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="345;322" dur="1.7s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+
+      <circle class="vpn-traffic" r="4">
+        <animate attributeName="cx" values="645;679" dur="1.4s" begin="0.0s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="345;322" dur="1.4s" begin="0.0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.4s" begin="0.0s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="internet-traffic-down" r="4">
+        <animate attributeName="cx" values="679;645" dur="1.7s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="322;345" dur="1.7s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="1.1s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2901-B to T-3750-C Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="640;670" dur="1.7s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="375;455" dur="1.7s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="670;640" dur="1.7s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="455;375" dur="1.7s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-3750-C to PC3 Traffic -->
+      <circle class="vlan30" r="4">
+        <animate attributeName="cx" values="670;670" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="484;550" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan40" r="4">
+        <animate attributeName="cx" values="670;670" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="550;484" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-Juniper to T-2911-B Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="900;900" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="274;328" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="900;900" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="328;274" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.1s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2911-B to T-ISR-C Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="888;850" dur="1.7s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="360;404" dur="1.7s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="0.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="850;888" dur="1.7s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="404;360" dur="1.7s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="1.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2911-B to T-2901-C Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="912;950" dur="1.7s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="360;404" dur="1.7s" begin="0.7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="0.7s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="950;912" dur="1.7s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="404;360" dur="1.7s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-ISR-C to T-2901-C Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="875;925" dur="1.6s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="420;420" dur="1.6s" begin="0.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan20" r="4">
+        <animate attributeName="cx" values="925;875" dur="1.6s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="420;420" dur="1.6s" begin="1.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- T-2901-C to PC4 Traffic -->
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="950;912" dur="1.5s" begin="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="435;486" dur="1.5s" begin="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.8s" repeatCount="indefinite"/>
+      </circle>
+      
+      <circle class="vlan10" r="4">
+        <animate attributeName="cx" values="912;950" dur="1.5s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="486;435" dur="1.5s" begin="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="1.6s" repeatCount="indefinite"/>
+      </circle>
+       </svg>
+
+
+	<div class="overlay" id="overlay"></div>
+	<div class="device-popup" id="devicePopup">
+	  <div class="popup-header">
+	    <h3 class="popup-title" id="deviceName">Device Configuration</h3>
+	    <button class="close-popup" id="closePopup">&times;</button>
+	  </div>
+	  <div class="config-content" id="configContent">Loading configuration...</div>
+	</div>
+
+        </div>
+    </div>
+
+
+    <!-- Project Details -->
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg mx-auto">
+                <h2 class="text-3xl font-bold mb-6">Project Details</h2>
+
+            <!-- Logical Architecture Mapping -->
+            <h3 class="text-2xl font-bold mt-8 mb-4">Logical Architecture Mapping</h3>
+            <div class="overflow-x-auto mb-8">
+                <table class="min-w-full border border-gray-200">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Hostname </th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Device</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Operating System</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">IP Address</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">VLAN</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Specifications</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- FortiGate Firewall -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">fgfw</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiNet FG-40F</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiOS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">NGFW / Edge Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.5.1/30</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">NGFW with Firewall Filtering, and Certificate-Based Client Access VPN</td>
+                        </tr>
+                        <!-- Cisco Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">labrt</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 1921</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Internal Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.5.2/30</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10,20,40</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF, RADIUS Auth</td>
+                        </tr>
+                        <!-- Cisco Switch -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">labsw</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750-X</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Core Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">L2/L3 Switch, Port Security</td>
+                        </tr>
+                        <!-- TP-Link Wireless -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">wifi</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TP-Link AX1800</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Wireless Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.20.10</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">Wireless Access, Client Connectivity</td>
+                        </tr>
+                        <!-- OptiPlex 5070 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">adds</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell OptiPlex 5070</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Windows Server 2022</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Active Directory Server</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.100</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">16GB RAM, AD, DNS, RADIUS</td>
+                        </tr>
+                        <!-- OptiPlex 5060 -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">dns</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell OptiPlex 5060</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Ubuntu 24.04</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">DMZ DNS Server</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.30.100</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">16GB RAM, AdGuard DNS</td>
+                        </tr>
+                        <!-- HP ProLiant -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">esxi</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">HP ProLiant DL360 Gen9</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VMware ESXi 7.0.3</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Virtualization Host</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.200</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">256GB RAM, 4TB SSD</td>
+                        </tr>
+                        <!-- Personal PC -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">pc</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Personal PC</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Windows 10 Pro</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Management Console</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.26</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">i9-9900k, 32GB RAM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Network Architecture & Segmentation -->
+            <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture & Segmentation</h3>
+            <p class="text-gray-600 mb-4">
+                The network implements an enterprise-grade segmentation strategy using four primary VLANs, each with specific security policies and access controls applied. Open Shortest Path First is used as a dynamic routing protocol between the router and firewall within area 0. Network Address Translation is applied to all security zones off of the firewall for general internet connectivity. A breakdown of the VLANs as they relate to infrastructure within the network can be viewed below.
+            </p>
+            <h4 class="text-xl font-semibold mt-6 mb-3">Management Infrastructure (VLAN 10)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.10.0/24</span></li>
+                <li>Cable designation: <span style="color: #2196F3">Blue</span> CAT6 UTP</li>
+                <li>Primary devices: Active Directory server (10.26.10.100), Management PC (10.26.10.26), HP ProLiant DL360 Gen9 ESXi Management Console (10.26.10.200)</li>
+                <li>RADIUS authentication integration for network devices</li>
+                <li>Primary DNS resolver for internal subnets and domain (tronsec.net)</li>
+                <li>Root Certificate Authority for the primary domain (10.26.10.100)</li>
+                <li>Link aggregation to HP ProLiant server using 4 x 1GbE CAT6 connections</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Wireless Network (VLAN 20)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.20.0/24</span></li>
+                <li>Cable designation: <span style="color: #FF5722">Red</span> CAT6 UTP</li>
+                <li>Isolated DHCP services on Cisco 1921 router</li>
+                <li>External DNS resolution through Cisco OpenDNS (208.67.222.222)</li>
+                <li>No internal network access - internet gateway only</li>
+                <li>ACLs prevent all inter-VLAN communication</li>
+                <li>Managed through TP-Link AX1800 WiFi 6 Router</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">DMZ Services (VLAN 30)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.30.0/24</span></li>
+                <li>Cable designation: <span style="color: #4CAF50">Green</span> CAT6 UTP</li>
+                <li>Hosts DMZ DNS server (10.26.30.100)</li>
+                <li>Relays internal DNS from Active Directory server</li>
+                <li>Direct internet access through FortiGate firewall</li>
+                <li>Selective access from VLAN 10 only</li>
+                <li>DNS forwarding to Cloudflare (1.1.1.1)</li>
+                <li>Services NTP for domain and log synchronization on networking devices</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Server Infrastructure (VLAN 40)</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-600">
+                <li>Subnet: <span class="font-bold">10.26.40.0/24</span></li>
+                <li>Cable designation: <span style="color: #FFDF00">Yellow</span> CAT6 UTP</li>
+                <li>LibreNMS monitoring system (10.26.40.20)</li>
+                <li>SecurityOnion IDS/IPS platform (10.26.40.30)</li>
+                <li>Management Access restricted to VLAN 10 only</li>
+            </ul>
+
+            <!-- Physical Infrastructure -->
+            <h4 class="text-xl font-semibold mt-6 mb-3">Physical Infrastructure</h4>
+            <ul class="list-disc pl-6 mb-6 text-gray-600">
+                <li>Cisco Catalyst 3750-X core switch with full VLAN support</li>
+                <li>Color-coded CAT6 cabling for easy VLAN identification</li>
+                <li>Link aggregation for server connectivity (4 x 1GbE)</li>
+                <li>FortiGate FG-40F NGFW for edge security and routing</li>
+                <li>Cisco 1921 router for internal routing and VLAN segmentation</li>
+                <li>TP-Link Wireless Router for mobile client connectivity</li>
+            </ul>
+
+                <!-- Network Connectivity & Routing -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Network Connectivity & Routing</h3>
+                <p class="text-gray-600 mb-4">
+                    The network displays sophisticated routing and connectivity solutions including:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>OSPF implementation between the Cisco 1921 router and FortiGate firewall for dynamic internal routing</li>
+                    <li>Link Aggregation (LAG) for ESXi server connections, providing enhanced bandwidth and redundancy</li>
+                    <li>Access Control Lists (ACLs) on both layer 2 and layer 3 devices for granular traffic control</li>
+                    <li>RADIUS authentication integration for secure device access and user authentication</li>
+                </ul>
+
+                <p class="text-gray-600 mb-4">
+                    The network displays a simple routing and connectivity solution that prioritizes reliability and security. OSPF routing is implemented between the Cisco 1921 router and FortiGate firewall to enable dynamic internal routing within area 0. The default route to the internet is injected at the edge of the network, the FortiGate Firewall, where dynamic routing to the DMZ occurs. The network features Link Aggregation (LAG) between the Cisco 3750-X switch and the ESXi server, utilizing four 1GbE connections bundled together to provide enhanced bandwidth and redundancy for server operations. Access Control Lists (ACLs) are strategically implemented on both layer 2 and layer 3 devices to enforce granular traffic control between VLANs and network segments. Traffic management is further enhanced through RADIUS authentication integration, which enables secure device access and user authentication through centralized Active Directory services. This comprehensive approach ensures efficient traffic flow while maintaining strict security controls across all network segments.
+                </p>
+
+                <!-- Active Directory & Authentication -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Active Directory & Authentication</h3>
+                <p class="text-gray-600 mb-4">
+                    A comprehensive authentication infrastructure built on Windows Server 2022:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>Centralized Active Directory services for user and device management</li>
+                    <li>RADIUS server integration for network device authentication</li>
+                    <li>Certificate Authority services for internal PKI infrastructure</li>
+                    <li>Group Policy implementation for security and access control</li>
+                    <li>Integration with FortiGate NGFW for user-based access policies</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Active Directory Domain Establishment</h4>
+                    <p class="text-gray-600 mb-4">
+                        The Active Directory domain environment was established using Windows Server 2022 with a root domain of tronsec.net. Initial configuration of the domain included setting up domain and DNS services to manage wired clients through Active Directory objects, with DNS relaying configured to the DMZ DNS server at 10.26.30.100. Additionally, security measures like a DSRM password were configured for administrative protection and control of the domain. A comprehensive administrator group was created for service and device management access, with user accounts established for other network administrators and test users, each assigned to the operator group. The domain infrastructure serves as the central authentication and management hub, hosting RADIUS authentication services to enable network device access using AD credentials. The server was configured as a root Certificate Authority (CA) to handle certificate signing and validation across the network infrastructure, particularly supporting SSL inspection on the FortiGate firewall and HTTPS services for internal websites. Time synchronization was implemented through NTP, with the AD server acting as a relay between the DMZ NTP server and all wired hosts on the network, ensuring consistent time settings across domain-joined systems.
+                    </p>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Authentication</h4>
+                    <p class="text-gray-600 mb-4">
+                        Remote Authentication Dial-In User Service (RADIUS) authentication was implemented to provide centralized network access control for all network devices. The Active Directory server at 10.26.10.100 was configured as the primary RADIUS server for authenticating network device access. This setup enabled integration between Active Directory user credentials and network device logins, allowing for unified authentication across the infrastructure. All Cisco network devices including the 3750-X switch and 1921 router were configured to use RADIUS as their primary authentication method with a local admin account configured as fallback. RADIUS shared secrets and UDP ports 1812/1813 were configured for authentication and accounting respectively. 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        This implementation ensured that all device access is authenticated against Active Directory, providing centralized user management and detailed accounting of network device access. Network policy server was configured on the Active Directory server to enforce specific authentication policies, including the use of Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. RADIUS groups were created to manage access levels, with RadiusUsers being assigned basic access and RadiusAdmins receiving elevated privileges. Establishment of this setup provided a robust, scalable authentication system that leveraged existing Active Directory infrastructure while maintaining security through centralized access control of networked devices.
+                    </p>
+
+                <!-- Security Implementation -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Security Implementation</h3>
+                <p class="text-gray-600 mb-4">
+                    Multi-layered security approach incorporating:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>FortiGate Next-Generation Firewall for advanced threat protection</li>
+                    <li>Network segmentation with strict VLAN isolation</li>
+                    <li>Layer 2 security including DHCP snooping and Dynamic ARP inspection</li>
+                    <li>802.1X port-based authentication for wired connections</li>
+                    <li>Comprehensive logging and monitoring through SecurityOnion and LibreNMS</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Client Authentication</h4>
+                    <p class="text-gray-600 mb-4">
+                        The RADIUS client authentication was configured on both the Cisco 1921 router and Cisco Catalyst 3750-X switch to provide centralized AAA services through the Active Directory server at 10.26.10.100. Authentication methods were configured to use RADIUS as the primary authentication source with local authentication as fallback. Pre-authentication ACLs were implemented to restrict access during the authentication process for known client access ports including the Personal PC, allowing only essential pre-authentication traffic like HTTP, HTTPS, DHCP and DNS. The switches and routers were configured with RADIUS shared secrets and used ports 1812/1813 for authentication and accounting respectively. Both devices had RADIUS dead-criteria configured with a 5-second timeout and 3 retries before marking a RADIUS server as unresponsive, with a deadtime of 3 minutes for client authentication through console and SSH. The authentication setup leverages Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. Access control was managed through two primary groups - RadiusUsers for basic access and RadiusAdmins for elevated privileges. This implementation provided robust, scalable authentication while maintaining security through centralized access control and accounting of network device access. Emergency local admin accounts with privilege level 15 were maintained as a fallback option, using type 9 scrypt secrets on the labsw switch and type 7 secrets on the labrt router, with passwords encrypted using AES.
+
+                    </p>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 2 Security Technologies</h4>
+                    <p class="text-gray-600 mb-4">
+                        Layer 2 security measures were extensively implemented on the Cisco Catalyst 3750-X switch to protect against common network attacks and unauthorized access. Dynamic Trunking Protocol (DTP) was disabled on all trunk interfaces to prevent unauthorized VLAN hopping attempts. For endpoint protection, all access interfaces had PortFast and BPDUGuard enabled to prevent spanning tree manipulation attacks while ensuring quick port initialization. Port security was implemented on all access interfaces connecting to endpoints, with a maximum of one MAC address allowed per port and a violation policy of restrict to prevent MAC address spoofing attacks. Dynamic ARP Inspection (DAI) was enabled on the trunk interface connected to the router for VLAN 10 to prevent ARP poisoning attacks. Access control for DAI was controlled via an ARP ACL locally on the switch, as a DHCP Snooping table did not exist for the wired network. On trunked interfaces to the server infrastructure, LAG was enabled on the four interfaces connecting to the HP ProLiant DL360 Gen9 server, creating an etherchannel port-group for both enhanced bandwidth and security. Unused switch ports were placed into a shutdown state to prevent unauthorized access attempts. These layered security controls worked together to create a robust defense against layer 2 attacks while maintaining high-speed network functionality with a small network of users.
+                    </p>
+
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 3 Security Technologies</h4>
+                    <p class="text-gray-600 mb-4">
+                        Layer 3 security measures were implemented through a comprehensive set of access control lists (ACLs) across multiple network segments. On the wireless VLAN (VLAN 20), traffic was strictly controlled with permits for essential services like ICMP echo, DHCP (bootpc/bootps), and domain services, while explicitly denying any cross-VLAN communication. Server connectivity (VLAN 40) ACLs were established to permit specific service traffic, including HTTP/HTTPS communication between monitoring servers and the DMZ, with DNS resolution and SNMP monitoring capabilities configured as needed. For the DMZ segment (VLAN 30), a firewall connectivity ACL was implemented with careful controls on both ingress and egress traffic, permitting only necessary protocols like OSPF, TCP to management interfaces, and essential monitoring services to the router itself (10.26.5.2). All ACLs were configured with explicit deny statements and logging capabilities to track potential security violations. 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        The management VLAN (VLAN 10) was granted controlled access to other segments through carefully crafted ACL entries, allowing for secure administration. It was configured to allow strategic access to the router-firewall link (10.26.5.0/30) and server infrastructure from the management PC (10.26.10.26), while maintaining strict control over broader network access. Additionally, OSPF routing between the Cisco router and FortiGate firewall was secured through neighbor authentication and route filtering to prevent unauthorized route advertisements.
+                    </p>
+
+                <!-- Virtualization Infrastructure -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Virtualization Infrastructure</h3>
+                <p class="text-gray-600 mb-4">
+                    ESXi-based virtualization platform hosting critical services:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>HP ProLiant DL360 Gen9 server with 256GB RAM and 4TB SSD storage</li>
+                    <li>Network monitoring and security analysis virtual machines</li>
+                    <li>Development and testing environments</li>
+                    <li>Link aggregation for enhanced network performance</li>
+                    <li>Integration with Active Directory for access control</li>
+                </ul>
+
+                <p class="text-gray-600 mb-4">
+                    Based on the documentation provided, I'll write a comprehensive paragraph about the Virtualization Infrastructure section. Here's my suggested content:
+The virtualization infrastructure is built around an HP ProLiant DL360 Gen9 server running VMware ESXi 7.0.3 as a Type 1 hypervisor. The server hardware features robust specifications including 256GB of DDR4 RAM and 4TB of SSD storage in 2.5" drive bays, providing ample resources for running multiple virtual machines. Network connectivity is established through a link aggregation of four 1GbE connections to the core Cisco 3750-X switch, for enhanced bandwidth and redundancy. The ESXi host is integrated into the Active Directory domain for centralized authentication and resides in VLAN 10 for management access with the address 10.26.10.200. Multiple virtual machines are hosted on the platform including LibreNMS for network monitoring (10.26.40.20), SecurityOnion IDS/IPS (10.26.40.30), and additional VMs for development and testing. The server's management interface (iLO) is accessible at 10.26.10.201 and provides out-of-band management capabilities. This virtualization platform serves as a critical component of the infrastructure, enabling flexible deployment of monitoring, security, and development environments while maintaining proper network segmentation through VLAN tagging and access controls.
+                </p>
+
+                <!-- Infrastructure Hardening -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Infrastructure Hardening</h3>
+                <p class="text-gray-600 mb-4">
+                    Comprehensive security hardening measures:
+                </p>
+                <ul class="list-disc pl-6 mb-6 text-gray-600">
+                    <li>Secure device configuration baselines across all network equipment</li>
+                    <li>Implementation of port security and unused port shutdown</li>
+                    <li>Strong password policies and encryption standards</li>
+                    <li>Regular security updates and patch management</li>
+                    <li>Automated monitoring and alerting for security events</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold mt-6 mb-3">Cisco IOS Device Hardening & Baselines</h4>
+                    <p class="text-gray-600 mb-4">
+                        Comprehensive infrastructure security hardening was implemented across both Cisco network devices through multiple configuration baselines. RADIUS client authentication was enabled on both the router and switch for administrative access, with the devices configured to use the Active Directory server at 10.26.10.100 as the primary authentication source. Emergency administrative accounts were established with privilege level 15 access, using type 9 scrypt secrets on the switch and type 7 secrets on the router for local authentication fallback. The service password-encryption command was applied using AES as the encryption algorithm to secure stored credentials. Executive timeout values were reduced to 10 minutes on both devices, and lockout policies were implemented to restrict access after 3 failed login attempts. 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        For logging and accountability, both devices were configured to record all login attempts, userinfo changes, and enable access events, with logs being forwarded to the SecurityOnion server at 10.26.40.30. The switch was further hardened through port security measures, implementing MAC address restrictions and violation policies on access ports. These port security measures included shutting down unused ports to prevent unauthorized access, and securing all logon methods such as shutting down the unused aux port, and adding an executive timeout to the VTY lines. From these securities implemented, secure configuration baselines were established for future expandability. These baselines established a solid security foundation while maintaining necessary management access through the secured management VLAN.
+                    </p>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- Responsive Footer -->
+    <footer class="bg-gray-800 bg-opacity-90 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h4 class="text-xl font-bold">Clark Katsouleas</h4>
+                    <p class="text-gray-400">Cybersecurity & Network Engineering Student</p>
+                    <p class="text-gray-400">clarkkatsouleas@gmail.com</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://www.linkedin.com/in/clark-katsouleas/" target="_blank" class="hover:text-blue-400">LinkedIn</a>
+                    <a href="mailto:clarkkatsouleas@gmail.com" class="hover:text-blue-400">Email</a>
+                </div>
+            </div>
+            <div class="mt-4 text-center text-gray-400 text-sm">
+                © 2024 Clark Katsouleas. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+const deviceGroups = document.querySelectorAll('.cloud-group, .firewall-group, .router-group, .switch-group, .pc-group, .server-group, .l3switch-group');
+
+// Define a list of devices that should not be clickable
+const nonClickableDevices = ['NS1', 'NS2', 'PC1', 'PC2', 'PC3', 'PC4', 'ESXi', 'VPN', 'Internet']; // Add any other devices you want to exclude
+
+// Get the popup elements
+const devicePopup = document.getElementById('devicePopup');
+const deviceName = document.getElementById('deviceName');
+const configContent = document.getElementById('configContent');
+const overlay = document.getElementById('overlay');
+const closePopup = document.getElementById('closePopup');
+  
+  // Map device groups to their configuration file paths
+  const deviceConfigs = {
+    'T-FGFW-40F': './configs/fgfw.txt',
+    'T-Juniper': './configs/Juniper-SRX-345.txt',
+    'T-Nexus': './configs/Cisco-Nexus.txt',
+    'T-3750-A': './configs/Cisco-3750-A.txt',
+    'T-2911-A': './configs/Cisco-2911-A.txt',
+    'T-2901-A': './configs/Cisco-2901-A.txt',
+    'T-ISR-A': './configs/Cisco-ISR-A.txt',
+    'T-ISR-B': './configs/Cisco-ISR-B.txt',
+    'T-2901-B': './configs/Cisco-2901-B.txt',
+    'T-2911-B': './configs/Cisco-2911-B.txt',
+    'T-2901-C': './configs/Cisco-2901-C.txt',
+    'T-ISR-C': './configs/Cisco-ISR-C.txt',
+    'T-3750-B': './configs/Cisco-3750-B.txt',
+    'T-DellPWR': './configs/DellPWR.txt',
+    'T-3750-C': './configs/Cisco-3750-C.txt',
+    'T-3750-D': './configs/Cisco-3750-D.txt',
+    'T-TermSrv': './configs/TermSrv.txt'
+  };
+  
+deviceGroups.forEach(device => {
+  // Find the device label text within this group
+  const labelElement = device.querySelector('.device-label');
+  if (!labelElement) return;
+  
+  // Get device name
+  const deviceId = labelElement.textContent.trim();
+  
+  // Skip this device if it's in the nonClickableDevices list
+  if (nonClickableDevices.includes(deviceId)) {
+    // Remove cursor pointer from non-clickable devices
+    device.style.cursor = 'default';
+    return; // Skip adding click listener
+  }
+  
+  // Add click event listener for clickable devices
+  device.addEventListener('click', function() {
+    // Set the popup title
+    deviceName.textContent = deviceId + ' Configuration';
+    
+    // Check if we have a configuration file for this device
+    if (deviceConfigs[deviceId]) {
+      loadDeviceConfig(deviceConfigs[deviceId]);
+    } else {
+      configContent.textContent = 'No configuration available for this device.';
+    }
+    
+    // Show the popup and overlay
+    devicePopup.classList.add('active');
+    overlay.classList.add('active');
+  });
+});
+
+  
+  // Close popup when clicking the close button or the overlay
+  closePopup.addEventListener('click', closeDevicePopup);
+  overlay.addEventListener('click', closeDevicePopup);
+  
+  function closeDevicePopup() {
+    devicePopup.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+  
+  // Function to load device configuration from a file
+  function loadDeviceConfig(configPath) {
+    configContent.textContent = 'Loading configuration...';
+    
+    fetch(configPath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Configuration file not found');
+        }
+        return response.text();
+      })
+      .then(data => {
+        configContent.textContent = data;
+      })
+      .catch(error => {
+        configContent.textContent = 'Error loading configuration: ' + error.message;
+      });
+  }
+
+    </script>
+</body>
+</html>

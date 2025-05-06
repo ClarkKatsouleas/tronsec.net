@@ -1,0 +1,260 @@
+T-2901-A#show run
+Building configuration...
+
+
+Current configuration : 4899 bytes
+!
+! Last configuration change at 03:43:16 UTC Thu Feb 20 2025 by t-clark
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2901-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging userinfo
+enable secret 5 $1$6M8z$KTOV3FkfWeL8g3GNKzvRW0
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/2/0.10
+ deadtime 3
+!
+aaa authentication login default group radius local
+aaa authorization console
+aaa authorization exec login group radius local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip domain name tronsec.lcl
+ip cef
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+key chain OSPF-KEY-CHAIN
+ key 1
+  key-string 7 13061E010803
+  cryptographic-algorithm hmac-sha-256
+password encryption aes
+!
+!
+license udi pid CISCO2901/K9 sn FJC1838A06M
+license boot module c2900 technology-package datak9
+dot1x system-auth-control
+!
+!
+username clark privilege 15 secret 5 $1$ngt7$BJV1UcnYVe4eCcx94g5uX1
+username admin privilege 15 secret 5 $1$hqdz$K1DZ6B1fSGLl7rZPFnAyh1
+!
+redundancy
+!
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2901-A Loopback Interface"
+ ip address 10.26.29.1 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::A/128
+ ipv6 enable
+ ipv6 ospf 6 area 0
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To T-Nexus"
+ ip address 10.26.5.18 255.255.255.252
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 4 md5 7 0822455D0A16
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ipv6 ospf 6 area 0
+!
+interface GigabitEthernet0/1
+ description "To T-3750-A"
+ ip address 10.26.5.30 255.255.255.252
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 4 md5 7 0822455D0A16
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ipv6 ospf 6 area 0
+ ospfv3 authentication key-chain OSPF-KEY-CHAIN
+!
+interface GigabitEthernet0/2/0
+ description "To T-DellPWR"
+ no ip address
+ duplex auto
+ speed auto
+ ipv6 enable
+!
+interface GigabitEthernet0/2/0.10
+ description "VLAN 10 Sub-Interface Area 20"
+ encapsulation dot1Q 10
+ ip address 10.26.10.1 255.255.255.0
+ ipv6 address FD00:C345:17:0:BEEF:10:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 ospf 6 area 20
+!
+interface GigabitEthernet0/2/0.20
+ description "VLAN 20 Sub-Interface Area 20"
+ encapsulation dot1Q 20
+ ip address 10.26.20.1 255.255.255.0
+ ipv6 address FD00:C345:17:0:BEEF:20:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 ospf 6 area 20
+!
+interface GigabitEthernet0/2/0.40
+ description "VLAN 40 Sub-Interface Area 20"
+ encapsulation dot1Q 40
+ ip address 10.26.40.1 255.255.255.0
+ ipv6 address FD00:C345:17:0:BEEF:40:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 ospf 6 area 20
+!
+interface GigabitEthernet0/2/0.99
+ description "VLAN 99 Sub-Interface Area 20"
+ encapsulation dot1Q 99 native
+ ip address 10.26.99.1 255.255.255.0
+ ipv6 address FD00:C345:17:0:BEEF:99:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 ospf 6 area 20
+!
+!
+router ospfv3 6
+ !
+ address-family ipv6 unicast
+  passive-interface GigabitEthernet0/2/0
+  passive-interface GigabitEthernet0/2/0.10
+  passive-interface GigabitEthernet0/2/0.20
+  passive-interface GigabitEthernet0/2/0.40
+  router-id 10.10.10.10
+ exit-address-family
+!
+router ospf 4
+ router-id 10.26.29.1
+ area 0 authentication message-digest
+ area 20 authentication message-digest
+ passive-interface GigabitEthernet0/2/0
+ passive-interface GigabitEthernet0/2/0.10
+ passive-interface GigabitEthernet0/2/0.20
+ passive-interface GigabitEthernet0/2/0.40
+ passive-interface GigabitEthernet0/2/0.99
+ network 10.26.5.16 0.0.0.3 area 0
+ network 10.26.5.28 0.0.0.3 area 0
+ network 10.26.10.0 0.0.0.255 area 20
+ network 10.26.20.0 0.0.0.255 area 20
+ network 10.26.29.1 0.0.0.0 area 0
+ network 10.26.40.0 0.0.0.255 area 20
+ network 10.26.99.0 0.0.0.255 area 20
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+ip radius source-interface GigabitEthernet0/2/0.10
+ipv6 ioam timestamp
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 1511021F0725
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 110A1016141D
+!
+!
+!
+control-plane
+!
+!
+ vstack
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2901-A#

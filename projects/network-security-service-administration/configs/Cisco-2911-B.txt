@@ -1,0 +1,253 @@
+T-2911-B#show run
+Building configuration...
+
+
+
+Current configuration : 4023 bytes
+!
+! Last configuration change at 05:46:34 UTC Thu Feb 20 2025 by t-clark
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2911-B
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging userinfo
+enable secret 5 $1$I/PL$zJWgBHnAIg/DUz1yp2lW3/
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/0
+ deadtime 3
+!
+aaa authentication login default group radius local
+aaa authorization console
+aaa authorization exec login group radius local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip domain name tronsec.lcl
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+key chain EIGRP-KEY-CHAIN
+ key 18
+  key-string 7 060506324F41
+password encryption aes
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+vxml logging-tag
+license udi pid CISCO2911/K9 sn FTX1703AKYK
+dot1x system-auth-control
+!
+!
+username clark privilege 15 secret 5 $1$CLyH$YuNNH8GLvz7PQrAa62Ng.0
+!
+redundancy
+!
+no cdp run
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2911-B Loopback Interface"
+ ip address 10.26.29.12 255.255.255.255
+ ipv6 address FD00:C345:18:0:B00B::6/128
+ ipv6 enable
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To T-Jupiter"
+ ip address 172.16.5.2 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FD00:C345:18:0:CAFE::2/126
+ ipv6 enable
+!
+interface GigabitEthernet0/1
+ description "To T-ISR-C"
+ ip address 172.16.5.5 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/2
+ description "To T-2901-C"
+ ip address 172.16.5.9 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+!
+!
+!
+router eigrp RemoteSite
+ !
+ address-family ipv6 unicast autonomous-system 18
+  !
+  af-interface GigabitEthernet0/1
+   authentication mode hmac-sha-256 7 00071A150754
+   authentication key-chain EIGRP-KEY-CHAIN
+  exit-af-interface
+  !
+  af-interface GigabitEthernet0/2
+   authentication mode hmac-sha-256 7 070C285F4D06
+   authentication key-chain EIGRP-KEY-CHAIN
+  exit-af-interface
+  !
+  topology base
+   redistribute static
+  exit-af-topology
+  eigrp router-id 6.6.6.6
+ exit-address-family
+ !
+ address-family ipv4 unicast autonomous-system 18
+  !
+  af-interface GigabitEthernet0/1
+   authentication mode hmac-sha-256 7 060506324F41
+   authentication key-chain EIGRP-KEY-CHAIN
+  exit-af-interface
+  !
+  af-interface GigabitEthernet0/2
+   authentication mode hmac-sha-256 7 060506324F41
+   authentication key-chain EIGRP-KEY-CHAIN
+  exit-af-interface
+  !
+  topology base
+   redistribute static
+  exit-af-topology
+  network 10.26.29.12 0.0.0.0
+  network 172.16.5.0 0.0.0.3
+  network 172.16.5.4 0.0.0.3
+  network 172.16.5.8 0.0.0.3
+  eigrp router-id 10.26.29.12
+ exit-address-family
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 172.16.5.1
+ip ssh version 2
+!
+ip radius source-interface GigabitEthernet0/0
+ipv6 route ::/0 FD00:C345:18:0:CAFE::1
+ipv6 ioam timestamp
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 01100F175804
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 104D000A0618
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2911-B#

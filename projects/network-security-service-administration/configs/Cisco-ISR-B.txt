@@ -1,0 +1,256 @@
+T-ISR-B#show run
+Building configuration...
+
+Current configuration : 4985 bytes
+!
+! Last configuration change at 05:33:02 UTC Thu Feb 20 2025 by t-clark
+!
+version 17.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service call-home
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname T-ISR-B
+!
+boot-start-marker
+boot system bootflash:isr4300-universalk9.17.09.05a.SPA.bin
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging userinfo
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/0/0
+ deadtime 3
+!
+aaa authentication login default group radius local
+aaa authorization console
+aaa authorization exec login group radius local
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+ip domain name tronsec.lcl
+ip dhcp relay information option
+ip dhcp relay information trust-all
+!
+!
+!
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+vtp mode transparent
+vtp version 1
+multilink bundle-name authenticated
+!
+!
+!
+key chain OSPF-KEY-CHAIN
+ key 1
+  key-string 7 094F471A1A0A
+   cryptographic-algorithm hmac-sha-256
+password encryption aes
+!
+!
+!
+!
+!
+license udi pid ISR4331-B/K9 sn FDO21101X67
+memory free low-watermark processor 67180
+!
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+dot1x system-auth-control
+!
+!
+enable secret 9 $9$JQ7zfWNnn42P5U$5mVTBW7O65EIFeFODXqLnFmUigavP/WVOEgNfT7tAc.
+!
+username clark privilege 15 secret 9 $9$F3rXdk3Ky5zm/.$BdBqWmZTxIf8tWDzn2mc7vrmdYaptrwjkFFGSTvdN7w
+!
+redundancy
+ mode none
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-ISR-B Loopback Interface"
+ ip address 10.26.43.32 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::8/128
+ ipv6 enable
+ ipv6 ospf 6 area 10
+!
+interface GigabitEthernet0/0/0
+ description "To T-2911-A"
+ ip address 10.26.5.38 255.255.255.252
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 4 md5 7 13061E010803
+ negotiation auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 6 authentication key-chain OSPF-KEY-CHAIN
+ ospfv3 6 ipv6 area 10
+!
+interface GigabitEthernet0/0/1
+ description "To T-3750-B"
+ no ip address
+ negotiation auto
+ ipv6 enable
+!
+interface GigabitEthernet0/0/1.10
+ encapsulation dot1Q 10
+ ip address 10.26.9.3 255.255.255.0
+ ip helper-address 10.26.10.50
+ standby version 2
+ standby 14 ip 10.26.9.1
+ standby 16 ipv6 FD00:C345:17:0:BEEF:9:0:1/96
+ ipv6 address FD00:C345:17:0:BEEF:9:0:3/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination FD00:C345:17:0:BEEF:10:0:50
+ ipv6 ospf 6 area 10
+!
+interface GigabitEthernet0/0/1.20
+ encapsulation dot1Q 20
+ ip address 10.26.19.3 255.255.255.0
+ ip helper-address 10.26.10.50
+ standby version 2
+ standby 24 ip 10.26.19.1
+ standby 26 ipv6 FD00:C345:17:0:BEEF:19:0:1/96
+ ipv6 address FD00:C345:17:0:BEEF:19:0:3/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination FD00:C345:17:0:BEEF:10:0:50
+ ipv6 ospf 6 area 10
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospfv3 6
+ !
+ address-family ipv6 unicast
+  passive-interface GigabitEthernet0/0/1
+  passive-interface GigabitEthernet0/0/1.10
+  passive-interface GigabitEthernet0/0/1.20
+  router-id 8.8.8.8
+  authentication mode normal
+  area 10 authentication key-chain OSPF-KEY-CHAIN
+ exit-address-family
+!
+router ospf 4
+ router-id 10.26.43.32
+ area 10 authentication message-digest
+ passive-interface GigabitEthernet0/0/1
+ passive-interface GigabitEthernet0/0/1.10
+ passive-interface GigabitEthernet0/0/1.20
+ network 10.26.5.36 0.0.0.3 area 10
+ network 10.26.9.0 0.0.0.255 area 10
+ network 10.26.19.0 0.0.0.255 area 10
+ network 10.26.43.32 0.0.0.0 area 10
+!
+ip http server
+ip http authentication local
+ip http secure-server
+ip forward-protocol nd
+ip tftp source-interface GigabitEthernet0
+ip ssh version 2
+!
+!
+!
+ip radius source-interface GigabitEthernet0/0/0
+!
+!
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 104D000A0618
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 070C285F4D06
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+line vty 5 14
+ transport input ssh
+!
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+!
+!
+!
+!
+!
+!
+end
+
+T-ISR-B#

@@ -1,0 +1,460 @@
+T-2901-B#show run
+Building configuration...
+
+
+Current configuration : 10796 bytes
+!
+! Last configuration change at 06:42:49 UTC Thu Feb 20 2025 by t-clark
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2901-B
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging userinfo
+enable secret 5 $1$9Exh$eikcZBqk5SOwKqLxQChZ6/
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/2/0
+ deadtime 3
+!
+aaa authentication login default group radius local
+aaa authorization console
+aaa authorization exec login group radius local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip dhcp relay information trust-all
+!
+!
+!
+ip domain name tronsec.lcl
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+key chain OSPF-KEY-CHAIN
+ key 1
+  key-string 7 045802150C2E
+  cryptographic-algorithm hmac-sha-256
+password encryption aes
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+vxml logging-tag
+license udi pid CISCO2901/K9 sn FTX14198120
+dot1x system-auth-control
+hw-module pvdm 0/0
+!
+!
+!
+username clark privilege 15 secret 5 $1$XkzW$pQB7RWdf5oJR2ie5suYHG1
+!
+redundancy
+!
+crypto ikev2 proposal MainSite-IPv4-Proposal
+ encryption aes-cbc-256
+ integrity sha256
+ group 19
+crypto ikev2 proposal MainSite-IPv6-Proposal
+ encryption aes-cbc-256
+ integrity sha256
+ group 19
+!
+crypto ikev2 policy MainSite-IPv4-Policy
+ proposal MainSite-IPv4-Proposal
+crypto ikev2 policy MainSite-IPv6-Policy
+ proposal MainSite-IPv6-Proposal
+!
+crypto ikev2 keyring MainSite-IPv4-Keyring
+ peer RemoteSite
+  description "Stinky Jupiter"
+  address 44.36.18.3
+  hostname T-Jupiter
+  pre-shared-key local cisco
+  pre-shared-key remote cisco
+ !
+!
+crypto ikev2 keyring MainSite-IPv6-Keyring
+ peer RemoteSite-v6
+  description "Stinky Jupiter-v6"
+  address FD00:C345:18::3/128
+  hostname T-Jupiter
+  pre-shared-key local cisco
+  pre-shared-key remote cisco
+ !
+!
+!
+crypto ikev2 profile MainSite-IPv4-Profile
+ description "MainSite IPv4 IKEv2 Profile"
+ match address local 44.36.17.3
+ match identity remote address 44.36.18.3 255.255.255.255
+ identity local address 44.36.17.3
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local MainSite-IPv4-Keyring
+ lifetime 28800
+ dpd 10 5 on-demand
+!
+crypto ikev2 profile MainSite-IPv6-Profile
+ description "MainSite IPv6 IKEv2 Profile"
+ match address local FD00:C345:17::3
+ match identity remote address FD00:C345:18::3/128
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local MainSite-IPv6-Keyring
+ lifetime 28800
+ dpd 10 5 on-demand
+!
+!
+no cdp run
+!
+!
+class-map type inspect match-any LAN-TO-VPN-CLASS-MAP
+  description "LAN to VPN Traffic Class Map"
+ match protocol icmp
+ match protocol ssh
+ match protocol ntp
+ match protocol tcp
+ match protocol udp
+class-map type inspect match-any VPN-TO-LAN-CLASS-MAP
+  description "VPN to LAN Traffic Class Map"
+ match protocol radius
+ match protocol icmp
+ match protocol ssh
+ match protocol dns
+ match protocol bootpc
+ match protocol bootps
+ match protocol time
+ match protocol tcp
+ match protocol udp
+class-map type inspect match-any LAN-TO-WAN-CLASS-MAP
+  description "LAN to WAN Traffic Class Map"
+ match protocol dns
+ match protocol http
+ match protocol https
+ match protocol tftp
+ match protocol icmp
+ match protocol ssh
+ match protocol ntp
+ match protocol time
+class-map type inspect match-all VPN-TO-WAN-CLASS-MAP
+  description "VPN to WAN Traffic Class Map"
+ match protocol icmp
+!
+policy-map type inspect LAN-TO-WAN-POLICY-MAP
+ description "Inspect LAN to WAN Traffic Policy Map"
+ class type inspect LAN-TO-WAN-CLASS-MAP
+  inspect
+ class class-default
+  drop
+policy-map type inspect VPN-TO-LAN-POLICY-MAP
+ description "Inspect VPN to LAN Traffic Policy Map"
+ class type inspect VPN-TO-LAN-CLASS-MAP
+  inspect
+ class class-default
+  drop
+policy-map type inspect LAN-TO-VPN-POLICY-MAP
+ description "Inspect LAN to VPN Traffic Policy Map"
+ class type inspect LAN-TO-VPN-CLASS-MAP
+  inspect
+ class class-default
+  drop
+policy-map type inspect VPN-TO-WAN-POLICY-MAP
+ description "Inspect VPN to WAN Traffic Policy Map"
+ class type inspect VPN-TO-WAN-CLASS-MAP
+  inspect
+ class class-default
+  drop
+!
+zone security WAN
+ description "WAN Security Zone"
+zone security LAN
+ description "LAN Security Zone"
+zone security VPN
+ description "VPN Security Zone"
+zone-pair security LAN-TO-VPN-ZONE-PAIR source LAN destination VPN
+ description "LAN to VPN Zone Pairing"
+ service-policy type inspect LAN-TO-VPN-POLICY-MAP
+zone-pair security VPN-TO-LAN-ZONE-PAIR source VPN destination LAN
+ description "VPN to LAN Zone Pairing"
+ service-policy type inspect VPN-TO-LAN-POLICY-MAP
+zone-pair security LAN-TO-WAN-ZONE-PAIR source LAN destination WAN
+ description "LAN to WAN Zone Pairing"
+ service-policy type inspect LAN-TO-WAN-POLICY-MAP
+zone-pair security VPN-TO-WAN-ZONE-PAIR source VPN destination WAN
+ description "VPN to WAN Zone Pairing"
+ service-policy type inspect VPN-TO-WAN-POLICY-MAP
+!
+crypto isakmp key cisco address 44.36.18.3
+!
+!
+crypto ipsec transform-set MainSite-IPv4-Transform-Set esp-aes 256 esp-sha256-hmac
+ mode tunnel
+crypto ipsec transform-set MainSite-IPv6-Transform-Set esp-aes 256 esp-sha256-hmac
+ mode tunnel
+!
+crypto ipsec profile MainSite-IPv4-IPsec-Profile
+ description "IPv4 IPsec Profile for MainSite"
+ set transform-set MainSite-IPv4-Transform-Set
+ set pfs group19
+ set ikev2-profile MainSite-IPv4-Profile
+!
+crypto ipsec profile MainSite-IPv6-IPsec-Profile
+ description "IPv6 IPsec Profile for MainSite"
+ set transform-set MainSite-IPv6-Transform-Set
+ set pfs group19
+ set ikev2-profile MainSite-IPv6-Profile
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2901-B Loopback Interface"
+ ip address 10.26.29.2 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::B/128
+ ipv6 enable
+ ipv6 ospf 6 area 30
+!
+interface Tunnel0
+ ip address 192.168.1.1 255.255.255.252
+ zone-member security VPN
+ tunnel source GigabitEthernet0/0
+ tunnel mode ipsec ipv4
+ tunnel destination 44.36.18.3
+ tunnel protection ipsec profile MainSite-IPv4-IPsec-Profile
+!
+interface Tunnel1
+ no ip address
+ zone-member security VPN
+ ipv6 address autoconfig
+ ipv6 enable
+ tunnel source GigabitEthernet0/0
+ tunnel mode ipsec ipv6
+ tunnel destination FD00:C345:18::3
+ tunnel protection ipsec profile MainSite-IPv6-IPsec-Profile
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To 2nd Network (VPN)"
+ ip address 44.36.17.3 255.255.255.0
+ ip nat outside
+ ip virtual-reassembly in
+ zone-member security WAN
+ duplex auto
+ speed auto
+ ipv6 address FD00:C345:17::3/125
+ ipv6 enable
+!
+interface GigabitEthernet0/1
+ description "To T-3750-C"
+ no ip address
+ zone-member security LAN
+ duplex auto
+ speed auto
+ ipv6 enable
+!
+interface GigabitEthernet0/1.10
+ encapsulation dot1Q 10
+ ip address 10.26.11.1 255.255.255.0
+ ip helper-address 10.26.10.50
+ ip nat inside
+ ip virtual-reassembly in
+ zone-member security LAN
+ ipv6 address FD00:C345:17:0:BEEF:11:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination  FD00:C345:17:0:BEEF:10:0:50
+ ipv6 ospf 6 area 30
+!
+interface GigabitEthernet0/1.20
+ encapsulation dot1Q 20
+ ip address 10.26.21.1 255.255.255.0
+ ip helper-address 10.26.10.50
+ ip nat inside
+ ip virtual-reassembly in
+ zone-member security LAN
+ ipv6 address FD00:C345:17:0:BEEF:21:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination  FD00:C345:17:0:BEEF:10:0:50
+ ipv6 ospf 6 area 30
+!
+interface GigabitEthernet0/2/0
+ description "To T-ISR-A"
+ ip address 10.26.5.42 255.255.255.252
+ zone-member security LAN
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 4 md5 7 02050D480809
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ipv6 ospf 6 area 30
+ ospfv3 authentication key-chain OSPF-KEY-CHAIN
+!
+router ospfv3 6
+ !
+ address-family ipv6 unicast
+  passive-interface GigabitEthernet0/0
+  passive-interface GigabitEthernet0/1
+  passive-interface GigabitEthernet0/1.10
+  passive-interface GigabitEthernet0/1.20
+  redistribute static route-map VPN_TO_OSPF
+  router-id 11.11.11.11
+  area 30 authentication key-chain OSPF-KEY-CHAIN
+ exit-address-family
+!
+router ospf 4
+ router-id 10.26.29.2
+ area 20 authentication message-digest
+ redistribute static subnets route-map VPN_TO_OSPF
+ passive-interface GigabitEthernet0/0
+ passive-interface GigabitEthernet0/1
+ passive-interface GigabitEthernet0/1.10
+ passive-interface GigabitEthernet0/1.20
+ network 10.26.5.40 0.0.0.3 area 30
+ network 10.26.11.0 0.0.0.255 area 30
+ network 10.26.21.0 0.0.0.255 area 30
+ network 10.26.29.2 0.0.0.0 area 30
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source list 1 interface GigabitEthernet0/0 overload
+ip route 0.0.0.0 0.0.0.0 44.36.17.1
+ip route 10.26.29.3 255.255.255.255 Tunnel0
+ip route 10.26.29.12 255.255.255.255 Tunnel0
+ip route 10.26.43.33 255.255.255.255 Tunnel0
+ip route 172.16.0.0 255.255.0.0 Tunnel0
+ip ssh version 2
+!
+!
+ip prefix-list VPN_ROUTES seq 5 permit 10.26.29.3/32
+ip prefix-list VPN_ROUTES seq 10 permit 10.26.29.12/32
+ip prefix-list VPN_ROUTES seq 15 permit 10.26.43.33/32
+ip prefix-list VPN_ROUTES seq 20 permit 172.16.0.0/16
+ip prefix-list VPN_ROUTES seq 25 deny 0.0.0.0/0 le 32
+ip radius source-interface GigabitEthernet0/2/0
+ipv6 route FD00:C345:18:0:B00B::/80 Tunnel1
+ipv6 route FD00:C345:18:0:CAFE::/80 Tunnel1
+ipv6 route ::/0 GigabitEthernet0/0 FD00:C345:17::1
+!
+!
+ipv6 prefix-list VPN_ROUTES seq 5 permit FD00:C345:18:0:B00B::/80
+ipv6 prefix-list VPN_ROUTES seq 10 permit FD00:C345:18:0:CAFE::/80
+ipv6 prefix-list VPN_ROUTES seq 15 deny ::/0 le 128
+route-map VPN_TO_OSPF permit 1
+ description "Redistributing VPN Routes Into OSPF"
+ match ip address prefix-list VPN_ROUTES
+ match ipv6 address prefix-list VPN_ROUTES
+!
+!
+access-list 1 permit 10.26.29.2
+access-list 1 permit 10.26.11.0 0.0.0.255
+access-list 1 permit 10.26.21.0 0.0.0.255
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 070C285F4D06
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 110A1016141D
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+ vstack
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2901-B#
