@@ -183,7 +183,7 @@ router ospfv3 6
 router ospf 4
  router-id 10.26.43.31
  area 0 authentication message-digest
- area 20 authentication message-digest
+ area 30 authentication message-digest
  network 10.26.5.20 0.0.0.3 area 0
  network 10.26.5.32 0.0.0.3 area 0
  network 10.26.5.40 0.0.0.3 area 30
