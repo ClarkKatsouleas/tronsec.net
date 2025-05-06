@@ -149,7 +149,7 @@
     padding: 20px;
     max-width: 80%;
     max-height: 80vh;
-    width: 800px;
+    width: 700px;
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     opacity: 0;
@@ -1017,90 +1017,198 @@
                             <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Role</th>
                             <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">IP Address</th>
                             <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">VLAN</th>
-                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Specifications</th>
+                            <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Description</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
+                        
+                        <!-- Terminal Server -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-TermSrv</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2901 Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Terminal Server / COM Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">172.16.22.1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">Terminal Server with Console Connections Into All Other Devices</td>
+                        </tr>
+                        
                         <!-- FortiGate Firewall -->
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">fgfw</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-FGFW</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiNet FG-40F</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiOS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiOS 7.3</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">NGFW / Edge Router</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.5.1/30</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.40.15</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
                             <td class="px-6 py-4 text-sm text-gray-900">NGFW with Firewall Filtering, and Certificate-Based Client Access VPN</td>
                         </tr>
-                        <!-- Cisco Router -->
+                        
+                        <!-- Juniper SRX 345 Firewall -->
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">labrt</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 1921</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Internal Router</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.5.2/30</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10,20,40</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF, RADIUS Auth</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-Juniper</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Juniper SRX 345</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">JunOS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Firewall / VPN Concentrator</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.3.45</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">Network Connectivity to Branch Site and VPN to Main Site</td>
                         </tr>
-                        <!-- Cisco Switch -->
+                        
+                        <!-- Cisco T-Nexus Switch -->
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">labsw</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750-X</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-Nexus</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco Nexus 5548UP</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 7.3.13</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Core Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.55.48</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">Core OSPF Backbone Switch</td>
+                        </tr>
+                        
+                        <!-- Dell PowerConnect 8024F Switch -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-DellPWR</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell PowerConnect 8024F</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell NetworkOS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Access Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.80.24</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20,40,99</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 20 Switch to PC2 and ESXi/VM Management</td>
+                        </tr>
+                        
+                        <!-- Cisco T-2911-A Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2911-A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2911</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Area Border Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.11</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Border Router, HSRP Defualt Gateway</td>
+                        </tr>
+                        
+                        <!-- Cisco T-2911-B Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2911-B</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2911</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">EIGRP Branch Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.12</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP Border Router, Branch Router</td>
+                        </tr>
+                        
+                        <!-- Cisco T-ISR-A Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-ISR-A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco ISR 4331</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Area Border Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.43.31</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Border Router</td>
+                        </tr>
+                        
+                        <!-- Cisco T-ISR-B Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-ISR-B</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco ISR 4331</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">HSRP Default Gateway</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.43.32</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 10 HSRP Default Gateway</td>
+                        </tr>
+                        
+                        <!-- Cisco T-ISR-C Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-ISR-C</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco ISR 4331</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">EIGRP Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.43.33</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP Core Branch Site Router</td>
+                        </tr>
+                        
+                        <!-- Cisco T-2901-A Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2901-A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2901 Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Backbone Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20,40,99</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 20 Client Default Gateway</td>
+                        </tr>
+                        
+                        <!-- Cisco T-2901-B Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2901-B</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2901 Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VPN Concentrator</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">Zone-Based Policy Firewall For Clients & VPN</td>
+                        </tr>
+                        
+                        <!-- Cisco T-2901-C Router -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2901-C</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2901 Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">EIGRP Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.3</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP Branch Client Default Gateway</td>
+                        </tr>
+                        
+                        <!-- Cisco 3750-A Switch -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-3750-A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750e</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Core Switch</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.2</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">L2/L3 Switch, Port Security</td>
-                        </tr>
-                        <!-- TP-Link Wireless -->
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">wifi</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TP-Link AX1800</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.37.50</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Wireless Router</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.20.10</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Wireless Access, Client Connectivity</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">Core OSPF Backbone Switch</td>
                         </tr>
-                        <!-- OptiPlex 5070 -->
+                        
+                        <!-- Cisco 3750-B Switch -->
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">adds</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell OptiPlex 5070</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Windows Server 2022</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Active Directory Server</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.100</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">16GB RAM, AD, DNS, RADIUS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-3750-B</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750e</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Access Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.9.5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 10 Switch to PC3</td>
                         </tr>
-                        <!-- OptiPlex 5060 -->
+                        
+                        <!-- Cisco 3750-C Switch -->
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">dns</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell OptiPlex 5060</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Ubuntu 24.04</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">DMZ DNS Server</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.30.100</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">16GB RAM, AdGuard DNS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-3750-C</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750e</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Access Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.11.5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 30 Switch to PC3</td>
                         </tr>
-                        <!-- HP ProLiant -->
+                        
+                        <!-- Cisco 3750-D Switch -->
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">esxi</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">HP ProLiant DL360 Gen9</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VMware ESXi 7.0.3</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Virtualization Host</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.200</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">256GB RAM, 4TB SSD</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-3750-D</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750e</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">DMZ Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.30.5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,30</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">DMZ Switch to DNS</td>
                         </tr>
-                        <!-- Personal PC -->
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">pc</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Personal PC</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Windows 10 Pro</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Management Console</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.10.26</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">i9-9900k, 32GB RAM</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
