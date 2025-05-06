@@ -18,9 +18,9 @@ boot-end-marker
 !
 !
 logging userinfo
-enable secret 5 $1$vSIi$6Ktmb4yyqg0gpshQx0a031
+enable secret 5 XXXXXXXXXXXXXXXXXXXX
 !
-username clark privilege 15 secret 5 $1$xyj4$lfCxt37wRnckzsOxtjEdm.
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXX
 aaa new-model
 !
 !
@@ -61,7 +61,7 @@ vtp mode transparent
 !
 key chain OSPF-KEY-CHAIN
  key 1
-  key-string 7 05080F1C2243
+  key-string 7 XXXXXXXXXXXXXX
    cryptographic-algorithm hmac-sha-256
 password encryption aes
 !
@@ -103,7 +103,7 @@ interface Port-channel1
  no switchport
  ip address 10.26.5.10 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 0822455D0A16
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXX
  ip ospf cost 1
  ipv6 address autoconfig
  ipv6 enable
@@ -118,7 +118,7 @@ interface GigabitEthernet1/0/1
  no switchport
  ip address 10.26.5.6 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 110A1016141D
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXXXX
  ip ospf cost 40
  speed 1000
  ipv6 address autoconfig
@@ -130,7 +130,7 @@ interface GigabitEthernet1/0/2
  no switchport
  ip address 10.26.5.25 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 02050D480809
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXXXX
  ip ospf cost 1
  ipv6 address autoconfig
  ipv6 enable
@@ -142,7 +142,7 @@ interface GigabitEthernet1/0/3
  no switchport
  ip address 10.26.5.29 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 13061E010803
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXXXXXXX
  ip ospf cost 1
  ipv6 address autoconfig
  ipv6 enable
@@ -154,7 +154,7 @@ interface GigabitEthernet1/0/4
  no switchport
  ip address 10.26.5.33 255.255.255.252
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 070C285F4D06
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXXXX
  ip ospf cost 1
  ipv6 address autoconfig
  ipv6 enable
@@ -353,11 +353,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key 7 02050D480809
+ key 7 XXXXXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key 7 045802150C2E
+ key 7 XXXXXXXXXXXXXXXX
 !
 !
 line con 0
@@ -367,6 +367,7 @@ line vty 0 4
  transport input ssh
  transport output all
 line vty 5 15
+ shutdown
 !
 !
 end
