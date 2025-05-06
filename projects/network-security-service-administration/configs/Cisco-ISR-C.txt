@@ -27,7 +27,7 @@ vrf definition Mgmt-intf
  exit-address-family
 !
 logging userinfo
-enable secret 5 $1$lzVX$4yV1LwfsQqVnSFJnJYWlG/
+enable secret 5 XXXXXXXXXXXXXXXXXXX
 !
 aaa new-model
 !
@@ -92,7 +92,7 @@ license udi pid ISR4331-B/K9 sn FDO221818PX
 spanning-tree extend system-id
 dot1x system-auth-control
 !
-username clark privilege 15 secret 5 $1$/ccp$unwOsWUaVDVI8/V/hQeFC/
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXXXX
 !
 redundancy
  mode none
@@ -152,12 +152,12 @@ router eigrp RemoteSite
  address-family ipv4 unicast autonomous-system 18
   !
   af-interface GigabitEthernet0/0/1
-   authentication mode hmac-sha-256 7 05080F1C2243
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
   af-interface GigabitEthernet0/0/0
-   authentication mode hmac-sha-256 7 13061E010803
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
@@ -172,12 +172,12 @@ router eigrp RemoteSite
  address-family ipv6 unicast autonomous-system 18
   !
   af-interface GigabitEthernet0/0/0
-   authentication mode hmac-sha-256 7 121A0C041104
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
   af-interface GigabitEthernet0/0/1
-   authentication mode hmac-sha-256 7 13061E010803
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
@@ -202,11 +202,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key 7 104D000A0618
+ key 7 XXXXXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key 7 094F471A1A0A
+ key 7 XXXXXXXXXXXXX
 !
 !
 control-plane
@@ -217,6 +217,7 @@ line con 0
  stopbits 1
 line aux 0
  stopbits 1
+ shutdown
 line vty 0 4
  logging synchronous
  transport input ssh
