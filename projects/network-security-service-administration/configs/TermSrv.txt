@@ -7,7 +7,7 @@ Current configuration : 8574 bytes
 version 15.1
 service timestamps debug datetime msec
 service timestamps log datetime msec
-no service password-encryption
+service password-encryption
 !
 hostname TermSrv
 !
@@ -57,8 +57,7 @@ crypto pki token default removal timeout 0
 license udi pid CISCO2901/K9 sn FTX1551852S
 !
 !
-username clark privilege 15 secret 5 $1$YzA/$BfFIAb3Lr5kE/d/HM4CUQ.
-username admin privilege 15 secret 5 $1$83B5$.EIIKq7wKvq7EiqOPOM7Q0
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 !
 redundancy
 !
