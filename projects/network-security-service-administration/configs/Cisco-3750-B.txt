@@ -21,7 +21,7 @@ logging userinfo
 logging monitor notifications
 enable secret 5 $1$oZ7b$fj5gEZMZCNR0CJKZ0gFEf/
 !
-username clark privilege 15 secret 5 $1$4Vz.$39DLejAfkqJ48QGWIpeCP1
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXX
 aaa new-model
 !
 !
@@ -158,12 +158,12 @@ interface GigabitEthernet1/0/12
  description "To PC1"
  switchport access vlan 10
  switchport mode access
- switchport port-security maximum 19
+ switchport port-security maximum 10
  switchport port-security violation restrict
  switchport port-security mac-address sticky
- switchport port-security mac-address sticky 3417.eba3.86b1
- switchport port-security mac-address sticky b8ca.3a94.b6fc
- switchport port-security mac-address sticky f8b1.56d5.6758
+ switchport port-security mac-address sticky AAAA.BBBB.CCCC
+ switchport port-security mac-address sticky AAAA.BBBB.CCCC
+ switchport port-security mac-address sticky AAAA.BBBB.CCCC
  switchport port-security
 !
 interface GigabitEthernet1/0/13
@@ -339,11 +339,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key cisco
+ key XXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key cisco
+ key XXXXXXXXXXXX
 !
 !
 line con 0
