@@ -19,7 +19,7 @@ boot-end-marker
 !
 !
 logging userinfo
-enable secret 5 $1$I/PL$zJWgBHnAIg/DUz1yp2lW3/
+enable secret 5 XXXXXXXXXXXXXXXXXXXXXXX
 !
 aaa new-model
 !
@@ -94,7 +94,7 @@ license udi pid CISCO2911/K9 sn FTX1703AKYK
 dot1x system-auth-control
 !
 !
-username clark privilege 15 secret 5 $1$CLyH$YuNNH8GLvz7PQrAa62Ng.0
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXXXX
 !
 redundancy
 !
@@ -145,12 +145,12 @@ router eigrp RemoteSite
  address-family ipv6 unicast autonomous-system 18
   !
   af-interface GigabitEthernet0/1
-   authentication mode hmac-sha-256 7 00071A150754
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
   af-interface GigabitEthernet0/2
-   authentication mode hmac-sha-256 7 070C285F4D06
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
@@ -163,12 +163,12 @@ router eigrp RemoteSite
  address-family ipv4 unicast autonomous-system 18
   !
   af-interface GigabitEthernet0/1
-   authentication mode hmac-sha-256 7 060506324F41
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
   af-interface GigabitEthernet0/2
-   authentication mode hmac-sha-256 7 060506324F41
+   authentication mode hmac-sha-256 7 XXXXXXXXXXXXXX
    authentication key-chain EIGRP-KEY-CHAIN
   exit-af-interface
   !
