@@ -18,7 +18,7 @@ boot-end-marker
 !
 !
 logging userinfo
-enable secret 5 $1$9Exh$eikcZBqk5SOwKqLxQChZ6/
+enable secret 5 XXXXXXXXXXXXXXXXXX
 !
 aaa new-model
 !
@@ -66,7 +66,7 @@ multilink bundle-name authenticated
 !
 key chain OSPF-KEY-CHAIN
  key 1
-  key-string 7 045802150C2E
+  key-string 7 XXXXXXXXXXXX
   cryptographic-algorithm hmac-sha-256
 password encryption aes
 !
@@ -87,7 +87,7 @@ hw-module pvdm 0/0
 !
 !
 !
-username clark privilege 15 secret 5 $1$XkzW$pQB7RWdf5oJR2ie5suYHG1
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXX
 !
 redundancy
 !
@@ -110,8 +110,8 @@ crypto ikev2 keyring MainSite-IPv4-Keyring
   description "Stinky Jupiter"
   address 44.36.18.3
   hostname T-Jupiter
-  pre-shared-key local cisco
-  pre-shared-key remote cisco
+  pre-shared-key local XXXXXXXXXXXXXXXX
+  pre-shared-key remote XXXXXXXXXXXXXXXX
  !
 !
 crypto ikev2 keyring MainSite-IPv6-Keyring
@@ -119,8 +119,8 @@ crypto ikev2 keyring MainSite-IPv6-Keyring
   description "Stinky Jupiter-v6"
   address FD00:C345:18::3/128
   hostname T-Jupiter
-  pre-shared-key local cisco
-  pre-shared-key remote cisco
+  pre-shared-key local XXXXXXXXXXXXXXXXXX
+  pre-shared-key remote XXXXXXXXXXXXXXXXXX
  !
 !
 !
@@ -225,7 +225,7 @@ zone-pair security VPN-TO-WAN-ZONE-PAIR source VPN destination WAN
  description "VPN to WAN Zone Pairing"
  service-policy type inspect VPN-TO-WAN-POLICY-MAP
 !
-crypto isakmp key cisco address 44.36.18.3
+crypto isakmp key XXXXXXXXXXXXX address 44.36.18.3
 !
 !
 crypto ipsec transform-set MainSite-IPv4-Transform-Set esp-aes 256 esp-sha256-hmac
@@ -330,7 +330,7 @@ interface GigabitEthernet0/2/0
  ip address 10.26.5.42 255.255.255.252
  zone-member security LAN
  ip ospf authentication message-digest
- ip ospf message-digest-key 4 md5 7 02050D480809
+ ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXX
  duplex auto
  speed auto
  ipv6 address autoconfig
@@ -405,11 +405,11 @@ radius-server deadtime 3
 !
 radius server ADDC-RADIUS-v4
  address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
- key 7 070C285F4D06
+ key 7 XXXXXXXXXXXXX
 !
 radius server ADDC-RADIUS-v6
  address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
- key 7 110A1016141D
+ key 7 XXXXXXXXXXXXXX
 !
 !
 !
