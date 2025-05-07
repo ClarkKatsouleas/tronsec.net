@@ -1,2 +1,3 @@
 User-agent: *
-Disallow: /projects/TrailMap/
+Disallow: /projects/network-security-service-administration/
+Disallow: /secrets/
