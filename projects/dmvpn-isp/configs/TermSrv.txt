@@ -1,0 +1,359 @@
+TermServ#show run
+Building configuration...
+
+Current configuration : 8152 bytes
+!
+! No configuration change since last restart
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname TermServ
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 XXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+memory-size iomem 10
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name tronsec.lcl
+ip host fgfw 2051 172.16.22.1
+ip host T-Jupiter 2052 172.16.22.1
+ip host T-Nexus 2053 172.16.22.1
+ip host T-Dell 2054 172.16.22.1
+ip host T-2911-A 2055 172.16.22.1
+ip host T-2911-B 2056 172.16.22.1
+ip host T-ISR-A 2057 172.16.22.1
+ip host T-ISR-B 2058 172.16.22.1
+ip host T-ISR-C 2059 172.16.22.1
+ip host T-2901-A 2060 172.16.22.1
+ip host T-2901-B 2061 172.16.22.1
+ip host T-2901-C 2062 172.16.22.1
+ip host T-3750-A 2063 172.16.22.1
+ip host T-3750-B 2064 172.16.22.1
+ip host T-3750-C 2065 172.16.22.1
+ip host T-3750-D 2066 172.16.22.1
+login on-failure log
+login on-success log
+!
+multilink bundle-name authenticated
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+license udi pid CISCO2901/K9 sn FTX1551852S
+!
+!
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+!
+!
+!
+!
+ip ssh port 2051 rotary 1 16
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.16.22.1 255.255.255.255
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 44.36.18.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Async0/3/0
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/1
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/2
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/3
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/4
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/5
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/6
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/7
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/8
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/9
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/10
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/11
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/12
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/13
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/14
+ no ip address
+ encapsulation slip
+!
+interface Async0/3/15
+ no ip address
+ encapsulation slip
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 44.36.18.1
+!
+!
+!
+menu cisco title ^C
+                         +#
+                      +*:==   :=*#####*=:
+                 =:  *:::+**=:::::::::=*.
+       :=*******=::#*-::-*::::::::::**
+       **-:::::::-=#%=::-::::::::-**
+         -#+=-::::-=--::::::::::=#******+=:
+      :**+===++:::::::::::::::::::::::::::::++
+    #+-::::::::::::::::::::::::::::::::::-+%=
+  **===--:::::::::::-+%%%%*-=***=-:-++**%=
+      =*=+*-::::::=%=      @.   .*#=:::::=++:
+     *::::::::::-#=                *%-::::::-*=        _____                                                                            _
+   :#::::::::::-@.                  .%-:::::::-%.     |_   _|    _ _    ___    _ _      ___     ___     __             _ _      ___    | |_
+  .*-==+*+-:::=@         =:  +=      :%::=******+       | |     | '_|  / _ \  | ' \    (_-<    / -_)   / _|      _    | ' \    / -_)   |  _|
+  =+:.  :*:::-%:         @%* @@%      *+:-#            _|_|_   _|_|_   \___/  |_||_|   /__/_   \___|   \__|_   _(_)_  |_||_|   \___|   _\__|
+
+        %-:::=%          %@% *@%      :%::=#         _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|
+       :*:::::%=                      :%#*-*:        "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'
+       *=::::=****+:                +**+=::==
+       #=:::::=*+=--=*:%%:*%**#%%%%*-=%%:::=*
+       #=-:::::*##=:::=+-:::::::::-*#-+*:::=+
+       +*=-:::-%* :**===--====***=   :%+:::*:
+        %==-::-%#*.                 -*%=::=*
+        -*===-:#*::*:            =+: =%::+*
+         :*=====%:                  -*--*-
+           =*+===**+=:           -**==*-
+              :*#**====+*******++*##-
+                     :=*####*+-.
+
+^C
+menu cisco prompt ^C
+Choose a device: ^C
+menu cisco text 1 Connect to FortiGate-40F
+menu cisco command 1 ssh -l clark -p 2051 172.16.22.1
+menu cisco text 2 Connect to Juniper SRX 345
+menu cisco command 2 ssh -l clark -p 2052 172.16.22.1
+menu cisco text 3 Connect to Cisco Nexus
+menu cisco command 3 ssh -l clark -p 2053 172.16.22.1
+menu cisco text 4 Connect to Dell PowerConnect 8024F
+menu cisco command 4 ssh -l clark -p 2054 172.16.22.1
+menu cisco text 5 Connect to Cisco 2911-A
+menu cisco command 5 ssh -l clark -p 2055 172.16.22.1
+menu cisco text 6 Connect to Cisco 2911-B
+menu cisco command 6 ssh -l clark -p 2056 172.16.22.1
+menu cisco text 7 Connect to Cisco ISR-A
+menu cisco command 7 ssh -l clark -p 2057 172.16.22.1
+menu cisco text 8 Connect to Cisco ISR-B
+menu cisco command 8 ssh -l clark -p 2058 172.16.22.1
+menu cisco text 9 Connect to Cisco ISR-C
+menu cisco command 9 ssh -l clark -p 2059 172.16.22.1
+menu cisco text 10 Connect to Cisco 2901-A
+menu cisco command 10 ssh -l clark -p 2060 172.16.22.1
+menu cisco text 11 Connect to Cisco 2901-B
+menu cisco command 11 ssh -l clark -p 2061 172.16.22.1
+menu cisco text 12 Connect to Cisco 2901-C
+menu cisco command 12 ssh -l clark -p 2062 172.16.22.1
+menu cisco text 13 Connect to Cisco 3750-A
+menu cisco command 13 ssh -l clark -p 2063 172.16.22.1
+menu cisco text 14 Connect to Cisco 3750-B
+menu cisco command 14 ssh -l clark -p 2064 172.16.22.1
+menu cisco text 15 Connect to Cisco 3750-C
+menu cisco command 15 ssh -l clark -p 2065 172.16.22.1
+menu cisco text 16 Connect to Cisco 3750-D
+menu cisco command 16 ssh -l clark -p 2066 172.16.22.1
+menu cisco text C# Disconnect Current Session (i.e. C3)
+menu cisco command C1 clear line 51
+menu cisco command C2 clear line 52
+menu cisco command C3 clear line 53
+menu cisco command C4 clear line 54
+menu cisco command C5 clear line 55
+menu cisco command C6 clear line 56
+menu cisco command C7 clear line 57
+menu cisco command C8 clear line 58
+menu cisco command C9 clear line 59
+menu cisco command C10 clear line 60
+menu cisco command C11 clear line 61
+menu cisco command C12 clear line 62
+menu cisco command C13 clear line 63
+menu cisco command C14 clear line 64
+menu cisco command C15 clear line 65
+menu cisco command C16 clear line 66
+menu cisco text E Exit Menu
+menu cisco command E menu-exit
+menu cisco text Q Terminate Connection From TermSrv
+menu cisco command Q exit
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line 0/3/0
+ rotary 1
+ no exec
+ transport input telnet ssh
+line 0/3/1
+ rotary 2
+ no exec
+ transport input telnet ssh
+line 0/3/2
+ rotary 3
+ no exec
+ transport input telnet ssh
+line 0/3/3
+ rotary 4
+ no exec
+ transport input telnet ssh
+line 0/3/4
+ rotary 5
+ no exec
+ transport input telnet ssh
+line 0/3/5
+ rotary 6
+ no exec
+ transport input telnet ssh
+line 0/3/6
+ rotary 7
+ no exec
+ transport input telnet ssh
+line 0/3/7
+ rotary 8
+ no exec
+ transport input telnet ssh
+line 0/3/8
+ rotary 9
+ no exec
+ transport input telnet ssh
+line 0/3/9
+ rotary 10
+ no exec
+ transport input telnet ssh
+line 0/3/10
+ rotary 11
+ no exec
+ transport input telnet ssh
+line 0/3/11
+ rotary 12
+ no exec
+ transport input telnet ssh
+line 0/3/12
+ rotary 13
+ no exec
+ transport input telnet ssh
+line 0/3/13
+ rotary 14
+ no exec
+ transport input telnet ssh
+line 0/3/14
+ rotary 15
+ no exec
+ transport input telnet ssh
+line 0/3/15
+ rotary 16
+ no exec
+ transport input telnet ssh
+line vty 0 4
+ privilege level 15
+ logging synchronous
+ autocommand  menu cisco
+ transport input ssh
+ transport output all
+line vty 5 15
+ logging synchronous
+ transport input all
+!
+scheduler allocate 20000 1000
+end
+
+TermServ#

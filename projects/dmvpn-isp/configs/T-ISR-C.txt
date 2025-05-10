@@ -1,0 +1,222 @@
+T-ISR-C#show run
+Building configuration...
+
+Current configuration : 3760 bytes
+!
+! Last configuration change at 17:44:20 UTC Sun Apr 27 2025
+!
+version 17.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+! Call-home is enabled by Smart-Licensing.
+service call-home
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname T-ISR-C
+!
+boot-start-marker
+boot system tftp /bootflash/isr4300-universalk9.17.09.05a.SPA.bin 255.255.255.255
+boot system flash isr4300-universalk9.17.09.05a.SPA.bin
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging userinfo
+aaa new-model
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+ip domain name tronsec.lcl
+!
+!
+!
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+vtp version 1
+multilink bundle-name authenticated
+!
+!
+password encryption aes
+!
+!
+!
+!
+!
+license udi pid ISR4331-B/K9 sn FDO221818PX
+memory free low-watermark processor 62960
+!
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+dot1x system-auth-control
+!
+!
+enable secret 9 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+!
+username clark privilege 15 secret 9 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+ mode none
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-ISR-C Loopback Interface"
+ ip address 10.26.43.33 255.255.255.255
+ ipv6 address FD00:C345:17:0:C:4331:0:C/128
+ ipv6 enable
+ ipv6 eigrp 65301
+!
+interface GigabitEthernet0/0/0
+ description "To T-2901-C"
+ ip address 172.16.0.6 255.255.255.252
+ negotiation auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ipv6 eigrp 65301
+!
+interface GigabitEthernet0/0/1
+ description "To T-ISR-B"
+ ip address 172.16.0.10 255.255.255.252
+ media-type rj45
+ negotiation auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ipv6 eigrp 65301
+!
+interface GigabitEthernet0/0/2
+ description "To T-3750-C"
+ no ip address
+ media-type sfp
+ negotiation auto
+ ipv6 enable
+!
+interface GigabitEthernet0/0/2.10
+ encapsulation dot1Q 10
+ ip address 172.16.10.3 255.255.255.0
+ ip helper-address 10.26.29.3
+ ipv6 address FD00:C345:17:0:C:10:0:3/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 65301
+ ipv6 dhcp relay destination FD00:C345:17:0:C:2901:0:C
+ glbp 10 ip 172.16.10.1
+ glbp 16 ipv6 autoconfig
+!
+interface GigabitEthernet0/0/2.20
+ encapsulation dot1Q 20
+ ip address 172.16.20.3 255.255.255.0
+ ip helper-address 10.26.29.3
+ ipv6 address FD00:C345:17:0:C:20:0:3/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 65301
+ ipv6 dhcp relay destination FD00:C345:17:0:C:2901:0:C
+ glbp 20 ip 172.16.20.1
+ glbp 26 ipv6 autoconfig
+!
+interface GigabitEthernet0/1/0
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+router eigrp 65301
+ network 10.26.43.33 0.0.0.0
+ network 172.16.0.4 0.0.0.3
+ network 172.16.0.8 0.0.0.3
+ eigrp router-id 172.16.43.33
+!
+no ip http server
+no ip http secure-server
+ip forward-protocol nd
+ip tftp source-interface GigabitEthernet0
+ip ssh version 2
+!
+!
+!
+ipv6 router eigrp 65301
+ eigrp router-id 10.26.43.33
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+line vty 5 14
+ transport input ssh
+!
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+!
+!
+!
+!
+!
+!
+end
+
+T-ISR-C#

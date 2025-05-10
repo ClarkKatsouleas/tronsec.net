@@ -1,0 +1,304 @@
+T-3750-A#show run
+Building configuration...
+
+Current configuration : 4950 bytes
+!
+! Last configuration change at 19:57:22 UTC Sun Jan 15 2006
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-3750-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+!
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXX
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+switch 1 provision ws-c3750e-48pd
+system mtu routing 1500
+!
+!
+!
+!
+ip routing
+!
+!
+ip dhcp pool VLAN_10
+ network 10.0.10.0 255.255.255.0
+ default-router 10.0.10.1
+ dns-server 44.2.2.44 44.2.2.45
+!
+ip dhcp pool VLAN_20
+ network 10.0.20.0 255.255.255.0
+ default-router 10.0.20.1
+ dns-server 44.2.2.44 44.2.2.45
+!
+ip dhcp pool VLAN_30
+ network 10.0.30.0 255.255.255.0
+ default-router 10.0.30.1
+ dns-server 44.2.2.44 44.2.2.45
+!
+ip dhcp pool VLAN_40
+ network 10.0.40.0 255.255.255.0
+ default-router 10.0.40.1
+ dns-server 44.2.2.44 44.2.2.45
+!
+!
+no ip domain-lookup
+ip domain-name tronsec.lcl
+ipv6 unicast-routing
+ipv6 dhcp pool VLAN_10_v6
+ address prefix FD00:C345:17:0:A:10::/96
+ dns-server FD00:1::A
+ dns-server FD00:1::B
+ domain-name tronsec.net
+!
+ipv6 dhcp pool VLAN_20_v6
+ address prefix FD00:C345:17:0:A:20::/96
+ dns-server FD00:1::A
+ dns-server FD00:1::B
+ domain-name tronsec.net
+!
+ipv6 dhcp pool VLAN_30_v6
+ address prefix FD00:C345:17:0:A:30::/96
+ dns-server FD00:1::A
+ dns-server FD00:1::B
+ domain-name tronsec.net
+!
+ipv6 dhcp pool VLAN_40_v6
+ address prefix FD00:C345:17:0:A:40::/96
+ dns-server FD00:1::A
+ dns-server FD00:1::B
+ domain-name tronsec.net
+!
+vtp mode transparent
+!
+!
+!
+!
+!
+password encryption aes
+!
+!
+license boot level ipservices
+dot1x system-auth-control
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+errdisable recovery cause link-flap
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-3750-A Loopback Interface"
+ ip address 10.26.37.50 255.255.255.255
+ ipv6 address FD00:C345:17:0:A:3750:0:A/128
+ ipv6 enable
+ ospfv3 65101 ipv6 area 2
+!
+interface Port-channel10
+ description "To T-Nexus"
+ no switchport
+ ip address 10.0.1.14 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 65101 ipv6 area 2
+!
+interface FastEthernet0
+ no ip address
+ no ip route-cache
+!
+interface GigabitEthernet1/0/1
+ description "To T-2911-A"
+ no switchport
+ ip address 10.0.1.17 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 65101 ipv6 area 2
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/0/25
+!
+interface GigabitEthernet1/0/26
+!
+interface GigabitEthernet1/0/27
+!
+interface GigabitEthernet1/0/28
+!
+interface GigabitEthernet1/0/29
+!
+interface GigabitEthernet1/0/30
+!
+interface GigabitEthernet1/0/31
+!
+interface GigabitEthernet1/0/32
+!
+interface GigabitEthernet1/0/33
+!
+interface GigabitEthernet1/0/34
+!
+interface GigabitEthernet1/0/35
+!
+interface GigabitEthernet1/0/36
+!
+interface GigabitEthernet1/0/37
+!
+interface GigabitEthernet1/0/38
+!
+interface GigabitEthernet1/0/39
+!
+interface GigabitEthernet1/0/40
+!
+interface GigabitEthernet1/0/41
+!
+interface GigabitEthernet1/0/42
+!
+interface GigabitEthernet1/0/43
+!
+interface GigabitEthernet1/0/44
+!
+interface GigabitEthernet1/0/45
+!
+interface GigabitEthernet1/0/46
+!
+interface GigabitEthernet1/0/47
+!
+interface GigabitEthernet1/0/48
+!
+interface GigabitEthernet1/0/49
+ no switchport
+ no ip address
+ channel-group 10 mode active
+!
+interface GigabitEthernet1/0/50
+ no switchport
+ no ip address
+ channel-group 10 mode active
+!
+interface GigabitEthernet1/0/51
+!
+interface GigabitEthernet1/0/52
+!
+interface TenGigabitEthernet1/0/1
+!
+interface TenGigabitEthernet1/0/2
+!
+interface Vlan1
+ no ip address
+!
+router ospfv3 65101
+ router-id 10.26.37.50
+ !
+ address-family ipv6 unicast
+  router-id 10.26.37.50
+ exit-address-family
+!
+router ospf 65101
+ router-id 10.0.37.50
+ network 10.0.1.12 0.0.0.3 area 2
+ network 10.0.1.16 0.0.0.3 area 2
+ network 10.26.37.50 0.0.0.0 area 2
+!
+ip forward-protocol nd
+!
+!
+ip http server
+ip http secure-server
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+line vty 5 15
+!
+!
+end
+
+T-3750-A#

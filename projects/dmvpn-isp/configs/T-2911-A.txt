@@ -1,0 +1,228 @@
+T-2911-A#show run
+Building configuration...
+
+
+
+Current configuration : 3258 bytes
+!
+! Last configuration change at 18:41:42 UTC Tue Apr 22 2025
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2911-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+!
+aaa common-criteria policy PASSWORD_POLICY
+ min-length 1
+ max-length 127
+ char-changes 4
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip domain name tronsec.lcl
+ip cef
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+password encryption aes
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+vxml logging-tag
+license udi pid CISCO2911/K9 sn FTX1628ALT3
+dot1x system-auth-control
+!
+!
+vtp mode transparent
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+!
+lldp run
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2911-A Loopback Interface"
+ ip address 10.26.29.11 255.255.255.255
+ ipv6 address FD00:C345:17:0:A:2911:0:A/128
+ ipv6 enable
+ ospfv3 65101 ipv6 area 2
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To T-3750-A"
+ ip address 10.0.1.18 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 65101 ipv6 area 2
+!
+interface GigabitEthernet0/1
+ description "To T-3750-B"
+ no ip address
+ duplex auto
+ speed auto
+ ipv6 enable
+!
+interface GigabitEthernet0/1.30
+ description "VLAN 30 Sub-Interface"
+ encapsulation dot1Q 30
+ ip address 10.0.30.1 255.255.255.0
+ ip helper-address 10.26.37.50
+ ipv6 address FD00:C345:17:0:A:30:0:1/96
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination  FD00:C345:17:0:A:3750:0:A
+ ospfv3 65101 ipv6 area 2
+!
+interface GigabitEthernet0/1.40
+ description "VLAN 40 Sub-Interface"
+ encapsulation dot1Q 40
+ ip address 10.0.40.1 255.255.255.0
+ ip helper-address 10.26.37.50
+ ipv6 address FD00:C345:17:0:A:40:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination  FD00:C345:17:0:A:3750:0:A
+ ospfv3 65101 ipv6 area 2
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+!
+!
+router ospfv3 65101
+ router-id 10.26.29.11
+ !
+ address-family ipv6 unicast
+  router-id 10.26.29.11
+ exit-address-family
+!
+router ospf 65101
+ router-id 10.0.29.11
+ passive-interface GigabitEthernet0/1
+ passive-interface GigabitEthernet0/1.30
+ passive-interface GigabitEthernet0/1.40
+ network 10.0.1.16 0.0.0.3 area 2
+ network 10.0.30.0 0.0.0.255 area 2
+ network 10.0.40.0 0.0.0.255 area 2
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+ipv6 ioam timestamp
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2911-A#

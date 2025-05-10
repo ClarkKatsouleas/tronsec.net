@@ -1,0 +1,283 @@
+T-2901-A#show run
+Building configuration...
+
+
+Current configuration : 5260 bytes
+!
+! Last configuration change at 04:39:57 UTC Fri Apr 25 2025
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2901-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip domain name tronsec.lcl
+ip cef
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+mpls label protocol ldp
+!
+!
+password encryption aes
+!
+!
+license udi pid CISCO2901/K9 sn FJC1838A06M
+license boot module c2900 technology-package datak9
+dot1x system-auth-control
+!
+!
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+!
+!
+!
+!
+lldp run
+!
+!
+!
+crypto isakmp policy 1
+ encr aes 256
+ hash sha512
+ authentication pre-share
+ group 14
+crypto isakmp key 6 XXXXXXXXXXXXXXXXXXXXXX address 0.0.0.0
+crypto isakmp key 6 XXXXXXXXXXXXXXXXXXXXXXXX address ipv6 ::/0
+!
+!
+crypto ipsec transform-set A-TRANSFORM-SET esp-aes 256 esp-sha512-hmac
+ mode transport
+!
+crypto ipsec profile A-IPSEC-PROFILE
+ set transform-set A-TRANSFORM-SET
+!
+crypto ipsec profile A-IPSEC-PROFILE-v6
+ set transform-set A-TRANSFORM-SET
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2901-A Loopback Interface"
+ ip address 10.26.29.1 255.255.255.255
+ ipv6 address FD00:C345:17:0:A:2901:0:A/128
+ ipv6 enable
+ ospfv3 65101 ipv6 area 0
+!
+interface Tunnel0
+ description "DMVPN Hub"
+ ip address 172.30.1.4 255.255.255.248
+ no ip redirects
+ ip mtu 1400
+ ip nhrp authentication cisco
+ ip nhrp network-id 26
+ ip nhrp server-only
+ ip nhrp redirect
+ no ip split-horizon
+ ip tcp adjust-mss 1360
+ ipv6 address FE80:D::A link-local
+ ipv6 address FD00:C345:17:0:D::A/124
+ ipv6 enable
+ no ipv6 redirects
+ ipv6 tcp adjust-mss 1360
+ ipv6 nhrp authentication cisco
+ ipv6 nhrp network-id 99
+ ipv6 nhrp redirect
+ tunnel source GigabitEthernet0/0
+ tunnel mode gre multipoint
+ tunnel key 262626
+ tunnel protection ipsec profile A-IPSEC-PROFILE
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To Uplink Connection A"
+ ip address 44.36.17.4 255.255.255.0
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ ipv6 address FD00:C345:17::4/124
+ ipv6 enable
+!
+interface GigabitEthernet0/1
+ description "To T-Nexus"
+ ip address 10.0.1.1 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 65101 ipv6 area 0
+!
+interface Serial0/0/0
+ description "To T-2901-B"
+ ip address 192.168.1.1 255.255.255.252
+ encapsulation ppp
+ mpls bgp forwarding
+ mpls label protocol ldp
+ mpls ip
+!
+interface Serial0/1/0
+ description "To T-2901-C"
+ ip address 192.168.1.5 255.255.255.252
+ encapsulation ppp
+ mpls bgp forwarding
+ mpls label protocol ldp
+ mpls ip
+!
+interface GigabitEthernet0/3/0
+ description "To T-ISR-A"
+ ip address 10.0.1.5 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 65101 ipv6 area 0
+!
+!
+router ospfv3 65101
+ router-id 10.26.29.1
+ !
+ address-family ipv6 unicast
+  default-information originate always
+  router-id 10.26.29.1
+ exit-address-family
+!
+router ospf 65101
+ router-id 10.0.29.1
+ network 10.0.1.0 0.0.0.3 area 0
+ network 10.0.1.4 0.0.0.3 area 0
+ default-information originate always
+!
+router bgp 65100
+ bgp router-id 10.26.29.1
+ bgp log-neighbor-changes
+ neighbor 172.30.1.5 remote-as 65200
+ neighbor 172.30.1.6 remote-as 65300
+ neighbor 192.168.1.2 remote-as 65200
+ neighbor 192.168.1.6 remote-as 65300
+ neighbor FD00:C345:17:0:D::B remote-as 65200
+ neighbor FD00:C345:17:0:D::C remote-as 65300
+ !
+ address-family ipv4
+  network 10.26.29.1 mask 255.255.255.255
+  network 10.26.37.50 mask 255.255.255.255
+  network 192.168.1.0 mask 255.255.255.252
+  network 192.168.1.4 mask 255.255.255.252
+  redistribute ospf 65101
+  neighbor 172.30.1.5 activate
+  neighbor 172.30.1.6 activate
+  neighbor 192.168.1.2 activate
+  neighbor 192.168.1.2 send-label
+  neighbor 192.168.1.6 activate
+  neighbor 192.168.1.6 send-label
+  no neighbor FD00:C345:17:0:D::B activate
+  no neighbor FD00:C345:17:0:D::C activate
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute ospf 65101
+  network FD00:C345:17:0:A:2901:0:A/128
+  neighbor FD00:C345:17:0:D::B activate
+  neighbor FD00:C345:17:0:D::C activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source list NAT_ACL interface GigabitEthernet0/0 overload
+ip route 0.0.0.0 0.0.0.0 44.36.17.1
+ip ssh version 2
+!
+ip access-list extended NAT_ACL
+ permit ip 10.0.0.0 0.255.255.255 any
+!
+ipv6 route ::/0 GigabitEthernet0/0 FD00:C345:17::1
+ipv6 ioam timestamp
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+!
+control-plane
+!
+!
+ vstack
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2901-A#

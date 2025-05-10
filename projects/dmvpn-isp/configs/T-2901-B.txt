@@ -1,0 +1,325 @@
+T-2901-B#show run
+Building configuration...
+
+
+Current configuration : 5676 bytes
+!
+! Last configuration change at 07:39:01 UTC Fri Apr 25 2025
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2901-B
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+ip dhcp pool VLAN_10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 44.2.2.44 44.2.2.45
+!
+ip dhcp pool VLAN_20
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.1
+ dns-server 44.2.2.44 44.2.2.45
+!
+!
+!
+no ip domain lookup
+ip domain name tronsec.lcl
+ip cef
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+ipv6 dhcp pool VLAN_10_v6
+ address prefix FD00:C345:18:0:B:10::/96
+ dns-server FD00:1::A
+ dns-server FD00:1::B
+ domain-name tronsec.net
+!
+ipv6 dhcp pool VLAN_20_v6
+ address prefix FD00:C345:18:0:B:20::/96
+ dns-server FD00:1::A
+ dns-server FD00:1::B
+ domain-name tronsec.net
+!
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+mpls label protocol ldp
+!
+!
+!
+!
+!
+password encryption aes
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+vxml logging-tag
+license udi pid CISCO2901/K9 sn FTX14198120
+license accept end user agreement
+license boot module c2900 technology-package datak9
+dot1x system-auth-control
+hw-module pvdm 0/0
+!
+!
+!
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+!
+!
+!
+!
+lldp run
+!
+!
+!
+crypto isakmp policy 1
+ encr aes 256
+ hash sha512
+ authentication pre-share
+ group 14
+crypto isakmp key 6 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX address 0.0.0.0
+crypto isakmp key 6 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX address ipv6 ::/0
+!
+!
+crypto ipsec transform-set B-TRANSFORM-SET esp-aes 256 esp-sha512-hmac
+ mode transport
+!
+crypto ipsec profile B-IPSEC-PROFILE
+ set transform-set B-TRANSFORM-SET
+!
+crypto ipsec profile B-IPSEC-PROFILE-v6
+ set transform-set B-TRANSFORM-SET
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2901-B Loopback Interface"
+ ip address 10.26.29.2 255.255.255.255
+ ipv6 address FD00:C345:18:0:B:2901:0:B/128
+ ipv6 enable
+!
+interface Tunnel0
+ description "DMVPN Spoke B"
+ ip address 172.30.1.5 255.255.255.248
+ no ip redirects
+ ip mtu 1400
+ ip nhrp authentication cisco
+ ip nhrp map 172.30.1.4 44.36.17.4
+ ip nhrp map multicast 44.36.17.4
+ ip nhrp network-id 26
+ ip nhrp nhs 172.30.1.4
+ ip tcp adjust-mss 1360
+ ipv6 address FE80:D::B link-local
+ ipv6 address FD00:C345:17:0:D::B/124
+ ipv6 enable
+ ipv6 mtu 1400
+ ipv6 tcp adjust-mss 1360
+ ipv6 nhrp authentication cisco
+ ipv6 nhrp map FD00:C345:17:0:D::A/128 44.36.17.4
+ ipv6 nhrp map multicast 44.36.17.4
+ ipv6 nhrp network-id 99
+ ipv6 nhrp nhs FD00:C345:17:0:D::A
+ tunnel source GigabitEthernet0/0
+ tunnel mode gre multipoint
+ tunnel key 262626
+ tunnel protection ipsec profile B-IPSEC-PROFILE
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To Uplink Connection B"
+ ip address 44.36.18.5 255.255.255.0
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ ipv6 address FD00:C345:18::5/124
+ ipv6 enable
+!
+interface GigabitEthernet0/1
+ description "To T-3750-D"
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.10
+ description "VLAN 10 Sub-Interface"
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+ ip router isis ISIS
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FD00:C345:18:0:B:10:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp server VLAN_10_v6
+!
+interface GigabitEthernet0/1.20
+ description "VLAN 20 Sub-Interface"
+ encapsulation dot1Q 20
+ ip address 192.168.20.1 255.255.255.0
+ ip router isis ISIS
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FD00:C345:18:0:B:20:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp server VLAN_20_v6
+!
+interface Serial0/2/0
+ description "To T-2901-A"
+ ip address 192.168.1.2 255.255.255.252
+ encapsulation ppp
+ mpls bgp forwarding
+ mpls label protocol ldp
+ mpls ip
+!
+!
+router isis ISIS
+ net 65.0201.1920.1680.0209.0001.00
+!
+router bgp 65200
+ bgp router-id 10.26.29.2
+ bgp log-neighbor-changes
+ neighbor 172.30.1.4 remote-as 65100
+ neighbor 192.168.1.1 remote-as 65100
+ neighbor FD00:C345:17:0:D::A remote-as 65100
+ !
+ address-family ipv4
+  network 10.26.29.2 mask 255.255.255.255
+  network 192.168.10.0
+  network 192.168.20.0
+  neighbor 172.30.1.4 activate
+  neighbor 192.168.1.1 activate
+  neighbor 192.168.1.1 send-label
+  no neighbor FD00:C345:17:0:D::A activate
+ exit-address-family
+ !
+ address-family ipv6
+  network FD00:C345:18:0:B:10::/96
+  network FD00:C345:18:0:B:20::/96
+  network FD00:C345:18:0:B:2901:0:B/128
+  neighbor FD00:C345:17:0:D::A activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source list NAT_ACL interface GigabitEthernet0/0 overload
+ip route 0.0.0.0 0.0.0.0 44.36.18.1
+ip ssh version 2
+!
+ip access-list extended NAT_ACL
+ permit ip 192.168.0.0 0.0.255.255 any
+!
+ipv6 route ::/0 GigabitEthernet0/0 FD00:C345:18::1
+ipv6 ioam timestamp
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+ vstack
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2901-B#

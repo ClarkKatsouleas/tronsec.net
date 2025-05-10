@@ -1,0 +1,220 @@
+T-ISR-A#show run
+Building configuration...
+
+
+Current configuration : 3709 bytes
+!
+! Last configuration change at 19:33:49 UTC Tue Apr 22 2025
+!
+version 16.12
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service call-home
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname T-ISR-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging userinfo
+enable secret 9 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+  no destination transport-method email
+!
+!
+!
+!
+!
+!
+!
+ip domain name tronsec.lcl
+!
+!
+!
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+password encryption aes
+!
+!
+!
+!
+license udi pid ISR4331-B/K9 sn FDO21363391
+memory free low-watermark processor 67180
+!
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+dot1x system-auth-control
+!
+username clark privilege 15 secret 9 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+ mode none
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-ISR-A Loopback Interface"
+ ip address 10.26.43.31 255.255.255.255
+ ipv6 address FD00:C345:17:0:A:4331:0:A/128
+ ipv6 enable
+ ospfv3 65101 ipv6 area 0
+!
+interface GigabitEthernet0/0/0
+ description "To T-DellPWR"
+ no ip address
+ negotiation auto
+ ipv6 enable
+!
+interface GigabitEthernet0/0/0.10
+ description "VLAN 10 Sub-Interface"
+ encapsulation dot1Q 10
+ ip address 10.0.10.1 255.255.255.0
+ ip helper-address 10.26.37.50
+ ipv6 address FD00:C345:17:0:A:10:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination FD00:C345:17:0:A:3750:0:A
+ ospfv3 65101 ipv6 area 1
+!
+interface GigabitEthernet0/0/0.20
+ description "VLAN 20 Sub-Interface"
+ encapsulation dot1Q 20
+ ip address 10.0.20.1 255.255.255.0
+ ip helper-address 10.26.37.50
+ ipv6 address FD00:C345:17:0:A:20:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination FD00:C345:17:0:A:3750:0:A
+ ospfv3 65101 ipv6 area 1
+!
+interface GigabitEthernet0/0/1
+ description "To T-Nexus"
+ ip address 10.0.1.10 255.255.255.252
+ negotiation auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 65101 ipv6 area 0
+!
+interface GigabitEthernet0/0/2
+ description "To T-2901-A"
+ ip address 10.0.1.6 255.255.255.252
+ negotiation auto
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 65101 ipv6 area 0
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospfv3 65101
+ !
+ address-family ipv6 unicast
+  router-id 10.26.43.31
+ exit-address-family
+!
+router ospf 65101
+ router-id 10.0.43.31
+ passive-interface GigabitEthernet0/0/0
+ passive-interface GigabitEthernet0/0/0.10
+ passive-interface GigabitEthernet0/0/0.20
+ network 10.0.1.4 0.0.0.3 area 0
+ network 10.0.1.8 0.0.0.3 area 0
+ network 10.0.10.0 0.0.0.255 area 1
+ network 10.0.20.0 0.0.0.255 area 1
+!
+ip forward-protocol nd
+no ip http server
+ip http authentication local
+no ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ transport input ssh
+ transport output all
+!
+!
+!
+!
+!
+!
+end
+
+T-ISR-A#
