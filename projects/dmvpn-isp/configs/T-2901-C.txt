@@ -183,7 +183,7 @@ interface Tunnel0
  ipv6 nhrp nhs FD00:C345:17:0:D::A
  tunnel source GigabitEthernet0/0
  tunnel mode gre multipoint
- tunnel key 262626
+ tunnel key XXXXXXXXX
  tunnel protection ipsec profile C-IPSEC-PROFILE
 !
 interface Embedded-Service-Engine0/0
