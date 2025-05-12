@@ -153,7 +153,7 @@ interface GigabitEthernet0/2
  description "To T-ISR-B"
  ip address 10.26.5.37 255.255.255.252
  ip ospf authentication message-digest
- ip ospf authentication-key 7 1511021F0725
+ ip ospf authentication-key 7 XXXXXXXXXXXXXX
  ip ospf message-digest-key 4 md5 7 XXXXXXXXXXXXXXX
  duplex auto
  speed auto
