@@ -8,6 +8,9 @@
     <title>Network Security Homelab - Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      .indented-paragraph {
+        text-indent: 2em;  /* This creates a paragraph first-line indent */
+      }
       /* PROJECT 2 PAGE INDEX and Keeping all the original CSS styles */
       .device {
         fill: #fff;
@@ -280,9 +283,19 @@
                 <p class="text-gray-600 mb-6">
                     Initial planning for this project architecture began in December 2024, with physical implementation starting in Janruary 2025. 
                 </p>
-                <p class="text-gray-600 mb-6">
-                    The lab incorporates enterprise-grade hardware including Cisco Catalyst 3750e switches (x4), Cisco 2901 routers (x4), Cisco 2911 routers (x2), FortiNet FortiGate 40F Next Generation Firewall (NGFW), and an Juniper SRX 345 Firewall. ### Include overview here. ### An animated diagram of the network architecture can be viewed below. Click on any networking device to view their configurations!
+                <p class="text-gray-600 mb-6 indented-paragraph">
+                    This lab environment was originally born as an idea to implement security architecture in a highly functional setting. Most lab classes and times I have been able to work with networking devices before this point, the network architecture was either exaggerated or not functional to an enterprise in the goal of teaching given concepts. For example, with OSPF virtual links or with OSPF into EIGRP redistribution, the designs of the topologies taught the concepts well in why they were to be implemented, but left me wondering why anyone would ever design a network that way in the first place.
                 </p>
+                <p class="text-gray-600 mb-6 indented-paragraph">
+                    In order to make a highly functional network, I set up the topology for two core switches to be the “backbone” (pun-intended) of the network in OSPF Area 0 with a link aggregation of Multi-Mode (MM) fiber between them. Both of them connected to the edge FortiNet FG-40F firewall. I then set up distribution routers off of the two core switches in a partial mesh topology with connections to client and server switches at the access layer, and another router to a second network through a Site-to-Site Virtual Private Network (VPN).
+                </p>
+                <p class="text-gray-600 mb-6 indented-paragraph">
+                    The lab incorporated enterprise-grade hardware including Cisco Catalyst 3750e switches (x4), Cisco 2901 routers (x4), Cisco ISR 4331 routers (x3), Cisco 2911 routers (x2), Cisco Nexus 5548UP (x1), Dell PowerConnect 8024F (x1), FortiNet FortiGate 40F Next Generation Firewall (NGFW), and a Juniper SRX 345 Firewall. A detailed architecture mapping table of all of these devices can be viewed below the network diagram.
+                </p>
+                <p class="text-gray-600 mb-6">
+                    An animated diagram of the network architecture can be viewed below. Click on any networking device to view their configurations!
+                </p>
+
                 <div class="flex flex-wrap gap-2 mb-8">
                     <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Cisco</span>
                     <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">FortiNet</span>
