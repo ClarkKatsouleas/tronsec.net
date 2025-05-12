@@ -136,7 +136,7 @@ interface Tunnel0
  ipv6 nhrp redirect
  tunnel source GigabitEthernet0/0
  tunnel mode gre multipoint
- tunnel key 262626
+ tunnel key XXXXXXXXXXX
  tunnel protection ipsec profile A-IPSEC-PROFILE
 !
 interface Embedded-Service-Engine0/0
