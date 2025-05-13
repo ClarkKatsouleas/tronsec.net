@@ -1230,56 +1230,67 @@
                 </table>
             </div>
 
-            <!-- Network Architecture & Segmentation -->
-            <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture & Segmentation</h3>
-            <p class="text-gray-600 mb-4 indented-paragraph">
-                The network was set up to allow high traffic functionality and redundancy throughout the core of the network. To review from previous implementations, the routing protocol Open Shortest Path First (OSPF) was used throughout the main site’s network with Areas 0, 10, 20, and 30. A Demilitarized Zone was established off of the WAN-edge firewall in area 40 to allow connectivity to Domain Name System (DNS) name servers. 
-		<span class="line-break">To support the growing system’s infrastructure, four primary Virtual Local Area Networks (VLANs) were established throughout the network: 10, 20, 30, and 40.
+<!-- Network Architecture & Segmentation -->
+<h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture & Segmentation</h3>
+<p class="text-gray-600 mb-4 indented-paragraph">
+    The network was set up to allow high traffic functionality and redundancy throughout the core of the network. To review from previous implementations, the routing protocol Open Shortest Path First (OSPF) was used throughout the main site's network with Areas 0, 10, 20, and 30. A Demilitarized Zone was established off of the WAN-edge firewall in area 40 to allow connectivity to Domain Name System (DNS) name servers. 
+    <span class="line-break">To support the growing system's infrastructure, four primary Virtual Local Area Networks (VLANs) were established throughout the network: 10, 20, 30, and 40.
+</p>
 
-            </p>
-            <h4 class="text-xl font-semibold mt-6 mb-3">Management Infrastructure (VLAN 10)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnets: <span class="font-bold">10.26.9.0/24, 10.26.10.0/24, 10.26.11.0/24</span></li>
-                <li>Traffic Designation: <span style="color: #2196F3">Blue</span> CAT6 UTP</li>
-                <li>RADIUS authentication integration for network devices</li>
-                <li>Primary DNS resolver for internal subnets and domain (tronsec.lcl)</li>
-                <li>Root Certificate Authority for the primary domain (10.26.10.100)</li>
-            </ul>
+    <h4 class="text-xl font-semibold mt-6 mb-3">Management Infrastructure (VLAN 10)</h4>
 
-            <h4 class="text-xl font-semibold mt-6 mb-3">Client Network (VLAN 20)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.19.0/24, 10.26.20.0/24, 10.26.21.0/24</span></li>
-                <li>Traffic Designation: <span style="color: #FF5722">Red</span> CAT6 UTP</li>
-                <li>Client Connection Network For Non-Management Traffic</li>
-            </ul>
+<div class="flex flex-wrap items-start">
+  <div class="w-full md:w-1/2 pr-0 md:pr-4">
 
-            <h4 class="text-xl font-semibold mt-6 mb-3">DMZ Services (VLAN 30)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.30.0/24</span></li>
-                <li>Traffic Designation: <span style="color: #4CAF50">Green</span> CAT6 UTP</li>
-                <li>Hosts DMZ DNS servers (10.26.30.100/31)</li>
-                <li>Relays internal DNS from Active Directory server</li>
-                <li>Direct internet access through FortiGate firewall</li>
-                <li>DNS forwarding to DNS-Secured Delegation Servers (44.2.2.44/31)</li>
-                <li>Services NTP for domain and log synchronization on networking devices</li>
-            </ul>
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnets: <span class="font-bold">10.26.9.0/24, 10.26.10.0/24, 10.26.11.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #2196F3">Blue</span></li>
+        <li>RADIUS authentication integration for network devices</li>
+        <li>Primary DNS resolver for internal subnets and domain (tronsec.lcl)</li>
+        <li>Root Certificate Authority for the primary domain (10.26.10.100)</li>
+    </ul>    
 
-            <h4 class="text-xl font-semibold mt-6 mb-3">Server Infrastructure (VLAN 40)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.40.0/24</span></li>
-                <li>Traffic Designation: <span style="color: #FFDF00">Yellow</span> CAT6 UTP</li>
-                <li>Service Servers Centralized on ESXi server</li>
-            </ul>
+    <h4 class="text-xl font-semibold mb-3">Client Network (VLAN 20)</h4>
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnets: <span class="font-bold">10.26.19.0/24, 10.26.20.0/24, 10.26.21.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #FF5722">Red</span></li>
+        <li>Client Connection Network For Non-Management Traffic</li>
+    </ul>
+    
+    <h4 class="text-xl font-semibold mb-3">DMZ Services (VLAN 30)</h4>
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnet: <span class="font-bold">10.26.30.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #4CAF50">Green</span></li>
+        <li>Hosts DMZ DNS servers (10.26.30.100/31)</li>
+        <li>Relays internal DNS from Active Directory server</li>
+        <li>Direct internet access through FortiGate firewall</li>
+        <li>DNS forwarding to DNS-Secured Delegation Servers (44.2.2.44/31)</li>
+        <li>Services NTP for domain and log synchronization on networking devices</li>
+    </ul>
 
-            <!-- Physical Infrastructure -->
-            <h4 class="text-xl font-semibold mt-6 mb-3">Physical Infrastructure</h4>
-            <ul class="list-disc pl-6 mb-6 text-gray-600">
-                <li>EH-WICs and NIM modules for network expandability</li>
-                <li>Copper SFPs and TwinGig Module for network medium conversion</li>
-                <li>Green Async Cable Connections to the console port on all devices</li>
-                <li>RJ-45 CAT6 UTP Cables for general connectivity</li>
-                <li>MM Fiber Connections for core switching connectivity</li>
-            </ul>
+    <h4 class="text-xl font-semibold mb-3">Server Infrastructure (VLAN 40)</h4>
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnet: <span class="font-bold">10.26.40.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #FFDF00">Yellow</span></li>
+        <li>Service Servers Centralized on ESXi server</li>
+    </ul>
+
+    <!-- Physical Infrastructure -->
+    <h4 class="text-xl font-semibold mt-6 mb-3">Physical Infrastructure</h4>
+    <ul class="list-disc pl-6 mb-6 text-gray-600">
+        <li>EH-WICs and NIM modules for network expandability</li>
+        <li>Copper SFPs and TwinGig Module for network medium conversion</li>
+        <li>Green Async Cable Connections to the console port on all devices</li>
+        <li>RJ-45 CAT6 UTP Cables for general connectivity</li>
+        <li>MM Fiber Connections for core switching connectivity</li>
+    </ul>
+
+  </div>
+  <div class="w-full md:w-1/2">
+    <img src="../../assets/physical-equipment/Lab1-2_Equipment.jpg" alt="Network Infrastructure Rack" class="rounded-lg shadow-md w-full h-auto" />
+    <p class="text-xs text-gray-500 text-center mt-1 mb-0">Physical implementation of the network infrastructure</p>
+  </div>
+</div>
 
                 <!-- Network Connectivity & Routing -->
                 <h3 class="text-2xl font-bold mt-8 mb-4">Network Connectivity & Routing</h3>
