@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /projects/network-security-service-administration/
 Disallow: /projects/dmvpn-isp/
 Disallow: /secrets/
