@@ -8,7 +8,18 @@
     <title>Network Security Homelab - Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* PROJECT 2 PAGE INDEX and Keeping all the original CSS styles */
+      /* PROJECT 3 PAGE INDEX and Keeping all the original CSS styles */
+
+      .indented-paragraph {
+        text-indent: 2em;  /* This creates a paragraph first-line indent */
+      }
+
+      .line-break {
+        display: block;
+        text-indent: 2em;
+        margin-top: 0.5em;
+      }
+
       .device {
         fill: #fff;
         stroke: #0066cc;
@@ -254,8 +265,8 @@
     <div class="bg-gray-900 pt-32 pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">Network Security & Service Administration Topology 3</h1>
-                <p class="text-xl text-gray-300">A comprehensive enterprise-grade network security environment</p>
+                <h1 class="text-4xl font-bold text-white mb-4">Dynamic Multipoint VPN & MPLS</h1>
+                <p class="text-xl text-gray-300">A secured underlay network focused on reachaboility and connectivity</p>
             </div>
         </div>
     </div>
@@ -265,11 +276,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="prose prose-lg mx-auto">
                 <h2 class="text-3xl font-bold mb-6">Project Introduction</h2>
-                <p class="text-gray-600 mb-6">
-                    Initial planning for this project architecture began in December 2024, with physical implementation starting in Janruary 2025. 
+                <p class="text-gray-600 mb-6 indented-paragraph">
+                    Dynamic Multipoint Virtual Private Networks (DMVPNs) were something I learned about while studying the concepts of the CCNP-Security exam. While I have not yet taken the exam, I was fascinated by the different architectures surrounding VPNs including implementations of DMVPNs, and GET-VPNs. While looking into it more, I thought it would be a fun idea to build a lab centered around the concept. Implementing VPNs policy maps, and class maps are always something that I had fun doing in my previous lab topologies, so I thought why not also do it here? The implementation of this lab ended up being super fun and a bit easier than expected. This was a nice change and stark contrast from my previous VRF topology. 
+	            <span class="line-break">The lab incorporated enterprise-grade hardware including Cisco Catalyst 3750e switches (x4), Cisco 2901 routers (x4), Cisco ISR 4331 routers (x3), Cisco 2911 routers (x1), Cisco Nexus 5548UP (x1), and Dell PowerConnect 8024F (x1). 
                 </p>
                 <p class="text-gray-600 mb-6">
-                    The lab incorporates enterprise-grade hardware including Cisco Catalyst 3750e switches (x4), Cisco 2901 routers (x4), Cisco 2911 routers (x2), FortiNet FortiGate 40F Next Generation Firewall (NGFW), and an Juniper SRX 345 Firewall. ### Include overview here. ### An animated diagram of the network architecture can be viewed below. Click on any networking device to view their configurations!
+                    An animated diagram of the network architecture can be viewed below. Click on any networking device to view their configurations!
                 </p>
                 <div class="flex flex-wrap gap-2 mb-8">
                     <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Cisco</span>
@@ -856,27 +868,6 @@
                             <td class="px-6 py-4 text-sm text-gray-900">Terminal Server with Console Connections Into All Other Devices</td>
                         </tr>
                         
-                        <!-- FortiGate Firewall -->
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-FGFW</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiNet FG-40F</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">FortiOS 7.3</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">NGFW / Edge Router</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.40.15</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">All</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">NGFW with Firewall Filtering, and Certificate-Based Client Access VPN</td>
-                        </tr>
-                        
-                        <!-- Juniper SRX 345 Firewall -->
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-Juniper</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Juniper SRX 345</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">JunOS 24.2R1.17</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Firewall / VPN Concentrator</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.3.45</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Network Connectivity to Branch Site and VPN to Main Site</td>
-                        </tr>
                         
                         <!-- Cisco T-Nexus Switch -->
                         <tr>
@@ -895,9 +886,9 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dell PowerConnect 8024F</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">DellOS 5.0.0.4</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Access Switch</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.80.24</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20,40,99</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 20 Switch to PC2 and ESXi/VM Management</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.0.10.5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 1 Switch to PC3</td>
                         </tr>
                         
                         <!-- Cisco T-2911-A Router -->
@@ -905,21 +896,10 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2911-A</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2911</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Area Border Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VLAN 30, 40 Default Gateway</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.11</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Border Router, HSRP Defualt Gateway</td>
-                        </tr>
-                        
-                        <!-- Cisco T-2911-B Router -->
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2911-B</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2911</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">EIGRP Branch Router</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.12</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP Border Router, Branch Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,30,40</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 2 Defualt Gateway</td>
                         </tr>
                         
                         <!-- Cisco T-ISR-A Router -->
@@ -929,8 +909,8 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 16.12</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Area Border Router</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.43.31</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Border Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 1 Default Gateway</td>
                         </tr>
                         
                         <!-- Cisco T-ISR-B Router -->
@@ -938,21 +918,21 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-ISR-B</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco ISR 4331</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 17.9</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">HSRP Default Gateway</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">GLBP Default Gateway</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.43.32</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 10 HSRP Default Gateway</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP GLBP Default Gateway</td>
                         </tr>
                         
                         <!-- Cisco T-ISR-C Router -->
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-ISR-C</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco ISR 4331</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.5</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">EIGRP Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 17.9</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">GLBP Default Gateway</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.43.33</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP Core Branch Site Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP GLBP Default Gateway</td>
                         </tr>
                         
                         <!-- Cisco T-2901-A Router -->
@@ -960,10 +940,10 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2901-A</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2901 Router</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Backbone Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VPN Concentrator</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.1</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20,40,99</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 20 Client Default Gateway</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">DMVPN Hub</td>
                         </tr>
                         
                         <!-- Cisco T-2901-B Router -->
@@ -973,8 +953,8 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VPN Concentrator</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.2</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Zone-Based Policy Firewall For Clients & VPN</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">DMVPN Spoke & IS-IS Default Gateway</td>
                         </tr>
                         
                         <!-- Cisco T-2901-C Router -->
@@ -982,10 +962,10 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-2901-C</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 2901 Router</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.7</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">EIGRP Router</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">VPN Concentrator</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.29.3</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP Branch Client Default Gateway</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">DMVPN Spoke & EIGRP DHCP Server</td>
                         </tr>
                         
                         <!-- Cisco 3750-A Switch -->
@@ -996,7 +976,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Core Switch</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.37.50</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">N/A</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Core OSPF Backbone Switch</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 2 DHCP Server</td>
                         </tr>
                         
                         <!-- Cisco 3750-B Switch -->
@@ -1005,9 +985,9 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750e</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Access Switch</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.9.5</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 10 Switch to PC3</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.0.30.5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,30,40</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 2 Switch to PC4</td>
                         </tr>
                         
                         <!-- Cisco 3750-C Switch -->
@@ -1016,9 +996,9 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750e</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.0</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Access Switch</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.11.5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">172.16.10.5</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">OSPF Area 30 Switch to PC3</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">EIGRP Switch to PC1</td>
                         </tr>
                         
                         <!-- Cisco 3750-D Switch -->
@@ -1026,188 +1006,15 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">T-3750-D</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cisco 3750e</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">IOS 15.2</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">DMZ Switch</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10.26.30.5</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,30</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">DMZ Switch to DNS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Access Switch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">192.168.10.5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,10,20</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">IS-IS Switch to PC2</td>
                         </tr>
                         
                     </tbody>
                 </table>
             </div>
-
-            <!-- Network Architecture & Segmentation -->
-            <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture & Segmentation</h3>
-            <p class="text-gray-600 mb-4">
-                The network implements an enterprise-grade segmentation strategy using four primary VLANs, each with specific security policies and access controls applied. Open Shortest Path First is used as a dynamic routing protocol between the router and firewall within area 0. Network Address Translation is applied to all security zones off of the firewall for general internet connectivity. A breakdown of the VLANs as they relate to infrastructure within the network can be viewed below.
-            </p>
-            <h4 class="text-xl font-semibold mt-6 mb-3">Management Infrastructure (VLAN 10)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.10.0/24</span></li>
-                <li>Cable designation: <span style="color: #2196F3">Blue</span> CAT6 UTP</li>
-                <li>Primary devices: Active Directory server (10.26.10.100), Management PC (10.26.10.26), HP ProLiant DL360 Gen9 ESXi Management Console (10.26.10.200)</li>
-                <li>RADIUS authentication integration for network devices</li>
-                <li>Primary DNS resolver for internal subnets and domain (tronsec.net)</li>
-                <li>Root Certificate Authority for the primary domain (10.26.10.100)</li>
-                <li>Link aggregation to HP ProLiant server using 4 x 1GbE CAT6 connections</li>
-            </ul>
-
-            <h4 class="text-xl font-semibold mt-6 mb-3">Wireless Network (VLAN 20)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.20.0/24</span></li>
-                <li>Cable designation: <span style="color: #FF5722">Red</span> CAT6 UTP</li>
-                <li>Isolated DHCP services on Cisco 1921 router</li>
-                <li>External DNS resolution through Cisco OpenDNS (208.67.222.222)</li>
-                <li>No internal network access - internet gateway only</li>
-                <li>ACLs prevent all inter-VLAN communication</li>
-                <li>Managed through TP-Link AX1800 WiFi 6 Router</li>
-            </ul>
-
-            <h4 class="text-xl font-semibold mt-6 mb-3">DMZ Services (VLAN 30)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.30.0/24</span></li>
-                <li>Cable designation: <span style="color: #4CAF50">Green</span> CAT6 UTP</li>
-                <li>Hosts DMZ DNS server (10.26.30.100)</li>
-                <li>Relays internal DNS from Active Directory server</li>
-                <li>Direct internet access through FortiGate firewall</li>
-                <li>Selective access from VLAN 10 only</li>
-                <li>DNS forwarding to Cloudflare (1.1.1.1)</li>
-                <li>Services NTP for domain and log synchronization on networking devices</li>
-            </ul>
-
-            <h4 class="text-xl font-semibold mt-6 mb-3">Server Infrastructure (VLAN 40)</h4>
-            <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.40.0/24</span></li>
-                <li>Cable designation: <span style="color: #FFDF00">Yellow</span> CAT6 UTP</li>
-                <li>LibreNMS monitoring system (10.26.40.20)</li>
-                <li>SecurityOnion IDS/IPS platform (10.26.40.30)</li>
-                <li>Management Access restricted to VLAN 10 only</li>
-            </ul>
-
-            <!-- Physical Infrastructure -->
-            <h4 class="text-xl font-semibold mt-6 mb-3">Physical Infrastructure</h4>
-            <ul class="list-disc pl-6 mb-6 text-gray-600">
-                <li>Cisco Catalyst 3750-X core switch with full VLAN support</li>
-                <li>Color-coded CAT6 cabling for easy VLAN identification</li>
-                <li>Link aggregation for server connectivity (4 x 1GbE)</li>
-                <li>FortiGate FG-40F NGFW for edge security and routing</li>
-                <li>Cisco 1921 router for internal routing and VLAN segmentation</li>
-                <li>TP-Link Wireless Router for mobile client connectivity</li>
-            </ul>
-
-                <!-- Network Connectivity & Routing -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Network Connectivity & Routing</h3>
-                <p class="text-gray-600 mb-4">
-                    The network displays sophisticated routing and connectivity solutions including:
-                </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>OSPF implementation between the Cisco 1921 router and FortiGate firewall for dynamic internal routing</li>
-                    <li>Link Aggregation (LAG) for ESXi server connections, providing enhanced bandwidth and redundancy</li>
-                    <li>Access Control Lists (ACLs) on both layer 2 and layer 3 devices for granular traffic control</li>
-                    <li>RADIUS authentication integration for secure device access and user authentication</li>
-                </ul>
-
-                <p class="text-gray-600 mb-4">
-                    The network displays a simple routing and connectivity solution that prioritizes reliability and security. OSPF routing is implemented between the Cisco 1921 router and FortiGate firewall to enable dynamic internal routing within area 0. The default route to the internet is injected at the edge of the network, the FortiGate Firewall, where dynamic routing to the DMZ occurs. The network features Link Aggregation (LAG) between the Cisco 3750-X switch and the ESXi server, utilizing four 1GbE connections bundled together to provide enhanced bandwidth and redundancy for server operations. Access Control Lists (ACLs) are strategically implemented on both layer 2 and layer 3 devices to enforce granular traffic control between VLANs and network segments. Traffic management is further enhanced through RADIUS authentication integration, which enables secure device access and user authentication through centralized Active Directory services. This comprehensive approach ensures efficient traffic flow while maintaining strict security controls across all network segments.
-                </p>
-
-                <!-- Active Directory & Authentication -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Active Directory & Authentication</h3>
-                <p class="text-gray-600 mb-4">
-                    A comprehensive authentication infrastructure built on Windows Server 2022:
-                </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>Centralized Active Directory services for user and device management</li>
-                    <li>RADIUS server integration for network device authentication</li>
-                    <li>Certificate Authority services for internal PKI infrastructure</li>
-                    <li>Group Policy implementation for security and access control</li>
-                    <li>Integration with FortiGate NGFW for user-based access policies</li>
-                </ul>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">Active Directory Domain Establishment</h4>
-                    <p class="text-gray-600 mb-4">
-                        The Active Directory domain environment was established using Windows Server 2022 with a root domain of tronsec.net. Initial configuration of the domain included setting up domain and DNS services to manage wired clients through Active Directory objects, with DNS relaying configured to the DMZ DNS server at 10.26.30.100. Additionally, security measures like a DSRM password were configured for administrative protection and control of the domain. A comprehensive administrator group was created for service and device management access, with user accounts established for other network administrators and test users, each assigned to the operator group. The domain infrastructure serves as the central authentication and management hub, hosting RADIUS authentication services to enable network device access using AD credentials. The server was configured as a root Certificate Authority (CA) to handle certificate signing and validation across the network infrastructure, particularly supporting SSL inspection on the FortiGate firewall and HTTPS services for internal websites. Time synchronization was implemented through NTP, with the AD server acting as a relay between the DMZ NTP server and all wired hosts on the network, ensuring consistent time settings across domain-joined systems.
-                    </p>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Authentication</h4>
-                    <p class="text-gray-600 mb-4">
-                        Remote Authentication Dial-In User Service (RADIUS) authentication was implemented to provide centralized network access control for all network devices. The Active Directory server at 10.26.10.100 was configured as the primary RADIUS server for authenticating network device access. This setup enabled integration between Active Directory user credentials and network device logins, allowing for unified authentication across the infrastructure. All Cisco network devices including the 3750-X switch and 1921 router were configured to use RADIUS as their primary authentication method with a local admin account configured as fallback. RADIUS shared secrets and UDP ports 1812/1813 were configured for authentication and accounting respectively. 
-                    </p>
-                    <p class="text-gray-600 mb-4">
-                        This implementation ensured that all device access is authenticated against Active Directory, providing centralized user management and detailed accounting of network device access. Network policy server was configured on the Active Directory server to enforce specific authentication policies, including the use of Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. RADIUS groups were created to manage access levels, with RadiusUsers being assigned basic access and RadiusAdmins receiving elevated privileges. Establishment of this setup provided a robust, scalable authentication system that leveraged existing Active Directory infrastructure while maintaining security through centralized access control of networked devices.
-                    </p>
-
-                <!-- Security Implementation -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Security Implementation</h3>
-                <p class="text-gray-600 mb-4">
-                    Multi-layered security approach incorporating:
-                </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>FortiGate Next-Generation Firewall for advanced threat protection</li>
-                    <li>Network segmentation with strict VLAN isolation</li>
-                    <li>Layer 2 security including DHCP snooping and Dynamic ARP inspection</li>
-                    <li>802.1X port-based authentication for wired connections</li>
-                    <li>Comprehensive logging and monitoring through SecurityOnion and LibreNMS</li>
-                </ul>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Client Authentication</h4>
-                    <p class="text-gray-600 mb-4">
-                        The RADIUS client authentication was configured on both the Cisco 1921 router and Cisco Catalyst 3750-X switch to provide centralized AAA services through the Active Directory server at 10.26.10.100. Authentication methods were configured to use RADIUS as the primary authentication source with local authentication as fallback. Pre-authentication ACLs were implemented to restrict access during the authentication process for known client access ports including the Personal PC, allowing only essential pre-authentication traffic like HTTP, HTTPS, DHCP and DNS. The switches and routers were configured with RADIUS shared secrets and used ports 1812/1813 for authentication and accounting respectively. Both devices had RADIUS dead-criteria configured with a 5-second timeout and 3 retries before marking a RADIUS server as unresponsive, with a deadtime of 3 minutes for client authentication through console and SSH. The authentication setup leverages Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. Access control was managed through two primary groups - RadiusUsers for basic access and RadiusAdmins for elevated privileges. This implementation provided robust, scalable authentication while maintaining security through centralized access control and accounting of network device access. Emergency local admin accounts with privilege level 15 were maintained as a fallback option, using type 9 scrypt secrets on the labsw switch and type 7 secrets on the labrt router, with passwords encrypted using AES.
-
-                    </p>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 2 Security Technologies</h4>
-                    <p class="text-gray-600 mb-4">
-                        Layer 2 security measures were extensively implemented on the Cisco Catalyst 3750-X switch to protect against common network attacks and unauthorized access. Dynamic Trunking Protocol (DTP) was disabled on all trunk interfaces to prevent unauthorized VLAN hopping attempts. For endpoint protection, all access interfaces had PortFast and BPDUGuard enabled to prevent spanning tree manipulation attacks while ensuring quick port initialization. Port security was implemented on all access interfaces connecting to endpoints, with a maximum of one MAC address allowed per port and a violation policy of restrict to prevent MAC address spoofing attacks. Dynamic ARP Inspection (DAI) was enabled on the trunk interface connected to the router for VLAN 10 to prevent ARP poisoning attacks. Access control for DAI was controlled via an ARP ACL locally on the switch, as a DHCP Snooping table did not exist for the wired network. On trunked interfaces to the server infrastructure, LAG was enabled on the four interfaces connecting to the HP ProLiant DL360 Gen9 server, creating an etherchannel port-group for both enhanced bandwidth and security. Unused switch ports were placed into a shutdown state to prevent unauthorized access attempts. These layered security controls worked together to create a robust defense against layer 2 attacks while maintaining high-speed network functionality with a small network of users.
-                    </p>
-
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 3 Security Technologies</h4>
-                    <p class="text-gray-600 mb-4">
-                        Layer 3 security measures were implemented through a comprehensive set of access control lists (ACLs) across multiple network segments. On the wireless VLAN (VLAN 20), traffic was strictly controlled with permits for essential services like ICMP echo, DHCP (bootpc/bootps), and domain services, while explicitly denying any cross-VLAN communication. Server connectivity (VLAN 40) ACLs were established to permit specific service traffic, including HTTP/HTTPS communication between monitoring servers and the DMZ, with DNS resolution and SNMP monitoring capabilities configured as needed. For the DMZ segment (VLAN 30), a firewall connectivity ACL was implemented with careful controls on both ingress and egress traffic, permitting only necessary protocols like OSPF, TCP to management interfaces, and essential monitoring services to the router itself (10.26.5.2). All ACLs were configured with explicit deny statements and logging capabilities to track potential security violations. 
-                    </p>
-                    <p class="text-gray-600 mb-4">
-                        The management VLAN (VLAN 10) was granted controlled access to other segments through carefully crafted ACL entries, allowing for secure administration. It was configured to allow strategic access to the router-firewall link (10.26.5.0/30) and server infrastructure from the management PC (10.26.10.26), while maintaining strict control over broader network access. Additionally, OSPF routing between the Cisco router and FortiGate firewall was secured through neighbor authentication and route filtering to prevent unauthorized route advertisements.
-                    </p>
-
-                <!-- Virtualization Infrastructure -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Virtualization Infrastructure</h3>
-                <p class="text-gray-600 mb-4">
-                    ESXi-based virtualization platform hosting critical services:
-                </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>HP ProLiant DL360 Gen9 server with 256GB RAM and 4TB SSD storage</li>
-                    <li>Network monitoring and security analysis virtual machines</li>
-                    <li>Development and testing environments</li>
-                    <li>Link aggregation for enhanced network performance</li>
-                    <li>Integration with Active Directory for access control</li>
-                </ul>
-
-                <p class="text-gray-600 mb-4">
-                    Based on the documentation provided, I'll write a comprehensive paragraph about the Virtualization Infrastructure section. Here's my suggested content:
-The virtualization infrastructure is built around an HP ProLiant DL360 Gen9 server running VMware ESXi 7.0.3 as a Type 1 hypervisor. The server hardware features robust specifications including 256GB of DDR4 RAM and 4TB of SSD storage in 2.5" drive bays, providing ample resources for running multiple virtual machines. Network connectivity is established through a link aggregation of four 1GbE connections to the core Cisco 3750-X switch, for enhanced bandwidth and redundancy. The ESXi host is integrated into the Active Directory domain for centralized authentication and resides in VLAN 10 for management access with the address 10.26.10.200. Multiple virtual machines are hosted on the platform including LibreNMS for network monitoring (10.26.40.20), SecurityOnion IDS/IPS (10.26.40.30), and additional VMs for development and testing. The server's management interface (iLO) is accessible at 10.26.10.201 and provides out-of-band management capabilities. This virtualization platform serves as a critical component of the infrastructure, enabling flexible deployment of monitoring, security, and development environments while maintaining proper network segmentation through VLAN tagging and access controls.
-                </p>
-
-                <!-- Infrastructure Hardening -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Infrastructure Hardening</h3>
-                <p class="text-gray-600 mb-4">
-                    Comprehensive security hardening measures:
-                </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>Secure device configuration baselines across all network equipment</li>
-                    <li>Implementation of port security and unused port shutdown</li>
-                    <li>Strong password policies and encryption standards</li>
-                    <li>Regular security updates and patch management</li>
-                    <li>Automated monitoring and alerting for security events</li>
-                </ul>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">Cisco IOS Device Hardening & Baselines</h4>
-                    <p class="text-gray-600 mb-4">
-                        Comprehensive infrastructure security hardening was implemented across both Cisco network devices through multiple configuration baselines. RADIUS client authentication was enabled on both the router and switch for administrative access, with the devices configured to use the Active Directory server at 10.26.10.100 as the primary authentication source. Emergency administrative accounts were established with privilege level 15 access, using type 9 scrypt secrets on the switch and type 7 secrets on the router for local authentication fallback. The service password-encryption command was applied using AES as the encryption algorithm to secure stored credentials. Executive timeout values were reduced to 10 minutes on both devices, and lockout policies were implemented to restrict access after 3 failed login attempts. 
-                    </p>
-                    <p class="text-gray-600 mb-4">
-                        For logging and accountability, both devices were configured to record all login attempts, userinfo changes, and enable access events, with logs being forwarded to the SecurityOnion server at 10.26.40.30. The switch was further hardened through port security measures, implementing MAC address restrictions and violation policies on access ports. These port security measures included shutting down unused ports to prevent unauthorized access, and securing all logon methods such as shutting down the unused aux port, and adding an executive timeout to the VTY lines. From these securities implemented, secure configuration baselines were established for future expandability. These baselines established a solid security foundation while maintaining necessary management access through the secured management VLAN.
-                    </p>
 
             </div>
         </div>
