@@ -1,0 +1,301 @@
+labsw#show run
+Building configuration...
+
+Current configuration : 6348 bytes
+!
+! Last configuration change at 00:22:24 EST Thu Jan 16 2025 by admin
+! NVRAM config last updated at 14:34:51 EST Mon Oct 7 2024 by clark
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname labsw
+!
+boot-start-marker
+boot-end-marker
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXXXXX
+!
+username admin privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXXXX
+aaa new-model
+!
+!
+aaa group server radius ADDCGROUP
+ server name ADDC
+!
+aaa authentication login default group radius local
+aaa authentication dot1x default group radius
+aaa authorization exec default group radius local
+aaa authorization network default group radius
+aaa accounting dot1x default start-stop group radius
+aaa accounting exec default start-stop group radius
+!
+aaa common-criteria policy PASSWORD_POLICY
+ min-length 1
+ max-length 127
+ char-changes 4
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone EST -5 0
+switch 1 provision ws-c3750x-24p
+system mtu routing 1500
+!
+!
+!
+!
+ip arp inspection vlan 10,30,40
+ip arp inspection filter ARP_ACL vlan  10,30,40
+!
+!
+ip domain-name tronsec.net
+ip device tracking probe delay 10
+login block-for 180 attempts 5 within 45
+login on-failure log
+login on-success log
+!
+!
+!
+!
+!
+password encryption aes
+!
+!
+!
+!
+!
+dot1x system-auth-control
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+lldp run
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet1/0/1
+ description "To labrt"
+ switchport trunk allowed vlan 10,20,30,40
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ ip arp inspection trust
+!
+interface GigabitEthernet1/0/2
+ description "Personal PC"
+ switchport access vlan 10
+ switchport mode access
+ authentication open
+ authentication port-control auto
+ authentication periodic
+ authentication timer reauthenticate server
+ spanning-tree portfast edge
+!
+interface GigabitEthernet1/0/3
+ description "To DMZ Firewall"
+ switchport access vlan 30
+ switchport mode access
+ ip arp inspection trust
+!
+interface GigabitEthernet1/0/4
+ description "To Active Directory"
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky AAAA.BBBB.CCCC
+ switchport port-security
+ spanning-tree portfast edge
+!
+interface GigabitEthernet1/0/5
+ shutdown
+!
+interface GigabitEthernet1/0/6
+ description "To DMZ Server"
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky AAAA.BBBB.CCCC
+ switchport port-security
+ spanning-tree portfast edge
+!
+interface GigabitEthernet1/0/7
+ shutdown
+!
+interface GigabitEthernet1/0/8
+ shutdown
+!
+interface GigabitEthernet1/0/9
+ description "Link Aggregation to ESXi"
+ switchport trunk allowed vlan 10,30,40
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 10
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet1/0/10
+ description "Link Aggregation to ESXi"
+ switchport trunk allowed vlan 10,30,40
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 10
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet1/0/11
+ description "Link Aggregation to ESXi"
+ switchport trunk allowed vlan 10,30,40
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 10
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet1/0/12
+ description "Link Aggregation to ESXi"
+ switchport trunk allowed vlan 10,30,40
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 10
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet1/0/13
+ description "To Wireless Router"
+ switchport access vlan 20
+ switchport mode access
+!
+interface GigabitEthernet1/0/14
+ description "iLO Management"
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast edge
+!
+interface GigabitEthernet1/0/15
+ shutdown
+!
+interface GigabitEthernet1/0/16
+ shutdown
+!
+interface GigabitEthernet1/0/17
+ shutdown
+!
+interface GigabitEthernet1/0/18
+ shutdown
+!
+interface GigabitEthernet1/0/19
+ shutdown
+!
+interface GigabitEthernet1/0/20
+ shutdown
+!
+interface GigabitEthernet1/0/21
+ shutdown
+!
+interface GigabitEthernet1/0/22
+ shutdown
+!
+interface GigabitEthernet1/0/23
+ shutdown
+!
+interface GigabitEthernet1/0/24
+ shutdown
+!
+interface GigabitEthernet1/1/1
+ shutdown
+!
+interface GigabitEthernet1/1/2
+ shutdown
+!
+interface GigabitEthernet1/1/3
+ shutdown
+!
+interface GigabitEthernet1/1/4
+ shutdown
+!
+interface TenGigabitEthernet1/1/1
+ shutdown
+!
+interface TenGigabitEthernet1/1/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan10
+ ip address 10.26.10.2 255.255.255.0
+!
+interface Vlan20
+ ip address 10.26.20.2 255.255.255.0
+!
+interface Vlan30
+ ip address 10.26.30.2 255.255.255.0
+!
+interface Vlan40
+ ip address 10.26.40.2 255.255.255.0
+!
+no ip http server
+ip http secure-server
+ip ssh version 2
+!
+ip access-list extended PRE-AUTH
+ remark DHCP
+ permit udp any eq bootpc any eq bootps
+ remark DNS
+ permit udp any any eq domain
+ remark Ping
+ permit icmp any any echo
+ remark PXE / TFTP
+ permit udp any any eq tftp
+ remark Drop and log the rest
+ deny   ip any any log
+logging trap notifications
+logging host 10.26.40.30
+!
+arp access-list ARP_ACL
+ permit ip host 10.26.10.26 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.30.100 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.10.100 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.10.201 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.10.200 mac AAAA.BBBB.CCCC ffff.ffff.fffc
+ permit ip host 10.26.10.25 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.40.20 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.40.30 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.40.30 mac host AAAA.BBBB.CCCC
+ permit ip host 10.26.10.50 mac host AAAA.BBBB.CCCC
+snmp-server community CISCO RW
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXXXXXXX
+!
+!
+line con 0
+ logging synchronous
+line vty 0 4
+ logging synchronous
+ transport input ssh
+line vty 5 15
+!
+ntp server 10.26.30.100
+!
+end
+
+labsw#
