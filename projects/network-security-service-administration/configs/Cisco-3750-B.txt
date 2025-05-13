@@ -233,14 +233,10 @@ interface GigabitEthernet1/0/34
  shutdown
 !
 interface GigabitEthernet1/0/35
- description "To T-3702-A"
- switchport access vlan 20
- switchport mode access
+ shutdown
 !
 interface GigabitEthernet1/0/36
- description "To T-3702-B"
- switchport access vlan 20
- switchport mode access
+ shutdown
 !
 interface GigabitEthernet1/0/37
  shutdown
