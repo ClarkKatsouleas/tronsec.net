@@ -831,6 +831,88 @@
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('hidden');
         }
+
+
+        const deviceGroups = document.querySelectorAll('.firewall-group, .router-group, .switch-group, .pc-group, .server-group, .l3switch-group');
+
+// Define a list of devices that should not be clickable
+const nonClickableDevices = ['Personal PC', 'HP Proliant DL360 Gen9', 'Dell OptiPlex 5060', 'Dell OptiPlex 5070', 'TP-Link AX1800', 'Wireless Client', 'FortiNet FG-40F']; // Add any other devices you want to exclude
+
+// Get the popup elements
+const devicePopup = document.getElementById('devicePopup');
+const deviceName = document.getElementById('deviceName');
+const configContent = document.getElementById('configContent');
+const overlay = document.getElementById('overlay');
+const closePopup = document.getElementById('closePopup');
+  
+  // Map device groups to their configuration file paths
+  const deviceConfigs = {
+    'FortiNet FG-40F': './configs/fgfw.txt',
+    'Cisco 1921': './configs/labrt_configs.txt',
+    'Cisco 3750x': './configs/labsw_configs.txt'
+  };
+  
+deviceGroups.forEach(device => {
+  // Find the device label text within this group
+  const labelElement = device.querySelector('.device-label');
+  if (!labelElement) return;
+  
+  // Get device name
+  const deviceId = labelElement.textContent.trim();
+  
+  // Skip this device if it's in the nonClickableDevices list
+  if (nonClickableDevices.includes(deviceId)) {
+    // Remove cursor pointer from non-clickable devices
+    device.style.cursor = 'default';
+    return; // Skip adding click listener
+  }
+  
+  // Add click event listener for clickable devices
+  device.addEventListener('click', function() {
+    // Set the popup title
+    deviceName.textContent = deviceId + ' Configuration';
+    
+    // Check if we have a configuration file for this device
+    if (deviceConfigs[deviceId]) {
+      loadDeviceConfig(deviceConfigs[deviceId]);
+    } else {
+      configContent.textContent = 'No configuration available for this device.';
+    }
+    
+    // Show the popup and overlay
+    devicePopup.classList.add('active');
+    overlay.classList.add('active');
+  });
+});
+
+  
+  // Close popup when clicking the close button or the overlay
+  closePopup.addEventListener('click', closeDevicePopup);
+  overlay.addEventListener('click', closeDevicePopup);
+  
+  function closeDevicePopup() {
+    devicePopup.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+  
+  // Function to load device configuration from a file
+  function loadDeviceConfig(configPath) {
+    configContent.textContent = 'Loading configuration...';
+    
+    fetch(configPath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Configuration file not found');
+        }
+        return response.text();
+      })
+      .then(data => {
+        configContent.textContent = data;
+      })
+      .catch(error => {
+        configContent.textContent = 'Error loading configuration: ' + error.message;
+      });
+  }
     </script>
 </body>
 </html>
