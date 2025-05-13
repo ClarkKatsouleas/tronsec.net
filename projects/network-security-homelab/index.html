@@ -9,6 +9,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       /* PROJECT 1 PAGE INDEX and Keeping all the original CSS styles */
+      
+      .indented-paragraph {
+        text-indent: 2em;  /* This creates a paragraph first-line indent */
+      }
+
+      .line-break {
+        display: block;
+        text-indent: 2em;
+        margin-top: 0.5em;
+      }
+      
       .device {
         fill: #fff;
         stroke: #0066cc;
@@ -126,6 +137,92 @@
           opacity: 1;
           pointer-events: none;
       }
+
+      .device-popup {
+        position: fixed;
+        top: calc(50% + 30px); /* Add half the banner height to move it down */
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.7);
+        background-color: #1F2937;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 80%;
+        max-height: 80vh;
+        width: 800px;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+        overflow-y: auto;
+        color: #D1D5DB;
+        display: none;
+      }
+
+      .device-popup.active {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        display: block;
+      }
+
+      .popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #4B5563;
+      }
+
+      .popup-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #F9FAFB;
+      }
+
+      .close-popup {
+        background: none;
+        border: none;
+        color: #9CA3AF;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .close-popup:hover {
+        color: #F9FAFB;
+      }
+
+      .config-content {
+        font-family: 'Courier New', monospace;
+        background-color: #111827;
+        padding: 15px;
+        border-radius: 6px;
+        white-space: pre;
+        overflow-x: auto;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      /* Add cursor pointer to all device groups */
+      .firewall-group, .router-group, 
+      .switch-group, .pc-group, .server-group, .l3switch-group {
+        cursor: pointer;
+      }
+
+
     </style>
 </head>
 <body class="bg-gray-50">
