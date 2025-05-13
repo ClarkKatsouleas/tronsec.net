@@ -8,16 +8,18 @@
     <title>Network Security Homelab - Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      /* PROJECT 2 PAGE INDEX and Keeping all the original CSS styles */
+      
       .indented-paragraph {
-        text-indent: 2em;  
+        text-indent: 2em;  /* This creates a paragraph first-line indent */
       }
 
       .line-break {
         display: block;
         text-indent: 2em;
-        margin-top: 0.2em;
+        margin-top: 0.5em;
       }
-      /* PROJECT 2 PAGE INDEX and Keeping all the original CSS styles */
+
       .device {
         fill: #fff;
         stroke: #0066cc;
@@ -158,7 +160,7 @@
   padding: 20px;
   max-width: 80%;
   max-height: 80vh;
-  width: 760px;
+  width: 800px;
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   opacity: 0;
@@ -287,7 +289,7 @@
             <div class="prose prose-lg mx-auto">
                 <h2 class="text-3xl font-bold mb-6">Project Introduction</h2>
                 <p class="text-gray-600 mb-6">
-                    Initial planning for this project architecture began in December 2024, with physical implementation starting in Janruary 2025. 
+                    Initial planning for this project architecture began in December 2024, with physical implementation starting in January 2025. 
                 </p>
                 <p class="text-gray-600 mb-6 indented-paragraph">
                     This lab environment was originally born as an idea to implement security architecture in a highly functional setting. Most lab classes and times I have been able to work with networking devices before this point, the network architecture was either exaggerated or not functional to an enterprise in the goal of teaching given concepts. For example, with OSPF virtual links or with OSPF into EIGRP redistribution, the designs of the topologies taught the concepts well in why they were to be implemented, but left me wondering why anyone would ever design a network that way in the first place.
@@ -630,7 +632,7 @@
       </circle>
       
       <!-- Firewall to T-3750-A Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan20" r="4">
         <animate attributeName="cx" values="357;432" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="172;229" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
@@ -695,7 +697,7 @@
       </circle>
       
       <!-- T-Nexus to T-3750-A2 Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan20" r="4">
         <animate attributeName="cx" values="290;407" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="255;255" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
@@ -721,7 +723,7 @@
       </circle>
       
       <!-- T-Nexus to T-2901-A Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan20" r="4">
         <animate attributeName="cx" values="270;345" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="273;375" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
@@ -747,7 +749,7 @@
       </circle>
       
       <!-- T-3750-A to T-2911-A Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan10" r="4">
         <animate attributeName="cx" values="432;244" dur="2.0s" begin="0.7s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="273;327" dur="2.0s" begin="0.7s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="2.0s" begin="0.7s" repeatCount="indefinite"/>
@@ -773,7 +775,7 @@
       </circle>
       
       <!-- T-3750-A to T-ISR-A Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan10" r="4">
         <animate attributeName="cx" values="432;470" dur="1.7s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="273;315" dur="1.7s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.7s" begin="0.6s" repeatCount="indefinite"/>
@@ -799,13 +801,13 @@
       </circle>
       
       <!-- T-2911-A to T-3750-B Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan20" r="4">
         <animate attributeName="cx" values="196;99" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="339;392" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
       </circle>
       
-      <circle class="vlan40" r="4">
+      <circle class="vlan10" r="4">
         <animate attributeName="cx" values="99;196" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="392;339" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.8s" begin="1.2s" repeatCount="indefinite"/>
@@ -838,7 +840,7 @@
       </circle>
       
       <!-- T-2901-A to T-DellPWR Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan10" r="4">
         <animate attributeName="cx" values="350;350" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="407;475" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
@@ -864,7 +866,7 @@
       </circle>
       
       <!-- T-DellPWR to ESXi Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan10" r="4">
         <animate attributeName="cx" values="358;400" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="504;556" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.5s" begin="0.9s" repeatCount="indefinite"/>
@@ -922,13 +924,13 @@
       </circle>
       
       <!-- T-3750-C to PC3 Traffic -->
-      <circle class="vlan30" r="4">
+      <circle class="vlan20" r="4">
         <animate attributeName="cx" values="670;670" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="484;550" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
       </circle>
       
-      <circle class="vlan40" r="4">
+      <circle class="vlan10" r="4">
         <animate attributeName="cx" values="670;670" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
         <animate attributeName="cy" values="550;484" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="1.4s" repeatCount="indefinite"/>
@@ -1230,61 +1232,53 @@
 
             <!-- Network Architecture & Segmentation -->
             <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture & Segmentation</h3>
-            <p class="text-gray-600 mb-4">
-                The network implements an enterprise-grade segmentation strategy using four primary VLANs, each with specific security policies and access controls applied. Open Shortest Path First is used as a dynamic routing protocol between the router and firewall within area 0. Network Address Translation is applied to all security zones off of the firewall for general internet connectivity. A breakdown of the VLANs as they relate to infrastructure within the network can be viewed below.
+            <p class="text-gray-600 mb-4 indented-paragraph">
+                The network was set up to allow high traffic functionality and redundancy throughout the core of the network. To review from previous implementations, the routing protocol Open Shortest Path First (OSPF) was used throughout the main site’s network with Areas 0, 10, 20, and 30. A Demilitarized Zone was established off of the WAN-edge firewall in area 40 to allow connectivity to Domain Name System (DNS) name servers. 
+		<span class="line-break">To support the growing system’s infrastructure, four primary Virtual Local Area Networks (VLANs) were established throughout the network: 10, 20, 30, and 40.
+
             </p>
             <h4 class="text-xl font-semibold mt-6 mb-3">Management Infrastructure (VLAN 10)</h4>
             <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.10.0/24</span></li>
-                <li>Cable designation: <span style="color: #2196F3">Blue</span> CAT6 UTP</li>
-                <li>Primary devices: Active Directory server (10.26.10.100), Management PC (10.26.10.26), HP ProLiant DL360 Gen9 ESXi Management Console (10.26.10.200)</li>
+                <li>Subnets: <span class="font-bold">10.26.9.0/24, 10.26.10.0/24, 10.26.11.0/24</span></li>
+                <li>Traffic Designation: <span style="color: #2196F3">Blue</span> CAT6 UTP</li>
                 <li>RADIUS authentication integration for network devices</li>
-                <li>Primary DNS resolver for internal subnets and domain (tronsec.net)</li>
+                <li>Primary DNS resolver for internal subnets and domain (tronsec.lcl)</li>
                 <li>Root Certificate Authority for the primary domain (10.26.10.100)</li>
-                <li>Link aggregation to HP ProLiant server using 4 x 1GbE CAT6 connections</li>
             </ul>
 
-            <h4 class="text-xl font-semibold mt-6 mb-3">Wireless Network (VLAN 20)</h4>
+            <h4 class="text-xl font-semibold mt-6 mb-3">Client Network (VLAN 20)</h4>
             <ul class="list-disc pl-6 mb-4 text-gray-600">
-                <li>Subnet: <span class="font-bold">10.26.20.0/24</span></li>
-                <li>Cable designation: <span style="color: #FF5722">Red</span> CAT6 UTP</li>
-                <li>Isolated DHCP services on Cisco 1921 router</li>
-                <li>External DNS resolution through Cisco OpenDNS (208.67.222.222)</li>
-                <li>No internal network access - internet gateway only</li>
-                <li>ACLs prevent all inter-VLAN communication</li>
-                <li>Managed through TP-Link AX1800 WiFi 6 Router</li>
+                <li>Subnet: <span class="font-bold">10.26.19.0/24, 10.26.20.0/24, 10.26.21.0/24</span></li>
+                <li>Traffic Designation: <span style="color: #FF5722">Red</span> CAT6 UTP</li>
+                <li>Client Connection Network For Non-Management Traffic</li>
             </ul>
 
             <h4 class="text-xl font-semibold mt-6 mb-3">DMZ Services (VLAN 30)</h4>
             <ul class="list-disc pl-6 mb-4 text-gray-600">
                 <li>Subnet: <span class="font-bold">10.26.30.0/24</span></li>
-                <li>Cable designation: <span style="color: #4CAF50">Green</span> CAT6 UTP</li>
-                <li>Hosts DMZ DNS server (10.26.30.100)</li>
+                <li>Traffic Designation: <span style="color: #4CAF50">Green</span> CAT6 UTP</li>
+                <li>Hosts DMZ DNS servers (10.26.30.100/31)</li>
                 <li>Relays internal DNS from Active Directory server</li>
                 <li>Direct internet access through FortiGate firewall</li>
-                <li>Selective access from VLAN 10 only</li>
-                <li>DNS forwarding to Cloudflare (1.1.1.1)</li>
+                <li>DNS forwarding to DNS-Secured Delegation Servers (44.2.2.44/31)</li>
                 <li>Services NTP for domain and log synchronization on networking devices</li>
             </ul>
 
             <h4 class="text-xl font-semibold mt-6 mb-3">Server Infrastructure (VLAN 40)</h4>
             <ul class="list-disc pl-6 mb-4 text-gray-600">
                 <li>Subnet: <span class="font-bold">10.26.40.0/24</span></li>
-                <li>Cable designation: <span style="color: #FFDF00">Yellow</span> CAT6 UTP</li>
-                <li>LibreNMS monitoring system (10.26.40.20)</li>
-                <li>SecurityOnion IDS/IPS platform (10.26.40.30)</li>
-                <li>Management Access restricted to VLAN 10 only</li>
+                <li>Traffic Designation: <span style="color: #FFDF00">Yellow</span> CAT6 UTP</li>
+                <li>Service Servers Centralized on ESXi server</li>
             </ul>
 
             <!-- Physical Infrastructure -->
             <h4 class="text-xl font-semibold mt-6 mb-3">Physical Infrastructure</h4>
             <ul class="list-disc pl-6 mb-6 text-gray-600">
-                <li>Cisco Catalyst 3750-X core switch with full VLAN support</li>
-                <li>Color-coded CAT6 cabling for easy VLAN identification</li>
-                <li>Link aggregation for server connectivity (4 x 1GbE)</li>
-                <li>FortiGate FG-40F NGFW for edge security and routing</li>
-                <li>Cisco 1921 router for internal routing and VLAN segmentation</li>
-                <li>TP-Link Wireless Router for mobile client connectivity</li>
+                <li>EH-WICs and NIM modules for network expandability</li>
+                <li>Copper SFPs and TwinGig Module for network medium conversion</li>
+                <li>Green Async Cable Connections to the console port on all devices</li>
+                <li>RJ-45 CAT6 UTP Cables for general connectivity</li>
+                <li>MM Fiber Connections for core switching connectivity</li>
             </ul>
 
                 <!-- Network Connectivity & Routing -->
@@ -1293,113 +1287,62 @@
                     The network displays sophisticated routing and connectivity solutions including:
                 </p>
                 <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>OSPF implementation between the Cisco 1921 router and FortiGate firewall for dynamic internal routing</li>
-                    <li>Link Aggregation (LAG) for ESXi server connections, providing enhanced bandwidth and redundancy</li>
-                    <li>Access Control Lists (ACLs) on both layer 2 and layer 3 devices for granular traffic control</li>
-                    <li>RADIUS authentication integration for secure device access and user authentication</li>
+                    <li>A robust Multi-Area OSPF implementation between sides of the network firewall for dynamic internal routing</li>
+                    <li>Link Aggregation (LAG) fiber between core switch connections, providing enhanced bandwidth and redundancy</li>
+                    <li>Named EIGRP for ease of configuration with IPv4 and IPv6 address families</li>
                 </ul>
-
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3">OSPF</h4>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    The network connectivity used throughout the topology was OSPF for the main site and EIGRP for the remote site. In using OSPF, both version 2 and 3 were used for IPv4 and IPv6 connectivity respectively. Message Digest 5 (MD5) passwords were used with OSPFv2, and a keychain was used for OSPFv3 for routing protocol authentication. Similarly, routers were locked down by shutting down unused and extra ports and by disabling both CDP and LLDP as discovery protocols. Overall, this lockdown of network devices and transition to password-based authentication with OSPF was successful and did not result in any dropped connectivity. However, there were some difficulties in routing protocol metrics specifically with the core switches and edge firewall. As the firewall’s primary use is to only route between zones of traffic, having two interfaces within the same zone within OSPF area 0 caused traffic to route inefficiently through the firewall instead of through the fiber link-aggregation on the switches when dealing with intra-zone LAN traffic. To fix this issue, metrics were manually changed on all three networking devices to have the firewall’s path be a higher cost than through the other switch. This fixed the issue of needlessly using the firewall’s bandwidth and was verified by refreshing at the switches' routing tables. 
+                </p>
+                <h4 class="text-xl font-semibold mt-6 mb-3">EIGRP</h4>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Next, Enhanced Interior Gateway Routing Protocol (EIGRP) was deployed on the branch site consisting of three Cisco routers in the internal topology. EIGRP in named mode was deployed here, which is not something I previously had experience with. There was not much online about learning to configure it, but I was able to get the hang of working with it after a bit of time. Essentially, instead of having different configuration modes with IPv4 and IPv6 like I previously used with OSPF, the named mode of EIGRP is updated to have the IPv4 and IPv6 address families in the same sub-configuration of EIGRP. As I would come to learn later, BGP does something similar. There was definitely a learning curve with it originally as I misunderstood how the topology base command worked when attempting to learn redistribution. However, I eventually figured it out, and was able to propagate the static route from the T-2911-B to the rest of the EIGRP topology. When it came to client connectivity, I installed a double-wide switchport module into the T-2901-C router and configured the VLAN sub-interfaces. These sub-interfaces acted as the default gateway for the clients to connect through. Finally, after creating some DHCP pools and static routes back down from the Juniper firewall, the configuration of the branch site was finished. All that was left was to connect it back to the main site’s headquarters for resource sharing and security.
+                </p>
                 <p class="text-gray-600 mb-4">
-                    The network displays a simple routing and connectivity solution that prioritizes reliability and security. OSPF routing is implemented between the Cisco 1921 router and FortiGate firewall to enable dynamic internal routing within area 0. The default route to the internet is injected at the edge of the network, the FortiGate Firewall, where dynamic routing to the DMZ occurs. The network features Link Aggregation (LAG) between the Cisco 3750-X switch and the ESXi server, utilizing four 1GbE connections bundled together to provide enhanced bandwidth and redundancy for server operations. Access Control Lists (ACLs) are strategically implemented on both layer 2 and layer 3 devices to enforce granular traffic control between VLANs and network segments. Traffic management is further enhanced through RADIUS authentication integration, which enables secure device access and user authentication through centralized Active Directory services. This comprehensive approach ensures efficient traffic flow while maintaining strict security controls across all network segments.
+                    Note: Yes, in a perfect world there would be a second Active Directory server on the branch site with domain replication to the main headquarters, but that was not configured due to the resources available and time restrictions of the lab’s duration.
+                </p>
+
+                <!-- Virtual Private Network -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Virtual Private Network</h3>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    A site-to-site VPN was established between the main headquarters and remote sites through a split design in the WAN and access edges. This Cisco T-2901-B router was primarily set up to accept site-to-site VPN connections from its designated peer, the Juniper SRX 345 firewall. Simultaneous tunnels were established for IPv4 and IPv6 connectivity across networks. Due to the nature of the tunneled VPN connection, redistribution across OSPF and EIGRP did not need to be configured.
+                    <span class="line-break">Secondarily, off of this intra-zone router in the LAN network, the T-2901-B router was also set up as a zone-based policy firewall to secure connections to and from the internet. Clients within Area 30 of the network were set up to use this firewall as their first-hop and gateway to the internet. Each interface was put into a zone of either LAN, WAN, or VPN, and specific protocols and access control lists were inspected on a match-basis. Class Maps were placed inside Policy Maps, which were applied on the zone pairings with specific sources and destinations. This combination of the VPN and firewall rules allowed for a fairly robust security solution for traffic passing through the right side of the network.
                 </p>
 
                 <!-- Active Directory & Authentication -->
                 <h3 class="text-2xl font-bold mt-8 mb-4">Active Directory & Authentication</h3>
-                <p class="text-gray-600 mb-4">
-                    A comprehensive authentication infrastructure built on Windows Server 2022:
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Remote Access Dial-In User Service (RADIUS) domain-based authentication was established on most networked devices. The only device it was not established on was the ESXi server for management because of the fact that Active Directory was hosted on ESXi. I did not want a catch-22 scenario where Active Directory went down, which would not have allowed me to log in to my ESXi box to manage Active Directory’s VM. The set up for it was done on a Windows Server 2022 VM using Network Policy Server. RADIUS was configured for both IPv4 and IPv6 on all Cisco routers and switches, the Dell switch, and on the Juniper SRX firewall. An address and shared secret key were set to point to the RADIUS server. The only issues that came up were with getting RADIUS authentication to work with T-Nexus, where RADIUS client device attributes were required to allow the logged in user to enter enable mode.
+                    <span class="line-break">The Active Directory infrastructure also hosted certificate services for the central network as a Root Certificate Authority. Certificates were issued for the main WAN firewall for the use of trusted HTTPS webpages and a certificate-based client-access VPN. 
+	            <span class="line-break">Finally, the Active Directory infrastructure hosted user accounts to be used with RADIUS in 802.1X port-authentication on client-access switches. 
+
                 </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>Centralized Active Directory services for user and device management</li>
-                    <li>RADIUS server integration for network device authentication</li>
-                    <li>Certificate Authority services for internal PKI infrastructure</li>
-                    <li>Group Policy implementation for security and access control</li>
-                    <li>Integration with FortiGate NGFW for user-based access policies</li>
-                </ul>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">Active Directory Domain Establishment</h4>
-                    <p class="text-gray-600 mb-4">
-                        The Active Directory domain environment was established using Windows Server 2022 with a root domain of tronsec.net. Initial configuration of the domain included setting up domain and DNS services to manage wired clients through Active Directory objects, with DNS relaying configured to the DMZ DNS server at 10.26.30.100. Additionally, security measures like a DSRM password were configured for administrative protection and control of the domain. A comprehensive administrator group was created for service and device management access, with user accounts established for other network administrators and test users, each assigned to the operator group. The domain infrastructure serves as the central authentication and management hub, hosting RADIUS authentication services to enable network device access using AD credentials. The server was configured as a root Certificate Authority (CA) to handle certificate signing and validation across the network infrastructure, particularly supporting SSL inspection on the FortiGate firewall and HTTPS services for internal websites. Time synchronization was implemented through NTP, with the AD server acting as a relay between the DMZ NTP server and all wired hosts on the network, ensuring consistent time settings across domain-joined systems.
-                    </p>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Authentication</h4>
-                    <p class="text-gray-600 mb-4">
-                        Remote Authentication Dial-In User Service (RADIUS) authentication was implemented to provide centralized network access control for all network devices. The Active Directory server at 10.26.10.100 was configured as the primary RADIUS server for authenticating network device access. This setup enabled integration between Active Directory user credentials and network device logins, allowing for unified authentication across the infrastructure. All Cisco network devices including the 3750-X switch and 1921 router were configured to use RADIUS as their primary authentication method with a local admin account configured as fallback. RADIUS shared secrets and UDP ports 1812/1813 were configured for authentication and accounting respectively. 
-                    </p>
-                    <p class="text-gray-600 mb-4">
-                        This implementation ensured that all device access is authenticated against Active Directory, providing centralized user management and detailed accounting of network device access. Network policy server was configured on the Active Directory server to enforce specific authentication policies, including the use of Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. RADIUS groups were created to manage access levels, with RadiusUsers being assigned basic access and RadiusAdmins receiving elevated privileges. Establishment of this setup provided a robust, scalable authentication system that leveraged existing Active Directory infrastructure while maintaining security through centralized access control of networked devices.
-                    </p>
-
-                <!-- Security Implementation -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Security Implementation</h3>
-                <p class="text-gray-600 mb-4">
-                    Multi-layered security approach incorporating:
-                </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>FortiGate Next-Generation Firewall for advanced threat protection</li>
-                    <li>Network segmentation with strict VLAN isolation</li>
-                    <li>Layer 2 security including DHCP snooping and Dynamic ARP inspection</li>
-                    <li>802.1X port-based authentication for wired connections</li>
-                    <li>Comprehensive logging and monitoring through SecurityOnion and LibreNMS</li>
-                </ul>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">RADIUS Client Authentication</h4>
-                    <p class="text-gray-600 mb-4">
-                        The RADIUS client authentication was configured on both the Cisco 1921 router and Cisco Catalyst 3750-X switch to provide centralized AAA services through the Active Directory server at 10.26.10.100. Authentication methods were configured to use RADIUS as the primary authentication source with local authentication as fallback. Pre-authentication ACLs were implemented to restrict access during the authentication process for known client access ports including the Personal PC, allowing only essential pre-authentication traffic like HTTP, HTTPS, DHCP and DNS. The switches and routers were configured with RADIUS shared secrets and used ports 1812/1813 for authentication and accounting respectively. Both devices had RADIUS dead-criteria configured with a 5-second timeout and 3 retries before marking a RADIUS server as unresponsive, with a deadtime of 3 minutes for client authentication through console and SSH. The authentication setup leverages Protected EAP (PEAP) with MS-CHAPv2 for enhanced security. Access control was managed through two primary groups - RadiusUsers for basic access and RadiusAdmins for elevated privileges. This implementation provided robust, scalable authentication while maintaining security through centralized access control and accounting of network device access. Emergency local admin accounts with privilege level 15 were maintained as a fallback option, using type 9 scrypt secrets on the labsw switch and type 7 secrets on the labrt router, with passwords encrypted using AES.
-
-                    </p>
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 2 Security Technologies</h4>
-                    <p class="text-gray-600 mb-4">
-                        Layer 2 security measures were extensively implemented on the Cisco Catalyst 3750-X switch to protect against common network attacks and unauthorized access. Dynamic Trunking Protocol (DTP) was disabled on all trunk interfaces to prevent unauthorized VLAN hopping attempts. For endpoint protection, all access interfaces had PortFast and BPDUGuard enabled to prevent spanning tree manipulation attacks while ensuring quick port initialization. Port security was implemented on all access interfaces connecting to endpoints, with a maximum of one MAC address allowed per port and a violation policy of restrict to prevent MAC address spoofing attacks. Dynamic ARP Inspection (DAI) was enabled on the trunk interface connected to the router for VLAN 10 to prevent ARP poisoning attacks. Access control for DAI was controlled via an ARP ACL locally on the switch, as a DHCP Snooping table did not exist for the wired network. On trunked interfaces to the server infrastructure, LAG was enabled on the four interfaces connecting to the HP ProLiant DL360 Gen9 server, creating an etherchannel port-group for both enhanced bandwidth and security. Unused switch ports were placed into a shutdown state to prevent unauthorized access attempts. These layered security controls worked together to create a robust defense against layer 2 attacks while maintaining high-speed network functionality with a small network of users.
-                    </p>
-
-
-                <h4 class="text-xl font-semibold mt-6 mb-3">Layer 3 Security Technologies</h4>
-                    <p class="text-gray-600 mb-4">
-                        Layer 3 security measures were implemented through a comprehensive set of access control lists (ACLs) across multiple network segments. On the wireless VLAN (VLAN 20), traffic was strictly controlled with permits for essential services like ICMP echo, DHCP (bootpc/bootps), and domain services, while explicitly denying any cross-VLAN communication. Server connectivity (VLAN 40) ACLs were established to permit specific service traffic, including HTTP/HTTPS communication between monitoring servers and the DMZ, with DNS resolution and SNMP monitoring capabilities configured as needed. For the DMZ segment (VLAN 30), a firewall connectivity ACL was implemented with careful controls on both ingress and egress traffic, permitting only necessary protocols like OSPF, TCP to management interfaces, and essential monitoring services to the router itself (10.26.5.2). All ACLs were configured with explicit deny statements and logging capabilities to track potential security violations. 
-                    </p>
-                    <p class="text-gray-600 mb-4">
-                        The management VLAN (VLAN 10) was granted controlled access to other segments through carefully crafted ACL entries, allowing for secure administration. It was configured to allow strategic access to the router-firewall link (10.26.5.0/30) and server infrastructure from the management PC (10.26.10.26), while maintaining strict control over broader network access. Additionally, OSPF routing between the Cisco router and FortiGate firewall was secured through neighbor authentication and route filtering to prevent unauthorized route advertisements.
-                    </p>
-
-                <!-- Virtualization Infrastructure -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Virtualization Infrastructure</h3>
-                <p class="text-gray-600 mb-4">
-                    ESXi-based virtualization platform hosting critical services:
-                </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>HP ProLiant DL360 Gen9 server with 256GB RAM and 4TB SSD storage</li>
-                    <li>Network monitoring and security analysis virtual machines</li>
-                    <li>Development and testing environments</li>
-                    <li>Link aggregation for enhanced network performance</li>
-                    <li>Integration with Active Directory for access control</li>
-                </ul>
-
-                <p class="text-gray-600 mb-4">
-                    Based on the documentation provided, I'll write a comprehensive paragraph about the Virtualization Infrastructure section. Here's my suggested content:
-The virtualization infrastructure is built around an HP ProLiant DL360 Gen9 server running VMware ESXi 7.0.3 as a Type 1 hypervisor. The server hardware features robust specifications including 256GB of DDR4 RAM and 4TB of SSD storage in 2.5" drive bays, providing ample resources for running multiple virtual machines. Network connectivity is established through a link aggregation of four 1GbE connections to the core Cisco 3750-X switch, for enhanced bandwidth and redundancy. The ESXi host is integrated into the Active Directory domain for centralized authentication and resides in VLAN 10 for management access with the address 10.26.10.200. Multiple virtual machines are hosted on the platform including LibreNMS for network monitoring (10.26.40.20), SecurityOnion IDS/IPS (10.26.40.30), and additional VMs for development and testing. The server's management interface (iLO) is accessible at 10.26.10.201 and provides out-of-band management capabilities. This virtualization platform serves as a critical component of the infrastructure, enabling flexible deployment of monitoring, security, and development environments while maintaining proper network segmentation through VLAN tagging and access controls.
+                
+                <!-- Layer 2 Security -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Device Hardening & Layer 2 Security</h3>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Many layer 2 security precautions were made throughout the access layer of the topology. First, all unused ports including GigabitEthernet, auxiliary, and unused VTY lines were shut down to limit rogue connectivity. For ports going to end devices that were not shutdown, port security was applied, limiting the given number of devices to the usable number of devices in the architecture. A violation of restrict was applied to any device that went over this maximum. Similarly, vtp mode transparent, and on trunk ports going to routers, switchport nonegotiate, were set so that VLAN Trunking Protocol (VTP) could not interfere and affect any switches’ VLAN database tables with new or changed entries. 
+                    <span class="line-break">Next, DHCP Snooping and Dynamic ARP Inspection (DAI) were enabled on the switch to further secure how clients get IP addresses and learn about other devices in the network. While the implementation of both was fairly smooth to configure, there was a problem encountered here. A client device without DHCP snooping applied could get an IP address from DHCP, but not with it applied. Several debug commands were used here until it was found to be a problem with how DHCP snooping from the switch interacted with DHCP relay on the default gateway router. More specifically, the GiAddr address field would get replaced with all 0s when coming from the DHCP snooping switch to the router with the DHCP relay address configured. Within the default gateway router with the DHCP relay agent, option 82 was configured to fix this specific issue. What I found most odd though is that this should have been applied by default and would not even show up in the subinterface configuration of the port when set. Either way, setting this allowed clients to get IP addresses again from the DHCP server. Both the DHCP snooping and DAI tables were populating appropriately following this.
+	            <span class="line-break">Finally, for any new changes to the ports on the switch, a pre-authentication ACL was created. This ACL could readily be applied to any port that might need a state change from shutdown in the architecture.
                 </p>
 
-                <!-- Infrastructure Hardening -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Infrastructure Hardening</h3>
-                <p class="text-gray-600 mb-4">
-                    Comprehensive security hardening measures:
+                <!-- Services -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Services</h3>
+                <h4 class="text-xl font-semibold mt-6 mb-3">DNS</h4>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    DNS was established on a pair of Alma Linux machines. One was set up as a master or primary server (ns1), and the other (ns2) was set up as a slave or secondary server with AXFR record zone file transfers between the two. Both name servers were set up for DNS security with signed zone files and a higher-level certificate authority. The generated higher level Key Signing Key and Zone Signing Key were ported to the trusted certificate store on both the Linux name servers and internal Active Directory certificate store. 
+	        </p>
+                <h4 class="text-xl font-semibold mt-6 mb-3">NTP</h4>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Following this, I set up the name servers similarly as time servers using timectl and chrony. I peered these to the Active Directory domain for time synchronization across the infrastructure.
                 </p>
-                <ul class="list-disc pl-6 mb-6 text-gray-600">
-                    <li>Secure device configuration baselines across all network equipment</li>
-                    <li>Implementation of port security and unused port shutdown</li>
-                    <li>Strong password policies and encryption standards</li>
-                    <li>Regular security updates and patch management</li>
-                    <li>Automated monitoring and alerting for security events</li>
-                </ul>
+                <h4 class="text-xl font-semibold mt-6 mb-3">DHCP</h4>
+	        <p class="text-gray-600 mb-4 indented-paragraph">
+                    Finally, on ESXi again, a DHCP server was established using Ubuntu Linux for both IPv4 and IPv6 client connectivity. This process went fairly smoothly and the pools for the main site took immediately when client connectivity was tested, which was a pleasant surprise to see.
+                </p>
 
-                <h4 class="text-xl font-semibold mt-6 mb-3">Cisco IOS Device Hardening & Baselines</h4>
-                    <p class="text-gray-600 mb-4">
-                        Comprehensive infrastructure security hardening was implemented across both Cisco network devices through multiple configuration baselines. RADIUS client authentication was enabled on both the router and switch for administrative access, with the devices configured to use the Active Directory server at 10.26.10.100 as the primary authentication source. Emergency administrative accounts were established with privilege level 15 access, using type 9 scrypt secrets on the switch and type 7 secrets on the router for local authentication fallback. The service password-encryption command was applied using AES as the encryption algorithm to secure stored credentials. Executive timeout values were reduced to 10 minutes on both devices, and lockout policies were implemented to restrict access after 3 failed login attempts. 
-                    </p>
-                    <p class="text-gray-600 mb-4">
-                        For logging and accountability, both devices were configured to record all login attempts, userinfo changes, and enable access events, with logs being forwarded to the SecurityOnion server at 10.26.40.30. The switch was further hardened through port security measures, implementing MAC address restrictions and violation policies on access ports. These port security measures included shutting down unused ports to prevent unauthorized access, and securing all logon methods such as shutting down the unused aux port, and adding an executive timeout to the VTY lines. From these securities implemented, secure configuration baselines were established for future expandability. These baselines established a solid security foundation while maintaining necessary management access through the secured management VLAN.
-                    </p>
 
             </div>
         </div>
