@@ -169,7 +169,6 @@ ip access-list extended Server_Connectivity
  deny   ip 10.26.40.0 0.0.0.255 10.26.0.0 0.0.255.255
  permit ip 10.26.40.0 0.0.0.255 any
 ip access-list extended Wireless_Connectivity
- permit ip any any
  permit icmp 10.26.20.0 0.0.0.255 10.26.10.0 0.0.0.255 echo
  permit ip 10.26.20.0 0.0.0.255 host 10.26.20.1
  permit udp 10.26.20.0 0.0.0.255 host 10.26.30.100 eq domain
