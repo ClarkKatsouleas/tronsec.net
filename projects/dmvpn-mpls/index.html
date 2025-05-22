@@ -222,6 +222,13 @@
     cursor: pointer;
   }
   
+  .network-rack-image {
+    max-width: 90%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+  }
   
     </style>
 </head>
@@ -1067,18 +1074,19 @@
     </ul>
 
 
-                <!-- Network Architecture -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture</h3>
-                <p class="text-gray-600 mb-4">
-                    The setup of the above topology has the following branch locations: Site A (Headquarters), Site B (Branch 1), and Site C (Branch 2).
-                </p>
-
   </div>
   <div class="w-full md:w-1/2">
-    <img src="../../assets/physical-equipment/Lab4_Equipment.jpg" alt="Network Infrastructure Rack" class="rounded-lg shadow-md w-full h-auto" />
+    <img src="../../assets/physical-equipment/Lab4_Equipment.jpg" alt="Network Infrastructure Rack" class="rounded-lg shadow-md network-rack-image" />
     <p class="text-xs text-gray-500 text-center mt-1 mb-0">Physical implementation of the network infrastructure</p>
   </div>
 </div>
+
+
+                <!-- Network Architecture -->
+                <h3 class="text-2xl font-bold mt-0 mb-4">Network Architecture</h3>
+                <p class="text-gray-600 mb-4">
+                    The setup of the above topology has the following branch locations: Site A (Headquarters), Site B (Branch 1), and Site C (Branch 2).
+                </p>
                 
                 <h4 class="text-xl font-semibold mt-0 mb-3">Site A</h4>
                 <p class="text-gray-600 mb-4 indented-paragraph">
@@ -1108,6 +1116,7 @@
                     <span class="line-break">Functionality was working as expected and all services were operational. However, looking back, I do wish I would have looked further into the cause behind this so that whenever the DMVPN was up or came online that it would preempt and take priority from the MPLS connection, instead of me needing to go in and manually change it. 
                 </p>
                 
+
             </div>
         </div>
     </div>
