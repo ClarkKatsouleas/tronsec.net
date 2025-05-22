@@ -221,8 +221,8 @@
   .switch-group, .pc-group, .server-group, .l3switch-group {
     cursor: pointer;
   }
-
-
+  
+  
     </style>
 </head>
 <body class="bg-gray-50">
@@ -1016,6 +1016,98 @@
                 </table>
             </div>
 
+<!-- Network Architecture & Segmentation -->
+<h3 class="text-2xl font-bold mt-8 mb-4">Network Segmentation</h3>
+<p class="text-gray-600 mb-4 indented-paragraph">
+    The network was set up to allow for dynamic establishment of site-to-site VPN connections between multiple locations. To do this, locations were set up with routing protocols and VLANs in a mock topology to support a growing business. 
+    <span class="line-break">To support the growing system's infrastructure, four primary Virtual Local Area Networks (VLANs) were established throughout all locations. Not all VLANs were used in all locations. The necessary VLANs for client connectivity were as follows: 10, 20, 30, and 40. 
+</p>
+
+    <h4 class="text-xl font-semibold mt-6 mb-3">Marketing (VLAN 10)</h4>
+
+<div class="flex flex-wrap items-start">
+  <div class="w-full md:w-1/2 pr-0 md:pr-4">
+
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnets: <span class="font-bold">10.0.10.0/24, 192.168.10.0/24, 172.16.10.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #2196F3">Blue</span></li>
+        <li>Client Network For the Marketing Departments</li>
+    </ul>    
+
+    <h4 class="text-xl font-semibold mb-3">Sales (VLAN 20)</h4>
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnets: <span class="font-bold">10.0.20.0/24, 192.168.20.0/24, 172.16.20.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #FF5722">Red</span></li>
+        <li>Client Network For the Sales Departments</li>
+    </ul>
+    
+    <h4 class="text-xl font-semibold mb-3">Accounting (VLAN 30)</h4>
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnet: <span class="font-bold">10.0.30.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #4CAF50">Green</span></li>
+        <li>Client Network for the Accounting Department</li>
+    </ul>
+
+    <h4 class="text-xl font-semibold mb-3">Research & Development (VLAN 40)</h4>
+    <ul class="list-disc pl-6 mb-4 text-gray-600">
+        <li>Subnet: <span class="font-bold">10.0.40.0/24</span></li>
+        <li>Traffic Designation: <span style="color: #FFDF00">Yellow</span></li>
+        <li>Client Network for R&D division</li>
+    </ul>
+
+    <!-- Physical Infrastructure -->
+    <h4 class="text-xl font-semibold mt-6 mb-3">Physical Infrastructure</h4>
+    <ul class="list-disc pl-6 mb-6 text-gray-600">
+        <li>EH-WICs and NIM modules for network expandability</li>
+        <li>HWIC-DSU modules for T1 Cable Connections</li>
+        <li>Copper SFPs and TwinGig Module for network medium conversion</li>
+        <li>Green Async Cable Connections to the console port on all devices</li>
+        <li>RJ-45 CAT6 UTP Cables for general connectivity</li>
+        <li>MM Fiber Connections for core switching connectivity</li>
+    </ul>
+
+
+                <!-- Network Architecture -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture</h3>
+                <p class="text-gray-600 mb-4">
+                    The setup of the above topology has the following branch locations: Site A (Headquarters), Site B (Branch 1), and Site C (Branch 2).
+                </p>
+
+  </div>
+  <div class="w-full md:w-1/2">
+    <img src="../../assets/physical-equipment/Lab4_Equipment.jpg" alt="Network Infrastructure Rack" class="rounded-lg shadow-md w-full h-auto" />
+    <p class="text-xs text-gray-500 text-center mt-1 mb-0">Physical implementation of the network infrastructure</p>
+  </div>
+</div>
+                
+                <h4 class="text-xl font-semibold mt-0 mb-3">Site A</h4>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Site A was the biggest site and headquarters of this mock topology. Therefore, it was set up as the hub of the DMVPN. Site A consisted of a multi-area OSPF network with areas 0, 1, and 2. Each area was set to represent a different building within a campus topology with area 0 being the backbone area to connect the buildings together. The architecture included a core network architecture of 2 fiber link aggregated layer 3 switches and 4 primary VLANs and subnetworks for client connectivity throughout the architecture. As mentioned above, VLAN 10 was for the marketing department, VLAN 20 for the sales department, VLAN 30 for the accounting department, and VLAN 40 for the research & development division. Finally, a centralized DHCP server for IPv4 and IPv6 was set up on T-3750-A, one of the core switches within the topology. 
+                </p>
+                <h4 class="text-xl font-semibold mt-6 mb-3">Site B</h4>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Site B was fairly small. It was the smallest of the three sites and consisted of a single router-on-a-stick topology consisting of T-2901-B. The routing protocol IS-IS was used here to connect the routes between the internal and remote sites within the infrastructure. Even though there were only two routes in this topology, if there were ever needs for future expansion, it would make the process more scalable. In the long run it would be more efficient than manually specifying all routes when redistributing to advertise routes into the DMVPN. DHCP services for this site were made on the same router with 4 total pools to accommodate both marketing and sales over IPv4 and IPv6 at the remote site.
+                </p>
+                <h4 class="text-xl font-semibold mt-6 mb-3">Site C</h4>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Site C was a medium site compared to both A’s large site and B’s small site. It was a site that utilized 3 routers and one switch to service clients on the network. This site was set up with the internal routing protocol EIGRP as all routed devices within this site were Cisco. Two of the routers, T-ISR-B and T-ISR-C, were set up in a redundant Gateway Load Balancing Protocol (GLBP) pairing to load balance connections across the network in a round-robin fashion. Similarly to site B, vlans for the Marketing and Sales department were established with DHCP pools for both IPv4 and IPv6 on the central edge router of the topology.
+                </p>
+
+                <!-- Dynamic Multipoint Virtual Private Network -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Dynamic Multipoint Virtual Private Network</h3>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Dynamic Multipoint VPNs (DMVPNs) are a technique of configuring VPNs so that not all sites must be statically configured. One site is primarily configured as a hub with all other sites being configured as spokes. For example in the topology above, site A was configured as a hub with sites B and C being configured as spokes. The configuration uses NHRP to allow spokes to connect to the hub, allowing site A to keep cache records of both sites B and C. Sites B and C are then able to communicate with each other dynamically without the need for a static point-to-point configuration between sites B and C. B can peer and communicate with C and vice versa through site A without decrementing the TTL. Encryption across tunnels is also supported, making DMVPNs a popular way to securely communicate between multiple branch site locations.
+                    <span class="line-break">The DMVPN configuration above was as follows: Site A (T-2901-A) was the hub with sites B (T-2901-B) and C (T-2901-C) being spokes. The DMVPN topology was established for both IPv4 and IPv6 internal networks through a shared tunnel 0 with separate network ids. Internal networks for each site used a different routing protocol with shared tunnel between them using exterior Border Gateway Protocol (eBGP). While EIGRP is more common in tunnels between DMVPN hubs and spokes, I already had EIGRP as the routing protocol for site C and wanted to use BGP to become more familiar with the protocol and its redistribution commands that were still relatively new to me.
+                    <span class="line-break">Through the successful implementation of the DMVPN, I was able to dynamically communicate between remote sites and allow for communication of both IPv4 and IPv6 internal networks across an IPv4 public infrastructure.
+                </p>
+
+                <!-- Multi-Protocol Label Switching -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Multi-Protocol Label Switching</h3>
+                <p class="text-gray-600 mb-4 indented-paragraph">
+                    Finally, an MPLS network connection was established across sites via a mock T1 connection. Instead of T1 lines being routed through phone lines, these connections were directly connected via Serial interfaces on HWIC-1DSU-T1 modules. I constructed two T1 cables and connected them from T-2901-B to T-2901-A and T-2901-C to T-2901-A. These cable connections were to be used as a physical backup connection in the potential failure of the DMVPN connection. The connections were set up with the command “mpls bgp forwarding” to allow the forwarding of MPLS-labeled packets across a BGP session. Routes were then inserted into BGP. Here, the routes came online and populated into the routing table. As I wanted the MPLS connection to be a backup to the DMVPN, I shutdown the two serial interfaces on Cisco T-2901-A which caused the routes for the remote networks to recalculate and use the DMVPN. After this was confirmed to be working correctly, the serial interfaces were brought back online and did not retake priority of the remote networks’ routes. 
+                    <span class="line-break">Functionality was working as expected and all services were operational. However, looking back, I do wish I would have looked further into the cause behind this so that whenever the DMVPN was up or came online that it would preempt and take priority from the MPLS connection, instead of me needing to go in and manually change it. 
+                </p>
+                
             </div>
         </div>
     </div>
