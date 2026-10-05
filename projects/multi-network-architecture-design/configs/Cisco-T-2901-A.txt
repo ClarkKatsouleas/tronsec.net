@@ -1,0 +1,332 @@
+T-2901-A#show run
+Building configuration...
+
+
+Current configuration : 4098 bytes
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2901-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition GREEN
+ vnet tag 33
+ description "VRF GREEN"
+ rd 65300:33
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition MGMT
+ vnet tag 99
+ description "VRF MGMT"
+ rd 65300:99
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/2/0.10
+ deadtime 3
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.90.1 192.168.90.99
+ip dhcp excluded-address 192.168.30.1 192.168.30.99
+!
+ip dhcp pool VRF_GREEN_30
+ network 192.168.30.0 255.255.255.0
+ dns-server 44.2.2.44 44.2.2.45
+ domain-name tronsec.lcl
+ default-router 192.168.30.1
+!
+ip dhcp pool VRF_MGMT_90
+ network 192.168.90.0 255.255.255.0
+ default-router 192.168.90.1
+ domain-name tronsec.lcl
+ dns-server 44.2.2.44 44.2.2.45
+!
+!
+!
+no ip domain lookup
+ip domain name tronsec.lcl
+ip cef
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+password encryption aes
+!
+!
+license udi pid CISCO2901/K9 sn FJC1838A06M
+license boot module c2900 technology-package datak9
+dot1x system-auth-control
+!
+!
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXX
+username admin privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+!
+!
+!
+!
+lldp run
+!
+!
+!
+crypto ikev2 proposal MGMT-Proposal
+ encryption aes-cbc-256
+ integrity sha256
+ group 19
+!
+crypto ikev2 policy MGMT-Policy
+ match fvrf MGMT
+ proposal MGMT-Proposal
+!
+crypto ikev2 keyring MGMT-Keyring
+ peer T-ISR-A
+  description "Peer to T-ISR-A"
+  address 172.16.99.2
+  hostname T-ISR-A
+  pre-shared-key local XXXXXXXXXX
+  pre-shared-key remote XXXXXXXXXX
+ !
+!
+!
+crypto ikev2 profile MGMT-Profile
+ description "MGMT IKEv2 Profile"
+ match fvrf MGMT
+ match address local 192.168.99.2
+ match identity remote address 172.16.99.2 255.255.255.255
+ identity local address 192.168.99.2
+ authentication local pre-share
+ authentication remote pre-share
+ keyring local MGMT-Keyring
+ lifetime 28800
+ dpd 10 5 on-demand
+!
+!
+!
+crypto ipsec transform-set MGMT-Transform-Set esp-aes 256 esp-sha256-hmac
+ mode tunnel
+!
+crypto ipsec profile MGMT-IPsec-Profile
+ description "IPv4 IPsec Profile for MGMT VPN"
+ set transform-set MGMT-Transform-Set
+ set pfs group19
+ set ikev2-profile MGMT-Profile
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2901-A Loopback Interface"
+ ip address 10.26.29.1 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::A/128
+ ipv6 enable
+!
+interface Loopback33
+ description "T-2901-A Loopback Interface VRF GREEN"
+ vrf forwarding GREEN
+ ip address 192.168.29.1 255.255.255.255
+ ipv6 enable
+!
+interface Loopback99
+ description "T-2901-A Loopback Interface VRF MGMT"
+ vrf forwarding MGMT
+ ip address 10.26.29.1 255.255.255.255
+ ipv6 enable
+!
+interface Tunnel0
+ vrf forwarding MGMT
+ ip address 192.168.1.2 255.255.255.252
+ tunnel source GigabitEthernet0/0.99
+ tunnel mode ipsec ipv4
+ tunnel destination 172.16.99.2
+ tunnel vrf MGMT
+ tunnel protection ipsec profile MGMT-IPsec-Profile
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To T-2911-B"
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.33
+ description "To T-2911-B VRF GREEN"
+ encapsulation dot1Q 33
+ vrf forwarding GREEN
+ ip address 192.168.33.2 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/0.99
+ description "To T-2911-B VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 192.168.99.2 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/1
+ description "To T-3750-C"
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.33
+ description "To T-3750-C VRF GREEN"
+ encapsulation dot1Q 33
+ vrf forwarding GREEN
+ ip address 192.168.30.3 255.255.255.0
+ standby version 2
+ standby 33 ip 192.168.30.1
+ ipv6 enable
+!
+interface GigabitEthernet0/1.99
+ description "To T-3750-C VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 192.168.90.3 255.255.255.0
+ standby version 2
+ standby 99 ip 192.168.90.1
+ standby 99 priority 200
+ standby 99 preempt
+ ipv6 enable
+!
+!
+!
+router eigrp EIGRP
+ !
+ address-family ipv4 unicast vrf MGMT autonomous-system 65300
+  !
+  topology base
+  exit-af-topology
+  network 10.26.29.1 0.0.0.0
+  network 192.168.90.0
+  network 192.168.99.0 0.0.0.3
+  eigrp router-id 10.26.29.1
+ exit-address-family
+ !
+ address-family ipv4 unicast vrf GREEN autonomous-system 65300
+  !
+  topology base
+  exit-af-topology
+  network 192.168.29.1 0.0.0.0
+  network 192.168.30.0
+  network 192.168.33.0 0.0.0.3
+  eigrp router-id 192.168.29.1
+ exit-address-family
+!
+router bgp 65300
+ bgp log-neighbor-changes
+ bgp graceful-restart restart-time 120
+ bgp graceful-restart stalepath-time 360
+ bgp graceful-restart
+ no bgp default ipv4-unicast
+ !
+ address-family ipv4 vrf MGMT
+  bgp router-id 10.26.29.1
+  network 10.26.29.1 mask 255.255.255.255
+  network 192.168.99.0 mask 255.255.255.252
+  neighbor 192.168.99.1 remote-as 65300
+  neighbor 192.168.99.1 activate
+  neighbor 192.168.99.1 soft-reconfiguration inbound
+ exit-address-family
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route vrf MGMT 10.26.10.0 255.255.255.0 Tunnel0
+ip route vrf MGMT 172.16.90.0 255.255.255.0 Tunnel0
+!
+ip ssh version 2
+!
+ipv6 ioam timestamp
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+!
+!
+control-plane
+!
+!
+ vstack
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2901-A#

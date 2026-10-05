@@ -1,0 +1,402 @@
+T-2911-A#show run
+Building configuration...
+
+Current configuration : 8034 bytes
+!
+! Last configuration change at 22:23:06 UTC Wed Mar 26 2025
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname T-2911-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition BLUE
+ vnet tag 22
+ rd 65200:22
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition MGMT
+ vnet tag 99
+ rd 65000:99
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition RED
+ vnet tag 11
+ rd 65100:11
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf list VRF_LIST
+ member BLUE
+ member MGMT
+ member RED
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/1
+ ipv6 radius source-interface GigabitEthernet0/0
+ deadtime 3
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name tronsec.lcl
+ip cef
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+password encryption aes
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+vxml logging-tag
+license udi pid CISCO2911/K9 sn FTX1628ALT3
+dot1x system-auth-control
+!
+!
+vtp mode transparent
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+!
+lldp run
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-2911-A Loopback Interface"
+ ip address 10.26.29.11 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::5/128
+ ipv6 enable
+!
+interface Loopback11
+ description "T-2911-A Loopback Interface VRF RED"
+ vrf forwarding RED
+ ip address 44.36.17.111 255.255.255.255
+!
+interface Loopback22
+ description "T-2911-A Loopback Interface VRF BLUE"
+ vrf forwarding BLUE
+ ip address 172.16.29.11 255.255.255.255
+!
+interface Loopback99
+ description "T-2911-A Loopback Interface VRF MGMT"
+ vrf forwarding MGMT
+ ip address 10.26.29.11 255.255.255.255
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description "To T-2911-B"
+ no ip address
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.11
+ description "To T-2911-B VRF RED"
+ encapsulation dot1Q 11
+ vrf forwarding RED
+ ip address 44.36.17.10 255.255.255.252
+!
+interface GigabitEthernet0/0.22
+ description "To T-2911-B VRF BLUE"
+ encapsulation dot1Q 22
+ vrf forwarding BLUE
+ ip address 44.36.17.10 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/0.99
+ description "To T-2911-B VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 44.36.17.10 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/1
+ description "To T-2901-D"
+ no ip address
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.11
+ description "Subinterface for VRF RED"
+ encapsulation dot1Q 11
+ vrf forwarding RED
+ ip address 44.36.17.22 255.255.255.252
+!
+interface GigabitEthernet0/1.22
+ description "Subinterface for VRF BLUE"
+ encapsulation dot1Q 22
+ vrf forwarding BLUE
+ ip address 44.36.17.22 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/1.99
+ description "Subinterface for VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 44.36.17.22 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/2
+ description "To T-ISR-A"
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2.22
+ description "To T-ISR-A VRF BLUE"
+ encapsulation dot1Q 22
+ vrf forwarding BLUE
+ ip address 172.16.22.1 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/2.99
+ description "To T-ISR-A VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 172.16.99.1 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address autoconfig
+ ipv6 enable
+!
+router ospf 22 vrf BLUE
+ router-id 172.16.29.11
+ network 172.16.22.0 0.0.0.3 area 0
+ network 172.16.29.11 0.0.0.0 area 0
+ default-information originate
+!
+router ospf 99 vrf MGMT
+ router-id 10.26.29.11
+ network 10.26.29.11 0.0.0.0 area 0
+ network 172.16.99.0 0.0.0.3 area 0
+ default-information originate
+!
+router bgp 65200
+ bgp router-id 10.26.29.11
+ bgp log-neighbor-changes
+ bgp graceful-restart restart-time 120
+ bgp graceful-restart stalepath-time 360
+ bgp graceful-restart
+ no bgp default ipv4-unicast
+ !
+ address-family ipv4 vrf BLUE
+  bgp router-id 172.16.29.11
+  network 44.36.17.8 mask 255.255.255.252
+  network 44.36.17.20 mask 255.255.255.252
+  neighbor 44.36.17.9 remote-as 65300
+  neighbor 44.36.17.9 update-source GigabitEthernet0/0.22
+  neighbor 44.36.17.9 activate
+  neighbor 44.36.17.9 soft-reconfiguration inbound
+  neighbor 44.36.17.21 remote-as 65100
+  neighbor 44.36.17.21 update-source GigabitEthernet0/1.22
+  neighbor 44.36.17.21 activate
+  neighbor 44.36.17.21 soft-reconfiguration inbound
+ exit-address-family
+ !
+ address-family ipv4 vrf MGMT
+  bgp router-id 10.26.29.11
+  network 10.26.29.11 mask 255.255.255.255
+  network 44.36.17.8 mask 255.255.255.252
+  network 44.36.17.20 mask 255.255.255.252
+  neighbor 44.36.17.9 remote-as 65300
+  neighbor 44.36.17.9 update-source GigabitEthernet0/0.99
+  neighbor 44.36.17.9 activate
+  neighbor 44.36.17.9 soft-reconfiguration inbound
+  neighbor 44.36.17.21 remote-as 65100
+  neighbor 44.36.17.21 update-source GigabitEthernet0/1.99
+  neighbor 44.36.17.21 activate
+  neighbor 44.36.17.21 soft-reconfiguration inbound
+  neighbor 172.16.99.2 remote-as 65200
+  neighbor 172.16.99.2 activate
+  neighbor 172.16.99.2 next-hop-self
+  neighbor 172.16.99.2 soft-reconfiguration inbound
+ exit-address-family
+ !
+ address-family ipv4 vrf RED
+  bgp router-id 10.0.29.11
+  network 44.36.17.8 mask 255.255.255.252
+  network 44.36.17.20 mask 255.255.255.252
+  neighbor 44.36.17.9 remote-as 65300
+  neighbor 44.36.17.9 update-source GigabitEthernet0/0.11
+  neighbor 44.36.17.9 activate
+  neighbor 44.36.17.9 soft-reconfiguration inbound
+  neighbor 44.36.17.21 remote-as 65100
+  neighbor 44.36.17.21 update-source GigabitEthernet0/1.11
+  neighbor 44.36.17.21 activate
+  neighbor 44.36.17.21 soft-reconfiguration inbound
+ exit-address-family
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source route-map NAT_TO_2911-B_BLUE interface GigabitEthernet0/0.22 vrf BLUE match-in-vrf overload
+ip nat inside source route-map NAT_TO_JUNIPER_BLUE interface GigabitEthernet0/1.22 vrf BLUE match-in-vrf overload
+ip nat inside source route-map NAT_TO_2911-B_MGMT interface GigabitEthernet0/0.99 vrf MGMT match-in-vrf overload
+ip nat inside source route-map NAT_TO_JUNIPER_MGMT interface GigabitEthernet0/1.99 vrf MGMT match-in-vrf overload
+ip ssh version 2
+!
+ip access-list extended NAT_ACL
+ deny   ip host 172.16.99.2 host 192.168.99.2
+ permit ip 172.16.0.0 0.0.255.255 any
+ permit ip 10.26.0.0 0.0.255.255 any
+!
+ipv6 ioam timestamp
+!
+route-map NAT_TO_JUNIPER_MGMT permit 10
+ match ip address NAT_ACL
+ match interface GigabitEthernet0/1.99
+!
+route-map NAT_TO_JUNIPER_BLUE permit 10
+ match ip address NAT_ACL
+ match interface GigabitEthernet0/1.22
+!
+route-map NAT_TO_2911-B_BLUE permit 10
+ match ip address NAT_ACL
+ match interface GigabitEthernet0/0.22
+!
+route-map NAT_TO_2911-B_MGMT permit 10
+ match ip address NAT_ACL
+ match interface GigabitEthernet0/0.99
+!
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
+
+T-2911-A#

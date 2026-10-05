@@ -1,0 +1,282 @@
+T-ISR-B#show run
+Building configuration...
+
+
+Current configuration : 4458 bytes
+!
+! Last configuration change at 22:16:14 UTC Sun Apr 6 2025
+!
+version 17.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service call-home
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname T-ISR-B
+!
+boot-start-marker
+boot system bootflash:isr4300-universalk9.17.09.05a.SPA.bin
+boot-end-marker
+!
+!
+vrf definition MGMT
+ vnet tag 99
+ rd 65100:99
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition RED
+ vnet tag 11
+ rd 65100:11
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging userinfo
+enable secret 9 XXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/0/0
+ deadtime 3
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+ip domain name tronsec.lcl
+ip dhcp relay information option
+ip dhcp relay information trust-all
+!
+!
+!
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+vtp mode transparent
+vtp version 1
+multilink bundle-name authenticated
+!
+!
+password encryption aes
+!
+!
+!
+!
+!
+license udi pid ISR4331-B/K9 sn FDO21101X67
+memory free low-watermark processor 67180
+!
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+dot1x system-auth-control
+!
+!
+!
+username clark privilege 15 secret 9 XXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+ mode none
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-ISR-B Loopback Interface"
+ ip address 10.26.43.32 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::8/128
+ ipv6 enable
+!
+interface Loopback11
+ description "T-ISR-B VRF RED Loopback Interface"
+ vrf forwarding RED
+ ip address 10.0.43.32 255.255.255.255
+ ip router isis ISIS_RED
+ ipv6 address FD00:C345:17:0:BED::8/128
+ ipv6 enable
+!
+interface Loopback99
+ description "T-ISR-B VRF MGMT Loopback Interface"
+ vrf forwarding MGMT
+ ip address 10.26.43.32 255.255.255.255
+ ip router isis ISIS_MGMT
+ ipv6 address FD00:C345:17:0:B00B::8/128
+ ipv6 enable
+!
+interface GigabitEthernet0/0/0
+ description "To T-DellPWR"
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/0/0.11
+ description "To T-DellPWR VRF RED"
+ encapsulation dot1Q 11
+ vrf forwarding RED
+ ip address 10.0.10.1 255.255.255.0
+ ip helper-address 10.0.43.33
+ ip router isis ISIS_RED
+ ipv6 address FD00:C345:17:0:BED:11:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ vrrp 10 description "Master for RED PC Subnet"
+ vrrp 10 ip 10.0.10.1
+ vrrp 10 priority 200
+!
+interface GigabitEthernet0/0/0.99
+ description "To T-DellPWR VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 10.0.90.1 255.255.255.0
+ ip helper-address 10.26.43.33
+ ip router isis ISIS_MGMT
+ ipv6 address FD00:C345:17:0:BED:99:0:1/96
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ vrrp 90 description "Master for MGMT PC Subnet"
+ vrrp 90 ip 10.0.90.1
+!
+interface GigabitEthernet0/0/1
+ description "To T-ISR-C"
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/0/1.11
+ description "To T-ISR-C VRF RED"
+ encapsulation dot1Q 11
+ vrf forwarding RED
+ ip address 10.0.11.6 255.255.255.252
+ ip router isis ISIS_RED
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/0/1.99
+ description "To T-ISR-C VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 10.0.99.6 255.255.255.252
+ ip router isis ISIS_MGMT
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router isis ISIS_MGMT
+ vrf MGMT
+ net 49.0001.1000.9009.4332.00
+!
+router isis ISIS_RED
+ vrf RED
+ net 49.0001.1000.1001.4332.00
+!
+ip forward-protocol nd
+!
+!
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip ssh version 2
+!
+!
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+line vty 5 14
+ transport input ssh
+!
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+!
+!
+!
+!
+!
+!
+end
+
+T-ISR-B#

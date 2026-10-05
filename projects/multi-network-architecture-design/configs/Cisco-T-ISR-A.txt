@@ -1,0 +1,363 @@
+T-ISR-A#show run
+Building configuration...
+
+Current configuration : 6688 bytes
+!
+! Last configuration change at 22:25:18 UTC Tue Apr 8 2025
+!
+version 16.12
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service call-home
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname T-ISR-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition BLUE
+ vnet tag 22
+ description "VRF BLUE"
+ rd 65200:22
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition MGMT
+ vnet tag 99
+ rd 65000:99
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging userinfo
+enable secret 9 XXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/0/0
+ deadtime 3
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+  no destination transport-method email
+!
+!
+!
+!
+!
+!
+!
+ip domain name tronsec.lcl
+!
+!
+!
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+password encryption aes
+!
+!
+!
+!
+license udi pid ISR4331-B/K9 sn FDO21363391
+memory free low-watermark processor 67180
+!
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+dot1x system-auth-control
+!
+username clark privilege 15 secret 9 XXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+ mode none
+!
+!
+!
+lldp run
+!
+!
+!
+crypto ikev2 proposal MGMT-Proposal
+ encryption aes-cbc-256
+ integrity sha256
+ group 19
+!
+crypto ikev2 policy MGMT-Policy
+ match fvrf MGMT
+ proposal MGMT-Proposal
+!
+crypto ikev2 keyring MGMT-Keyring
+ peer T-2901-A
+  description "Peer to T-2901-A"
+  address 192.168.99.2
+  hostname T-2901-A
+  pre-shared-key local XXXXXXXXXX
+  pre-shared-key remote XXXXXXXXXX
+ !
+!
+!
+crypto ikev2 profile MGMT-Profile
+ description "MGMT IKEv2 Profile"
+ match fvrf MGMT
+ match address local 172.16.99.2
+ match identity remote address 192.168.99.2 255.255.255.255
+ identity local address 172.16.99.2
+ authentication local pre-share
+ authentication remote pre-share
+ keyring local MGMT-Keyring
+ lifetime 28800
+ dpd 10 5 on-demand
+!
+!
+!
+crypto ipsec transform-set MGMT-Transform-Set esp-aes 256 esp-sha256-hmac
+ mode tunnel
+!
+crypto ipsec profile MGMT-IPsec-Profile
+ description "IPv4 IPsec Profile for MGMT VPN"
+ set transform-set MGMT-Transform-Set
+ set pfs group19
+ set ikev2-profile MGMT-Profile
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-ISR-A Loopback Interface"
+ ip address 10.26.43.31 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::7/128
+ ipv6 enable
+!
+interface Loopback22
+ description "T-ISR-A Loopback Interface VRF BLUE"
+ vrf forwarding BLUE
+ ip address 172.16.43.31 255.255.255.255
+ ipv6 address FD00:C345:17:0:B17E::7/128
+ ipv6 enable
+ ospfv3 6 ipv6 area 0
+!
+interface Loopback99
+ description "T-ISR-A Loopback Interface VRF MGMT"
+ vrf forwarding MGMT
+ ip address 10.26.43.31 255.255.255.255
+ ipv6 address FD00:C345:17:0:B00B::7/128
+ ipv6 enable
+ ospfv3 6 ipv6 area 0
+!
+interface Tunnel0
+ vrf forwarding MGMT
+ ip address 192.168.1.1 255.255.255.252
+ tunnel source GigabitEthernet0/0.99
+ tunnel mode ipsec ipv4
+ tunnel destination 192.168.99.2
+ tunnel vrf MGMT
+ tunnel protection ipsec profile MGMT-IPsec-Profile
+!
+interface GigabitEthernet0/0/0
+ description "To T-2911-A"
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/0/0.22
+ description "To T-2911-A VRF BLUE"
+ encapsulation dot1Q 22
+ vrf forwarding BLUE
+ ip address 172.16.22.2 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 6 ipv6 area 0
+!
+interface GigabitEthernet0/0/0.99
+ description "To T-2911-A VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 172.16.99.2 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 6 ipv6 area 0
+!
+interface GigabitEthernet0/0/1
+ description "To T-Nexus"
+ no ip address
+ negotiation auto
+ ipv6 enable
+!
+interface GigabitEthernet0/0/1.22
+ description "To T-Nexus VRF BLUE"
+ encapsulation dot1Q 22
+ vrf forwarding BLUE
+ ip address 172.16.22.9 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 6 ipv6 area 0
+!
+interface GigabitEthernet0/0/1.99
+ description "To T-Nexus VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 172.16.99.9 255.255.255.252
+ ipv6 address autoconfig
+ ipv6 enable
+ ospfv3 6 ipv6 area 0
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospfv3 6
+ !
+ address-family ipv6 unicast vrf MGMT
+  router-id 10.26.43.31
+ exit-address-family
+ !
+ address-family ipv6 unicast vrf BLUE
+  router-id 172.16.43.31
+ exit-address-family
+!
+router ospf 99 vrf MGMT
+ router-id 10.26.43.31
+ redistribute static subnets route-map VPN_TO_OSPF
+ network 10.26.43.31 0.0.0.0 area 0
+ network 172.16.99.0 0.0.0.3 area 0
+ network 172.16.99.8 0.0.0.3 area 0
+!
+router ospf 22 vrf BLUE
+ router-id 172.16.43.31
+ network 172.16.22.0 0.0.0.3 area 0
+ network 172.16.22.8 0.0.0.3 area 0
+ network 172.16.43.31 0.0.0.0 area 0
+!
+router bgp 65200
+ bgp log-neighbor-changes
+ bgp graceful-restart restart-time 120
+ bgp graceful-restart stalepath-time 360
+ bgp graceful-restart
+ no bgp default ipv4-unicast
+ !
+ address-family ipv4 vrf MGMT
+  bgp router-id 10.26.43.31
+  network 10.26.43.31 mask 255.255.255.255
+  network 172.16.99.0 mask 255.255.255.252
+  neighbor 10.26.29.2 remote-as 65200
+  neighbor 10.26.29.2 update-source Loopback99
+  neighbor 10.26.29.2 activate
+  neighbor 10.26.29.2 route-reflector-client
+  neighbor 10.26.29.2 soft-reconfiguration inbound
+  neighbor 172.16.99.1 remote-as 65200
+  neighbor 172.16.99.1 activate
+  neighbor 172.16.99.1 route-reflector-client
+  neighbor 172.16.99.1 soft-reconfiguration inbound
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+ip http authentication local
+no ip http secure-server
+ip route vrf MGMT 192.168.90.0 255.255.255.0 Tunnel0
+ip ssh version 2
+!
+!
+ip prefix-list VPN_ROUTES seq 5 permit 192.168.90.0/24
+!
+route-map VPN_TO_OSPF permit 10
+ description "Redistributing VPN Routes Into OSPF"
+ match ip address prefix-list VPN_ROUTES
+!
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ transport input ssh
+ transport output all
+!
+!
+!
+!
+!
+!
+end
+
+T-ISR-A#

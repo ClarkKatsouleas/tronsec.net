@@ -1,0 +1,276 @@
+T-ISR-C#show run
+Building configuration...
+
+Current configuration : 4755 bytes
+!
+! Last configuration change at 22:19:25 UTC Sun Apr 6 2025
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+no platform punt-keepalive disable-kernel-core
+!
+hostname T-ISR-C
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition MGMT
+ vnet tag 99
+ rd 65100:99
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition RED
+ vnet tag 11
+ rd 65100:11
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging userinfo
+enable secret 5 XXXXXXXXXXXXXXXXXXXXX
+!
+aaa new-model
+!
+!
+aaa group server radius RADIUS-Group-ADDC
+ server name ADDC-RADIUS-v4
+ server name ADDC-RADIUS-v6
+ ip radius source-interface GigabitEthernet0/0/0
+ deadtime 3
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+ip domain name tronsec.lcl
+!
+!
+!
+login on-failure log
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+multilink bundle-name authenticated
+!
+password encryption aes
+!
+!
+!
+license udi pid ISR4331-B/K9 sn FDO221818PX
+!
+spanning-tree extend system-id
+dot1x system-auth-control
+!
+username clark privilege 15 secret 5 XXXXXXXXXXXXXXXXXXXXX
+!
+redundancy
+ mode none
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description "T-ISR-C Loopback Interface"
+ ip address 10.26.43.33 255.255.255.255
+ ipv6 address FD00:C345:18:0:B00B::9/128
+ ipv6 enable
+!
+interface Loopback11
+ description "T-ISR-C VRF RED Loopback Interface"
+ vrf forwarding RED
+ ip address 10.0.43.33 255.255.255.255
+ ip router isis ISIS_RED
+ ipv6 address FD00:C345:17:0:BED::9/128
+ ipv6 enable
+!
+interface Loopback99
+ description "T-ISR-C VRF MGMT Loopback Interface"
+ vrf forwarding MGMT
+ ip address 10.26.43.33 255.255.255.255
+ ip router isis ISIS_MGMT
+ ipv6 address FD00:C345:17:0:B00B::9/128
+ ipv6 enable
+!
+interface GigabitEthernet0/0/0
+ description "To T-2901-D"
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/0/0.11
+ description "To T-2901-D VRF RED"
+ encapsulation dot1Q 11
+ vrf forwarding RED
+ ip address 10.0.11.2 255.255.255.252
+ ip router isis ISIS_RED
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/0/0.99
+ description "To T-2901-D VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 10.0.99.2 255.255.255.252
+ ip router isis ISIS_MGMT
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/0/1
+ description "To T-2901-C"
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/0/1.11
+ description "To T-2901-C VRF RED"
+ encapsulation dot1Q 11
+ vrf forwarding RED
+ ip address 10.0.11.9 255.255.255.252
+ ip router isis ISIS_RED
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/0/1.99
+ description "To T-2901-C VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 10.0.99.9 255.255.255.252
+ ip router isis ISIS_MGMT
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/1/0
+ description "To T-ISR-B"
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/1/0.11
+ description "To T-ISR-B VRF RED"
+ encapsulation dot1Q 11
+ vrf forwarding RED
+ ip address 10.0.11.5 255.255.255.252
+ ip router isis ISIS_RED
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0/1/0.99
+ description "To T-ISR-B VRF MGMT"
+ encapsulation dot1Q 99
+ vrf forwarding MGMT
+ ip address 10.0.99.5 255.255.255.252
+ ip router isis ISIS_MGMT
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router isis ISIS_MGMT
+ vrf MGMT
+ net 49.0001.1000.9009.4333.00
+!
+router isis ISIS_RED
+ vrf RED
+ net 49.0001.1000.1001.4333.00
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip ssh version 2
+!
+!
+!
+!
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+!
+radius server ADDC-RADIUS-v4
+ address ipv4 10.26.10.100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+radius server ADDC-RADIUS-v6
+ address ipv6 FD00:C345:17:0:BEEF:10:0:100 auth-port 1812 acct-port 1813
+ key 7 XXXXXXXXXX
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ transport input ssh
+ transport output all
+!
+no network-clock synchronization automatic
+!
+end
+
+T-ISR-C#
