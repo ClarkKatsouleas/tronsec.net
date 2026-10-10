@@ -289,10 +289,10 @@
             <div class="prose prose-lg mx-auto">
                 <h2 class="text-3xl font-bold mb-6">Project Introduction</h2>
                 <p class="text-gray-600 mb-6 indented-paragraph">
-                    Initial planning for this project architecture began in February 2025, with physical implementation starting in March 2025. However, unfortunately, due to the scope of the project at the time, it was not completed within the given timeframe before needing to move on. Therefore, now a year later in 2026, I have come back to the project with the original configurations to complete it as originally intended.
+                    Initial planning for this project architecture began in February 2025, with physical implementation starting in March 2025. However, due to the scope of the project at the time, it was not completed within the given timeframe before needing to move on. Therefore, now a year later in 2026, I have come back to the project with the original configurations to complete it as originally intended.
                 </p>
                 <p class="text-gray-600 mb-6 indented-paragraph">
-                    This lab environment was originally drafted as a way to practice eBGP and iBGP within an enterprise setting, to analyze their functions. Virtual Routing and Forwarding was later added in the design phase as the network took distinct shapes with the three mini-topologies that became the RED, BLUE, and GREEN VRFs and autonomous systems. I knew I wanted a single routing domain to exist in all routers for general management and SSH connectivity, and while I could have used the global routing table. I thought it would be more fun to additionally incoropoate a new VRF, hence the 4th VRF in the architecture, MGMT.
+                    This lab environment was originally drafted as a way to practice eBGP and iBGP within an enterprise setting, to analyze their functions. Virtual Routing and Forwarding was later added in the design phase as the network took distinct shapes with the three mini-topologies that became the RED, BLUE, and GREEN VRFs and autonomous systems. I knew I wanted a single routing domain to exist in all routers for general management and SSH connectivity, and while I could have used the global routing table. I thought it would be more fun to additionally incorporate a new VRF, hence the 4th VRF in the architecture, MGMT.
                     <span class="line-break">The lab incorporated enterprise-grade hardware including Cisco Catalyst 3750e switches (x5), Cisco 2901 routers (x6), Cisco ISR 4331 routers (x3), Cisco 2911 routers (x2), and a Cisco Nexus 5548UP (x1). A detailed architecture mapping table of all of these devices can be viewed below the network diagram. </span>
                 </p>
                 <p class="text-gray-600 mb-6">
@@ -1481,7 +1481,7 @@
 <!-- Network Architecture & Design -->
 <h3 class="text-2xl font-bold mt-8 mb-4">Network Architecture & Topology Design</h3>
 <p class="text-gray-600 mb-4 indented-paragraph">
-    This network was set up to allow for logically seperate routing domains by use of different customers of MGMT: RED, BLUE, and GREEN. External Border Gateway Protocol was used with public IP addresses to peer with each customer in-turn, and route traffic appropriately between them and the internet access gateway. iBGP was used for MGMT's VRF to provide scalability of routing tables through a single autonomous system. Each customer was established to be using a different internal routing porotcol within their internal LANs for a wide berth of architectural and design challenges. Additonally, a VPN was established between sides of the network as an overlay to securely route traffic across NAT boundaries.
+    This network was set up to allow for logically separate routing domains by use of different customers of MGMT: RED, BLUE, and GREEN. External Border Gateway Protocol was used with public IP addresses to peer with each customer in-turn, and route traffic appropriately between them and the internet access gateway. iBGP was used for MGMT's VRF to provide scalability of routing tables through a single autonomous system. Each customer was established to be using a different internal routing protocol within their internal LANs for a wide berth of architectural and design challenges. Additionally, a VPN was established between sides of the network as an overlay to securely route traffic across NAT boundaries.
     <span class="line-break">To support the growing ISP's systems and infrastructure, four primary Virtual Routing and Forwarding (VRF) instances were established throughout the network: RED, BLUE, GREEN, and MGMT each given a corresponding vlan tag to carry their traffic: 11, 22, 33, and 99.
 </p>
 
@@ -1500,7 +1500,7 @@
     <ul class="list-disc pl-6 mb-4 text-gray-600">
         <li>Subnets: <span class="font-bold">172.16.10.0/24, 172.16.20.0/24, 172.16.22.0/24</span></li>
         <li>Traffic Designation: <span style="color: #2196F3">Blue</span></li>
-        <li>Routing Protocol: Open Shortest Path </li>
+        <li>Routing Protocol: Open Shortest Path First</li>
         <li>iBGP peering scalability with route-reflectors within AS 65200</li>
 
     </ul>
@@ -1511,7 +1511,7 @@
         <li>Traffic Designation: <span style="color: #4CAF50">Green</span></li>
         <li>Routing Protocol: Enhanced Interior Gateway Routing Protocol (EIGRP)</li>
         <li>Named mode connectivty for use with VRFs</li>
-        <li>Hot Standby Router Protocol in-use with priority for VPN reachability</li>
+        <li>Hot Standby Router Protocol in-use with priority for MGMT VPN reachability</li>
     </ul>
 
     <h4 class="text-xl font-semibold mb-3">VRF MGMT (VLAN 99)</h4>
@@ -1548,7 +1548,7 @@
                 
                 <h4 class="text-xl font-semibold mt-6 mb-3">VRF RED</h4>
                 <p class="text-gray-600 mb-4 indented-paragraph">
-                    The network architecture for VRF RED was established in autonomous system 65100. It illistrates an IS-IS network with type 1 and 2 and type 2 routers for network connectivty to client workstation PC2. Central router T-ISR-C acts as a DHCP server for the networks within this site. T-ISR-B and T-2901-C act as redundant default gateways with VRRP where T-ISR-B matches the virtual IP address as the master router. As the master router is hard-set, an IP SLA is set up with interface tracking to T-ISR-B's WAN interface in VRF RED. If that interface goes down, VRRP is set to failover to T-2901-C as the new default gateway for the subnet.
+                    The network architecture for VRF RED was established within autonomous system 65100. It illustrates an IS-IS network with type 1 and 2 and type 2 routers for network connectivity to client workstation PC2. Central router T-ISR-C acts as a DHCP server for the networks within this site. T-ISR-B and T-2901-C act as redundant default gateways with VRRP where T-ISR-B matches the virtual IP address as the master router. As the master router is hard-set, an IP SLA is set up with interface tracking to T-ISR-B's WAN interface in VRF RED. If that interface goes down, VRRP is set to failover to T-2901-C as the new default gateway for the subnet.
                 </p>
                 <h4 class="text-xl font-semibold mt-6 mb-3">VRF BLUE</h4>
                 <p class="text-gray-600 mb-4 indented-paragraph">
@@ -1556,13 +1556,13 @@
                 </p>
                 <h4 class="text-xl font-semibold mt-6 mb-3">VRF GREEN</h4>
                 <p class="text-gray-600 mb-4 indented-paragraph">
-                    Additionally, VRF GREEN used AS 65300. This autonomous system used EIGRP in named mode for use with VRF address families. It operated Hot Standby Routing Protocol on routers T-2911-B and T-2901-A. T-2901-A was influenced with priority to become the default gateway and preempt over the backup router. This is because T-2901-A was the VPN concentrator for VRF MGMT within AS 65300 and traffic would have been dropped due to split-horizon if the other router was used as the gateway.
+                    Additionally, VRF GREEN used AS 65300. This autonomous system used EIGRP in named mode for use with VRF address families. It operated Hot Standby Routing Protocol on routers T-2911-B and T-2901-A. T-2901-A was influenced with priority to become the default gateway and preempt over the backup router. Because T-2901-A was a VPN concentrator for VRF MGMT within the AS, traffic would have been dropped due to split-horizon if the other router was the gateway.
                 </p>
 
                 <h4 class="text-xl font-semibold mt-6 mb-3">VRF MGMT</h3>
                 <p class="text-gray-600 mb-4 indented-paragraph">
-                  Finally, the MGMT VRF was used across all VRFs and all autonomous systems. It was used to translate all traffic from the different VRFs to itself at the external interface at the gateway for general internet access. This was accomplished through the use of specific route-maps and network address translation vrf statements. Additionally, most VRFs had specific route-maps at their provider edge routers. These were used to filter specific NAT statements to allow for load balancing NAT across multiple interfaces for each VRF. iBGP was specifically used within AS 65200 for the MGMT VRF to allow for greater filtering of external dynamic routing when using two paths into the AS. This allowed for futher granular filtering of routes in and out of the AS within the VRF.  
-                    <span class="line-break">A site-to-site VPN was established between the autonomous systems 65200 and 65300 within the MGMT VRF. This allowed for remote authentication devices within AS 65300 to use authentication and DNS resource servers located within AS 65200. The MGMT VRF was established as both the transit or front door VRF, and the VRF sending and recieving the encapsulated traffic. 
+                  Finally, the MGMT VRF was used across all VRFs and all autonomous systems. It was used to translate all traffic from the different VRFs to itself at the external interface at the gateway for general internet access. This was accomplished through the use of specific route-maps and network address translation VRF statements. Additionally, most VRFs had specific route-maps at their provider edge routers. These were used to filter specific NAT statements to allow for load balancing NAT across multiple interfaces for each VRF. iBGP was specifically used within AS 65200 for the MGMT VRF to allow for greater filtering of external dynamic routing when using two paths into the AS. This allowed for further granular filtering of routes in and out of the AS within the VRF.  
+                    <span class="line-break">A site-to-site VPN was established between the autonomous systems 65200 and 65300 within the MGMT VRF. This allowed for remote authentication devices within AS 65300 to use authentication and DNS resource servers located within AS 65200. The MGMT VRF was established as both the transit or front door VRF, and the VRF sending and receiving the encapsulated traffic. 
                 </p>
 
                 <!-- Active Directory & Authentication -->
