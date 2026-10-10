@@ -1565,14 +1565,12 @@
                     <span class="line-break">A site-to-site VPN was established between the autonomous systems 65200 and 65300 within the MGMT VRF. This allowed for remote authentication devices within AS 65300 to use authentication and DNS resource servers located within AS 65200. The MGMT VRF was established as both the transit or front door VRF, and the VRF sending and receiving the encapsulated traffic. 
                 </p>
 
-                <!-- Active Directory & Authentication -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Active Directory & Authentication</h3>
-                <p class="text-gray-600 mb-4 indented-paragraph">
+                <!-- Services & Authentication -->
+                <h3 class="text-2xl font-bold mt-8 mb-4">Services & Authentication</h3>
+				<h4 class="text-xl font-semibold mt-6 mb-3">RADIUS & Active Directory</h4>
+				<p class="text-gray-600 mb-4 indented-paragraph">
                     Remote Access Dial-In User Service (RADIUS) domain-based authentication was established on most networked devices. The only devices it was not established on were internal devices within AS 65100 as they would not have had reachability from behind NAT on T-2901-D. In the future, a VPN could be established pointing between AS 65100 and 65200 to allow for extended server connectivity outside of VRF RED's ASN. For now because of time requirements, it was out of scope of the lab architecture.
                 </p>
-
-                <!-- Services -->
-                <h3 class="text-2xl font-bold mt-8 mb-4">Services</h3>
                 <h4 class="text-xl font-semibold mt-6 mb-3">DNS</h4>
                 <p class="text-gray-600 mb-4 indented-paragraph">
                     DNS was established on a pair of Alma Linux machines, NS1 and NS2. The servers were dished out based on resource availability. One server (NS1), was provisioned for VRF BLUE, while the other was provisioned to VRF MGMT with respective DHCP IPs.
