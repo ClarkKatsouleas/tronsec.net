@@ -471,9 +471,6 @@ ip access-list extended VRF-INTERNET-TRAFFIC
 !
 ip prefix-list DEFAULT seq 5 permit 0.0.0.0/0 le 32
 !
-route-map STATIC-TO-EIGRP permit 10
- description "Route-Map to Redistribute Into EIGRP"
- match ip address prefix-list DEFAULT
 !
 !
 !
